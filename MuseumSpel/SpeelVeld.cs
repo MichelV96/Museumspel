@@ -46,13 +46,13 @@ namespace MuseumSpel
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
                 y_p1 = GetGridCordinate(speler.Cor_Y - speler.speed);
-                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte);
+                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte -10);
                 y_p2 = GetGridCordinate(speler.Cor_Y - speler.speed);
             }else if (richting == "down")
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
                 y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
-                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte);
+                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte -10);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
             }else if (richting == "left")
             {
@@ -77,7 +77,7 @@ namespace MuseumSpel
 
             foreach (SpelObject spelObject in spelObjecten)
             {
-                if (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y)
+                if (spelObject.isSolid && (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y))
                     return false;
             }
             return true;
@@ -150,10 +150,7 @@ namespace MuseumSpel
         // test om cordinaat op grid terug te krijgen
         public int GetGridCordinate(int cor)
         {
-            //double i = cor / vakGrootte;
-            //double j = Math.Floor(i);
-            //return Convert.ToInt32(j);
-            return cor / vakGrootte;
+            return (cor - 2) / vakGrootte;
         }
 
         public void VoegSpelObjectToe(SpelObject spelobject)
