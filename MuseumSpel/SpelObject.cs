@@ -21,8 +21,8 @@ namespace MuseumSpel
         public SpelObject(string name, int cor_X, int cor_Y, string picture)
         {
             this.name = name;
-            Cor_X = cor_X -1;
-            Cor_Y = cor_Y -1;
+            Cor_X = cor_X;
+            Cor_Y = cor_Y;
             this.texture = new Bitmap(picture); 
 
         }

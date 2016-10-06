@@ -33,44 +33,82 @@ namespace MuseumSpel
 
         // Methodes
 
-        //public bool CollisionCheck() //First attempt
-        //{
-        //    foreach (SpelObject spelObject in spelObjecten) {
-        //        if (speler.texture. spelObject.texture.GetBounds)
-        //            return false;
-        //            }
-        //    return true;          
-        //}
+        public bool CollisionCheck(string richting) //First attempt
+        {
+            int x_p1, y_p1;
+            int x_p2, y_p2;
+            
+            if (richting == "up")
+            {
+                x_p1 = GetGridCordinate(speler.Cor_X);
+                y_p1 = GetGridCordinate(speler.Cor_Y - speler.speed);
+                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte);
+                y_p2 = GetGridCordinate(speler.Cor_Y - speler.speed);
+            }else if (richting == "down")
+            {
+                x_p1 = GetGridCordinate(speler.Cor_X);
+                y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
+                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte);
+                y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
+            }else if (richting == "left")
+            {
+                x_p1 = GetGridCordinate(speler.Cor_X - speler.speed);
+                y_p1 = GetGridCordinate(speler.Cor_Y);
+                x_p2 = GetGridCordinate(speler.Cor_X - speler.speed);
+                y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte);
+            }
+            else if (richting == "right")
+            {
+                x_p1 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
+                y_p1 = GetGridCordinate(speler.Cor_Y);
+                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
+                y_p2 = GetGridCordinate(speler.Cor_Y -10 + vakGrootte);
+            } else
+            {
+                x_p1 = 0;
+                y_p1 = 0;
+                x_p2 = 0;
+                y_p2 = 0;
+            }
+
+            foreach (SpelObject spelObject in spelObjecten)
+            {
+                if (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y)
+                    return false;
+            }
+            return true;
+        }
 
         public void SpelerMovement(string loopRichting)
         {
             switch (loopRichting)
             {
                 case "up":
-                    if (speler.Cor_Y >= 0)
+                    if (speler.Cor_Y >= 0 && CollisionCheck("up"))
                         speler.Cor_Y -= speler.speed;
                     break;
                 case "down":
-                    if (speler.Cor_Y + vakGrootte < borderY)
+                    if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck("down"))
                         speler.Cor_Y += speler.speed;
                     break;
                 case "left":
-                    if (speler.Cor_X >= 0)
+                    if (speler.Cor_X >= 0 && CollisionCheck("left"))
                         speler.Cor_X -= speler.speed;
                     break;
                 case "right":
-                    if (speler.Cor_X + vakGrootte < borderX)
+                    if (speler.Cor_X + vakGrootte < borderX && CollisionCheck("right"))
                         speler.Cor_X += speler.speed;
                     break;
             }
         }
         // test om cordinaat op grid terug te krijgen
-        //public int GetGridCordinate(int cor)
-        //{
-        //    double i = cor / vakGrootte;
-        //    int j = Math.Round(i, 2)
-        //    return i;
-        //}
+        public int GetGridCordinate(int cor)
+        {
+            //double i = cor / vakGrootte;
+            //double j = Math.Floor(i);
+            //return Convert.ToInt32(j);
+            return cor / vakGrootte;
+        }
 
         public void VoegSpelObjectToe(SpelObject spelobject)
         {

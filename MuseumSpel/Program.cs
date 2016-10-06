@@ -16,7 +16,7 @@ namespace MuseumSpel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Speler speler = new Speler("Dino", 0, 0, 20);
+            Speler speler = new Speler("Dino", 0, 0, 6);
             SpeelVeld speelVeld = new SpeelVeld(17, 11, speler);//Model
             speelVeld.VoegSpelObjectToe(new Muur(3, 2));
             speelVeld.VoegSpelObjectToe(new Muur(2, 3));
