@@ -113,21 +113,18 @@ namespace MuseumSpel
             {
                 if (spelObjecten[x].GetType() == typeof(PowerUp))
                 {
+                    //x en y zijn in grids, 50 is de breedte en hoogte van een grid
                     outfitX = spelObjecten[x].Cor_X * 50;
                     outfitY = spelObjecten[x].Cor_Y * 50;
+                    //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
                     key = x;
                 }
             }
-
+            //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
             if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y))
             {
-                Console.WriteLine("true");
+                //verwijder de power up uit de array
                 spelObjecten.RemoveAt(key);
-                foreach (SpelObject spel in spelObjecten)
-                {
-                    Console.WriteLine(spel);
-                }
-
             }
         }
 
