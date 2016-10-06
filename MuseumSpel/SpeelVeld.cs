@@ -8,6 +8,10 @@ using System.Windows.Forms;
 
 namespace MuseumSpel
 {
+    public enum Direction
+    {
+        Up, Down, Left, Right
+    }
     // The Model, SuperClass
     public class SpeelVeld
     {
@@ -37,31 +41,31 @@ namespace MuseumSpel
 
         // Methodes
 
-        public bool CollisionCheck(string richting) //First attempt
+        public bool CollisionCheck(Direction richting) //First attempt
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
             
-            if (richting == "up")
+            if (richting == Direction.Up)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
                 y_p1 = GetGridCordinate(speler.Cor_Y - speler.speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte -10);
                 y_p2 = GetGridCordinate(speler.Cor_Y - speler.speed);
-            }else if (richting == "down")
+            }else if (richting == Direction.Down)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
                 y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte -10);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
-            }else if (richting == "left")
+            }else if (richting == Direction.Left)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X - speler.speed);
                 y_p1 = GetGridCordinate(speler.Cor_Y);
                 x_p2 = GetGridCordinate(speler.Cor_X - speler.speed);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte);
             }
-            else if (richting == "right")
+            else if (richting == Direction.Right)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
                 y_p1 = GetGridCordinate(speler.Cor_Y);
@@ -83,24 +87,24 @@ namespace MuseumSpel
             return true;
         }
 
-        public void SpelerMovement(string loopRichting)
+        public void SpelerMovement(Direction loopRichting)
         {
             switch (loopRichting)
             {
-                case "up":
-                    if (speler.Cor_Y >= 0 && CollisionCheck("up"))
+                case Direction.Up:
+                    if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
                         speler.Cor_Y -= speler.speed;
                     break;
-                case "down":
-                    if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck("down"))
+                case Direction.Down:
+                    if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
                         speler.Cor_Y += speler.speed;
                     break;
-                case "left":
-                    if (speler.Cor_X >= 0 && CollisionCheck("left"))
+                case Direction.Left:
+                    if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
                         speler.Cor_X -= speler.speed;
                     break;
-                case "right":
-                    if (speler.Cor_X + vakGrootte < borderX && CollisionCheck("right"))
+                case Direction.Right:
+                    if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
                         speler.Cor_X += speler.speed;
                     break;
             }
