@@ -130,17 +130,18 @@ namespace MuseumSpel
 
         public void pakSchilderij(bool keyPressed)
         {
+            
             for (int i = 0; i < paintArray.Count; i++)
             {
                 int x = paintArray[i].Cor_X * 50;
                 int y = paintArray[i].Cor_Y * 50;
-                if (keyPressed == true && speler.Cor_X + 25 >= x + 15 && speler.Cor_X + 25 <= x + 35 && speler.Cor_Y - 25 >= y - 35 && speler.Cor_Y - 25 <= y - 15)
-                {
-                    if (Enumerable.Range(x, x + 25).Contains(speler.Cor_X + 25) && Enumerable.Range(y - 25, y).Contains(speler.Cor_Y - 25))
+                    Console.WriteLine("intx: " + x + " inty " + y);
+                    Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
+                    if (keyPressed && (Enumerable.Range(x, x + 25).Contains(speler.Cor_X + 25) && Enumerable.Range(y - 25, y).Contains(speler.Cor_Y - 25)))
                     {
+                        Console.WriteLine("Keypressed3");
                         paintArray.Remove(paintArray[i]);
                     }
-                }
             }
 
         }
