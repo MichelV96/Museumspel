@@ -117,37 +117,35 @@ namespace MuseumSpel
             {
                 if (spelObjecten[x].GetType() == typeof(PowerUp))
                 {
+                    //x en y zijn in grids, 50 is de breedte en hoogte van een grid
                     outfitX = spelObjecten[x].Cor_X * 50;
                     outfitY = spelObjecten[x].Cor_Y * 50;
+                    //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
                     key = x;
                 }
             }
-
+            //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
             if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y))
             {
-                Console.WriteLine("true");
+                //verwijder de power up uit de array
                 spelObjecten.RemoveAt(key);
-                foreach (SpelObject spel in spelObjecten)
-                {
-                    Console.WriteLine(spel);
-                }
-
             }
         }
 
         public void pakSchilderij(bool keyPressed)
         {
+            
             for (int i = 0; i < paintArray.Count; i++)
             {
                 int x = paintArray[i].Cor_X * 50;
                 int y = paintArray[i].Cor_Y * 50;
-                if (keyPressed == true && speler.Cor_X + 25 >= x + 15 && speler.Cor_X + 25 <= x + 35 && speler.Cor_Y - 25 >= y - 35 && speler.Cor_Y - 25 <= y - 15)
-                {
-                    if (Enumerable.Range(x, x + 25).Contains(speler.Cor_X + 25) && Enumerable.Range(y - 25, y).Contains(speler.Cor_Y - 25))
+                    Console.WriteLine("intx: " + x + " inty " + y);
+                    Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
+                    if (keyPressed && (Enumerable.Range(x, x + 25).Contains(speler.Cor_X + 25) && Enumerable.Range(y - 25, y).Contains(speler.Cor_Y - 25)))
                     {
+                        Console.WriteLine("Keypressed3");
                         paintArray.Remove(paintArray[i]);
                     }
-                }
             }
 
         }
