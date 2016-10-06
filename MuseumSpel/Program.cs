@@ -16,11 +16,15 @@ namespace MuseumSpel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Speler speler = new Speler("Dino", 0, 0, 20);
+            Speler speler = new Speler("Player", 0, 0, 5);
             SpeelVeld speelVeld = new SpeelVeld(17, 11, speler);//Model
+            speelVeld.VoegSpelObjectToe(new Muur(3, 0));
             speelVeld.VoegSpelObjectToe(new Muur(3, 2));
             speelVeld.VoegSpelObjectToe(new Muur(2, 3));
+            speelVeld.VoegSpelObjectToe(new Muur(3, 4));
             speelVeld.VoegSpelObjectToe(new Muur(3, 5));
+            speelVeld.VoegSpelObjectToe(new Muur(4, 6));
+            speelVeld.VoegSpelObjectToe(new Muur(3, 7));
             speelVeld.VoegSpelObjectToe(new Schilderij(5, 5));
             speelVeld.VoegSpelObjectToe(new Schilderij(8, 5));
             speelVeld.VoegSpelObjectToe(new PowerUp(3, 6));

@@ -45,32 +45,33 @@ namespace MuseumSpel
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
+            int marge = 10;
             
             if (richting == Direction.Up)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
                 y_p1 = GetGridCordinate(speler.Cor_Y - speler.speed);
-                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte -10);
+                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
                 y_p2 = GetGridCordinate(speler.Cor_Y - speler.speed);
             }else if (richting == Direction.Down)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
-                y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
-                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte -10);
+                y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed - marge);
+                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
             }else if (richting == Direction.Left)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X - speler.speed);
                 y_p1 = GetGridCordinate(speler.Cor_Y);
                 x_p2 = GetGridCordinate(speler.Cor_X - speler.speed);
-                y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte);
+                y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte - marge);
             }
             else if (richting == Direction.Right)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
                 y_p1 = GetGridCordinate(speler.Cor_Y);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
-                y_p2 = GetGridCordinate(speler.Cor_Y -10 + vakGrootte);
+                y_p2 = GetGridCordinate(speler.Cor_Y - marge + vakGrootte);
             } else
             {
                 x_p1 = 0;
@@ -118,8 +119,8 @@ namespace MuseumSpel
                 if (spelObjecten[x].GetType() == typeof(PowerUp))
                 {
                     //x en y zijn in grids, 50 is de breedte en hoogte van een grid
-                    outfitX = spelObjecten[x].Cor_X * 50;
-                    outfitY = spelObjecten[x].Cor_Y * 50;
+                    outfitX = spelObjecten[x].Cor_X * vakGrootte;
+                    outfitY = spelObjecten[x].Cor_Y * vakGrootte;
                     //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
                     key = x;
                 }
@@ -137,8 +138,8 @@ namespace MuseumSpel
             
             for (int i = 0; i < paintArray.Count; i++)
             {
-                int x = paintArray[i].Cor_X * 50;
-                int y = paintArray[i].Cor_Y * 50;
+                int x = paintArray[i].Cor_X * vakGrootte;
+                int y = paintArray[i].Cor_Y * vakGrootte;
                     Console.WriteLine("intx: " + x + " inty " + y);
                     Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
                     if (keyPressed && (Enumerable.Range(x, x + 25).Contains(speler.Cor_X + 25) && Enumerable.Range(y - 25, y).Contains(speler.Cor_Y - 25)))
