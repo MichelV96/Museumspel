@@ -16,7 +16,6 @@ namespace MuseumSpel
     public partial class Form1 : Form
     {
         private SpeelVeld speelVeld; // model
-        private Bitmap speler;
         private int penDikte;
         // Delegeate event
         public event KeyPressedEventHandeler KeyPressed;

@@ -11,27 +11,27 @@ namespace MuseumSpel
     //abstracte class voor ieder spel object
     public abstract class SpelObject
     {
-        public Bitmap texture { get; set; }
-        public string name { get; set; }
+        public Bitmap texture { get; private set; }
+        public string name { get; private set; }
+        public bool isSolid { get; private set; }
         private int cor_X;
         private int cor_Y;
         //private int hoogte;
         //private int breedte;
 
-        public SpelObject(string name, int cor_X, int cor_Y, string picture)
+        public SpelObject(string name, int cor_X, int cor_Y, string picture, bool isSolid)
         {
             this.name = name;
-            Cor_X = cor_X -1;
-            Cor_Y = cor_Y -1;
-            this.texture = new Bitmap(picture); 
+            Cor_X = cor_X;
+            Cor_Y = cor_Y;
+            this.texture = new Bitmap(picture);
+            this.isSolid= isSolid;
 
         }
 
         public void PrintSpelObject(int cor_X, int cor_Y, int vakGrootte, Graphics g)
         {
             g.DrawImage(texture, cor_X * vakGrootte, cor_Y * vakGrootte, vakGrootte, vakGrootte);
-            //texture.Location = new System.Drawing.Point(cor_X, cor_Y);
-            //texture.Size = new System.Drawing.Size(vakGrootte, vakGrootte);
         }
 
         public int Cor_X
