@@ -37,7 +37,11 @@ namespace MuseumSpel
                 speelVeld.SpelerMovement("right");
             }
 
-            form1.Invalidate();
+            if(e.KeyData == Keys.F)
+            {
+                speelVeld.pakSchilderij(true);
+            }
+                form1.Invalidate();
 
         }
 

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MuseumSpel
 {
@@ -19,6 +20,7 @@ namespace MuseumSpel
         public Speler speler { get; set; }
         //lists
         private List<SpelObject> spelObjecten;
+        private List<SpelObject> paintArray;
 
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler)
         {
@@ -29,6 +31,8 @@ namespace MuseumSpel
             borderY = vakGrootte * aantalVakkenY;
             borderX = vakGrootte * aantalVakkenX;
             spelObjecten = new List<SpelObject>();
+            paintArray = new List<SpelObject>();
+            
         }
 
         // Methodes
@@ -100,6 +104,48 @@ namespace MuseumSpel
                         speler.Cor_X += speler.speed;
                     break;
             }
+
+            int outfitX = 0;
+            int outfitY = 0;
+            int key = 0;
+
+            for (int x = 1; x < spelObjecten.Count(); x++)
+            {
+                if (spelObjecten[x].GetType() == typeof(PowerUp))
+                {
+                    outfitX = spelObjecten[x].Cor_X * 50;
+                    outfitY = spelObjecten[x].Cor_Y * 50;
+                    key = x;
+                }
+            }
+
+            if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y))
+            {
+                Console.WriteLine("true");
+                spelObjecten.RemoveAt(key);
+                foreach (SpelObject spel in spelObjecten)
+                {
+                    Console.WriteLine(spel);
+                }
+
+            }
+        }
+
+        public void pakSchilderij(bool keyPressed)
+        {
+            for (int i = 0; i < paintArray.Count; i++)
+            {
+                int x = paintArray[i].Cor_X * 50;
+                int y = paintArray[i].Cor_Y * 50;
+                if (keyPressed == true && speler.Cor_X + 25 >= x + 15 && speler.Cor_X + 25 <= x + 35 && speler.Cor_Y - 25 >= y - 35 && speler.Cor_Y - 25 <= y - 15)
+                {
+                    if (Enumerable.Range(x, x + 25).Contains(speler.Cor_X + 25) && Enumerable.Range(y - 25, y).Contains(speler.Cor_Y - 25))
+                    {
+                        paintArray.Remove(paintArray[i]);
+                    }
+                }
+            }
+
         }
         // test om cordinaat op grid terug te krijgen
         public int GetGridCordinate(int cor)
@@ -112,8 +158,14 @@ namespace MuseumSpel
 
         public void VoegSpelObjectToe(SpelObject spelobject)
         {
-            if (spelobject.Cor_X < aantalVakkenX && spelobject.Cor_Y < aantalVakkenY)
-            spelObjecten.Add(spelobject);
+            if (spelobject.Cor_X < aantalVakkenX && spelobject.Cor_Y < aantalVakkenY && spelobject.GetType() != typeof(Schilderij))
+            {
+                spelObjecten.Add(spelobject);
+            }
+            else
+            {
+                paintArray.Add(spelobject);
+            }
         }
 
         public void PrintSpeelVeld(Graphics g)
@@ -121,6 +173,10 @@ namespace MuseumSpel
             foreach (SpelObject spelObject in spelObjecten)
             {
                 spelObject.PrintSpelObject(spelObject.Cor_X, spelObject.Cor_Y, vakGrootte, g);
+            }
+            foreach (SpelObject schilderij in paintArray)
+            {
+                schilderij.PrintSpelObject(schilderij.Cor_X, schilderij.Cor_Y, vakGrootte, g);
             }
         }
     }

@@ -57,8 +57,10 @@
     </Compile>
     <Compile Include="GameTimer.cs" />
     <Compile Include="Muur.cs" />
+    <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schilderij.cs" />
     <Compile Include="SpeelVeld.cs" />
     <Compile Include="SpeelVeldController.cs" />
     <Compile Include="Speler.cs" />
