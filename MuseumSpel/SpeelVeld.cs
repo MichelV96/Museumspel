@@ -67,7 +67,8 @@ namespace MuseumSpel
         // test om cordinaat op grid terug te krijgen
         //public int GetGridCordinate(int cor)
         //{
-        //    double i = 
+        //    double i = cor / vakGrootte;
+        //    int j = Math.Round(i, 2)
         //    return i;
         //}
 
