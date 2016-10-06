@@ -67,6 +67,31 @@ namespace MuseumSpel
                         speler.Cor_X += speler.speed;
                     break;
             }
+
+            int outfitX = 0;
+            int outfitY = 0;
+            int key = 0;
+
+            for (int x = 1; x < spelObjecten.Count(); x++)
+            {
+                if (spelObjecten[x].GetType() == typeof(PowerUp))
+                {
+                    outfitX = spelObjecten[x].Cor_X * 50;
+                    outfitY = spelObjecten[x].Cor_Y * 50;
+                    key = x;
+                }
+            }
+
+            if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y))
+            {
+                Console.WriteLine("true");
+                spelObjecten.RemoveAt(key);
+                foreach (SpelObject spel in spelObjecten)
+                {
+                    Console.WriteLine(spel);
+                }
+
+            }
         }
 
         public void pakSchilderij(bool keyPressed)
