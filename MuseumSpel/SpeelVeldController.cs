@@ -46,7 +46,7 @@ namespace MuseumSpel
 
         public void OnKeyUp(KeyEventArgs e)
         {
-
+            speelVeld.idle = true;
         }
 
     }

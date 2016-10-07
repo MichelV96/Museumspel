@@ -66,6 +66,7 @@ namespace MuseumSpel
 
         public void setRichting(Direction loopRichting)
         {
+            idle = false;
            if (loopRichting == Direction.Up)
             {
                 richting = 1;
@@ -132,24 +133,27 @@ namespace MuseumSpel
 
         public void SpelerMovement(int loopRichting)
         {
-            switch (loopRichting)
+            if (!idle)
             {
-                case 1:
-                    if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
-                        speler.Cor_Y -= speler.speed;
-                    break;
-                case 2:
-                    if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
-                        speler.Cor_X += speler.speed;
-                    break;
-                case 3:
-                    if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
-                        speler.Cor_Y += speler.speed;
-                    break;
-                case 4:
-                    if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
-                        speler.Cor_X -= speler.speed;
-                    break;
+                switch (loopRichting)
+                {
+                    case 1:
+                        if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
+                            speler.Cor_Y -= speler.speed;
+                        break;
+                    case 2:
+                        if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
+                            speler.Cor_X += speler.speed;
+                        break;
+                    case 3:
+                        if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
+                            speler.Cor_Y += speler.speed;
+                        break;
+                    case 4:
+                        if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
+                            speler.Cor_X -= speler.speed;
+                        break;
+                }
             }
 
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
