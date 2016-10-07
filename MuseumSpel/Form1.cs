@@ -40,7 +40,13 @@ namespace MuseumSpel
             speelVeld.SpelerMovement(speelVeld.richting);
             
             Application.DoEvents();
-            Invalidate();// Heel speelveld wordt opnieuw getekend
+            this.Invalidate();// Heel speelveld wordt opnieuw getekend
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            MessageBox.Show("it's over man! gameover! gg!", "game shutdown");
+            speelVeld.gameLoop.ShutDown();
         }
 
         protected override void OnPaint(PaintEventArgs e)

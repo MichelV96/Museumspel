@@ -24,6 +24,13 @@ namespace MuseumSpel
 
         public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
+        public void ShutDown()
+        {
+            
+            p_gameOver = true;
+            Console.WriteLine("it's over man gameover gg");
+        }
+
         public void gameLoop()
         {
             Console.WriteLine("GameLoop got called");
