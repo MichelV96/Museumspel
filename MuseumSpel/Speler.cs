@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MuseumSpel
 {
+    // Model
     public class Speler : SpelObject
     {
         public int speed { get; set; }
