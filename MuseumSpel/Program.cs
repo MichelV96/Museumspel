@@ -26,6 +26,7 @@ namespace MuseumSpel
             speelVeld.VoegSpelObjectToe(new Muur(3, 5));
             speelVeld.VoegSpelObjectToe(new Muur(4, 6));
             speelVeld.VoegSpelObjectToe(new Muur(3, 7));
+            speelVeld.VoegSpelObjectToe(new Waterplas(3, 8));
             speelVeld.VoegSpelObjectToe(new Schilderij(5, 5));
             speelVeld.VoegSpelObjectToe(new Schilderij(8, 5));
             Form1 form1 = new Form1(speelVeld); //Publisher
