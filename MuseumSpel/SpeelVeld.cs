@@ -8,6 +8,8 @@ using System.Windows.Forms;
 
 namespace MuseumSpel
 {
+    public delegate void ModelChangedEventHandeler();
+
     public enum Direction
     {
         Up, Down, Left, Right
@@ -25,6 +27,8 @@ namespace MuseumSpel
         //lists
         private List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
+        //event
+        public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
         //Powerup 
         int outfitX;
         int outfitY;
