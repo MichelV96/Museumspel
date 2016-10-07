@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MuseumSpel
 {
+    // Model
     public class Muur : SpelObject
     {
 

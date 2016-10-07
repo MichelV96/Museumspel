@@ -19,6 +19,7 @@ namespace MuseumSpel
         private int penDikte;
         // Delegeate event
         public event KeyPressedEventHandeler KeyPressed;
+        public event KeyPressedEventHandeler KeyRealeased;
 
         public Form1(SpeelVeld speelVeld)
         {
@@ -53,6 +54,12 @@ namespace MuseumSpel
             // event start
             if (KeyPressed != null) // Alleen doen wanneer event subscribers heeft
             KeyPressed(e);
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (KeyRealeased != null)
+                KeyRealeased(e);
         }
     }
 }

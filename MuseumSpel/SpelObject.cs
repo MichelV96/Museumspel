@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace MuseumSpel
 {
-    //abstracte class voor ieder spel object
+    //abstracte class voor ieder spel object, behoort tot model
     public abstract class SpelObject
     {
         public Bitmap texture { get; private set; }
@@ -16,8 +16,6 @@ namespace MuseumSpel
         public bool isSolid { get; private set; }
         private int cor_X;
         private int cor_Y;
-        //private int hoogte;
-        //private int breedte;
 
         public SpelObject(string name, int cor_X, int cor_Y, string picture, bool isSolid)
         {

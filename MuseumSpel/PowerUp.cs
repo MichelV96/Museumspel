@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MuseumSpel
 {
+    // Model
     class PowerUp : SpelObject
     {
   

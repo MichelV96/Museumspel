@@ -42,6 +42,10 @@ namespace MuseumSpel
                 speelVeld.pakSchilderij(true);
             }
                 form1.Invalidate();
+        }
+
+        public void OnKeyUp(KeyEventArgs e)
+        {
 
         }
 

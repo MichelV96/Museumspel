@@ -31,6 +31,7 @@ namespace MuseumSpel
             Form1 form1 = new Form1(speelVeld); //Publisher
             SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld);//Controller
             form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
+            form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
             Application.Run(form1);
             bool GameOver = true;
 
