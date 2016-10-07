@@ -21,21 +21,25 @@ namespace MuseumSpel
         private int aantalVakkenX;
         private int aantalVakkenY;
         private int vakGrootte;
+        private int loopOptie;
+        public bool started = false;
         public int borderX { get; set; }
         public int borderY { get; set; }
         public Speler speler { get; set; }
+        public GameLoop gameLoop;
         //lists
         private List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
-        //event
-        public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
+
+        public int richting { get; set; }
+        public bool idle { get; set; }
 
         int outfitX;
         int outfitY;
         int key;
         int p = 0;
 
-        public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler)
+        public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameLoop)
         {
             this.aantalVakkenX = aantalVakkenX;
             this.aantalVakkenY = aantalVakkenY;
@@ -45,9 +49,39 @@ namespace MuseumSpel
             borderX = vakGrootte * aantalVakkenX;
             spelObjecten = new List<SpelObject>();
             paintArray = new List<SpelObject>();
+            this.gameLoop = gameLoop;
         }
 
         // Methodes
+
+        public void loop()
+        {
+            started = true;
+            while (!gameLoop.p_gameOver)
+            {
+                gameLoop.gameLoop();
+
+            }
+        }
+
+        public void setRichting(Direction loopRichting)
+        {
+           if (loopRichting == Direction.Up)
+            {
+                richting = 1;
+            }else if (loopRichting == Direction.Right)
+            {
+                richting = 2;
+            }
+            else if (loopRichting == Direction.Down)
+            {
+                richting = 3;
+            }
+            else if (loopRichting == Direction.Left)
+            {
+                richting = 4;
+            }
+        }
 
         public bool CollisionCheck(Direction richting) //First attempt
         {
@@ -96,25 +130,25 @@ namespace MuseumSpel
             return true;
         }
 
-        public void SpelerMovement(Direction loopRichting)
+        public void SpelerMovement(int loopRichting)
         {
             switch (loopRichting)
             {
-                case Direction.Up:
+                case 1:
                     if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
                         speler.Cor_Y -= speler.speed;
                     break;
-                case Direction.Down:
+                case 2:
+                    if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
+                        speler.Cor_X += speler.speed;
+                    break;
+                case 3:
                     if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
                         speler.Cor_Y += speler.speed;
                     break;
-                case Direction.Left:
+                case 4:
                     if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
                         speler.Cor_X -= speler.speed;
-                    break;
-                case Direction.Right:
-                    if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
-                        speler.Cor_X += speler.speed;
                     break;
             }
 

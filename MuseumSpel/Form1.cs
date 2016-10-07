@@ -32,12 +32,14 @@ namespace MuseumSpel
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
 
         }
 
         public void OnModelChanged()
         {
+            speelVeld.SpelerMovement(speelVeld.richting);
+            
+            Application.DoEvents();
             Invalidate();// Heel speelveld wordt opnieuw getekend
         }
 
@@ -52,6 +54,10 @@ namespace MuseumSpel
             }
             speelVeld.PrintSpeelVeld(dc);
             dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y);
+            if (!speelVeld.started)
+            {
+                speelVeld.loop();
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

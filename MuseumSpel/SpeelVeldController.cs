@@ -23,18 +23,18 @@ namespace MuseumSpel
         {
             if (e.KeyData == Keys.W)
             {
-               speelVeld.SpelerMovement(Direction.Up);
+                speelVeld.setRichting(Direction.Up);
             }else if (e.KeyData == Keys.S)
             {
-               speelVeld.SpelerMovement(Direction.Down);
+                speelVeld.setRichting(Direction.Down);
             }
             else if (e.KeyData == Keys.A)
             {
-                speelVeld.SpelerMovement(Direction.Left);
+                speelVeld.setRichting(Direction.Left);
             }
             else if (e.KeyData == Keys.D)
             {
-                speelVeld.SpelerMovement(Direction.Right);
+                speelVeld.setRichting(Direction.Right);
             }
 
             if(e.KeyData == Keys.F)

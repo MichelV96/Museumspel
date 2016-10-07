@@ -17,7 +17,8 @@ namespace MuseumSpel
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Speler speler = new Speler("Player", 0, 0, 5);
-            SpeelVeld speelVeld = new SpeelVeld(17, 11, speler);//Model + publisher
+            GameLoop Loop = new GameLoop();
+            SpeelVeld speelVeld = new SpeelVeld(17, 11, speler, Loop);//Model + publisher
             speelVeld.VoegSpelObjectToe(new PowerUp(6, 6));
             speelVeld.VoegSpelObjectToe(new Muur(3, 0));
             speelVeld.VoegSpelObjectToe(new Muur(3, 2));
@@ -32,7 +33,7 @@ namespace MuseumSpel
             SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld);//Controller
             form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
             form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
-            speelVeld.ModelChanged += form1.OnModelChanged; //Subscriber
+            Loop.ModelChanged += form1.OnModelChanged; //Subscriber
             Application.Run(form1);
             bool GameOver = true;
 
