@@ -26,6 +26,11 @@ namespace MuseumSpel
         private List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
 
+        int outfitX;
+        int outfitY;
+        int key;
+        int p = 0;
+
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler)
         {
             this.aantalVakkenX = aantalVakkenX;
@@ -36,7 +41,6 @@ namespace MuseumSpel
             borderX = vakGrootte * aantalVakkenX;
             spelObjecten = new List<SpelObject>();
             paintArray = new List<SpelObject>();
-            
         }
 
         // Methodes
@@ -46,7 +50,7 @@ namespace MuseumSpel
             int x_p1, y_p1;
             int x_p2, y_p2;
             int marge = 10;
-            
+
             if (richting == Direction.Up)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
@@ -110,26 +114,13 @@ namespace MuseumSpel
                     break;
             }
 
-            int outfitX = 0;
-            int outfitY = 0;
-            int key = 0;
-
-            for (int x = 1; x < spelObjecten.Count(); x++)
-            {
-                if (spelObjecten[x].GetType() == typeof(PowerUp))
-                {
-                    //x en y zijn in grids, 50 is de breedte en hoogte van een grid
-                    outfitX = spelObjecten[x].Cor_X * vakGrootte;
-                    outfitY = spelObjecten[x].Cor_Y * vakGrootte;
-                    //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
-                    key = x;
-                }
-            }
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
-            if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y))
+            if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
             {
+                Console.WriteLine(p);
                 //verwijder de power up uit de array
-                spelObjecten.RemoveAt(key);
+                spelObjecten.RemoveAt(this.key);
+                this.p += 1;
             }
         }
 
@@ -177,6 +168,18 @@ namespace MuseumSpel
             foreach (SpelObject schilderij in paintArray)
             {
                 schilderij.PrintSpelObject(schilderij.Cor_X, schilderij.Cor_Y, vakGrootte, g);
+            }
+
+            for (int x = 0; x < spelObjecten.Count(); x++)
+            {
+                if (spelObjecten[x].GetType() == typeof(PowerUp))
+                {
+                    //x en y zijn in grids, 50 is de breedte en hoogte van een grid
+                    this.outfitX = spelObjecten[x].Cor_X * vakGrootte;
+                    this.outfitY = spelObjecten[x].Cor_Y * vakGrootte;
+                    //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
+                    this.key = x;
+                }
             }
         }
     }
