@@ -25,10 +25,12 @@ namespace MuseumSpel
         //lists
         private List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
-
+        //Powerup 
         int outfitX;
         int outfitY;
+        //de key voor de spelobjecten array waar de powerup staat
         int key;
+        //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
         int p = 0;
 
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler)
@@ -113,13 +115,13 @@ namespace MuseumSpel
                         speler.Cor_X += speler.speed;
                     break;
             }
-
+            //power up
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
             if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
             {
-                Console.WriteLine(p);
                 //verwijder de power up uit de array
                 spelObjecten.RemoveAt(this.key);
+                speler.PowerUp();
                 this.p += 1;
             }
         }
