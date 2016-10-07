@@ -17,11 +17,7 @@ namespace MuseumSpel
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Speler speler = new Speler("Player", 0, 0, 5);
-<<<<<<< HEAD
             SpeelVeld speelVeld = new SpeelVeld(17, 11, speler);//Model
-=======
-            SpeelVeld speelVeld = new SpeelVeld(17, 11, speler);//Model + publisher
->>>>>>> aa31cb07a8c6ee683827df0866f4e9f590b6f981
             speelVeld.VoegSpelObjectToe(new PowerUp(6, 6));
             speelVeld.VoegSpelObjectToe(new Muur(3, 0));
             speelVeld.VoegSpelObjectToe(new Muur(3, 2));

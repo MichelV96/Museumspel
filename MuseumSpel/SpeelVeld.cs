@@ -139,7 +139,7 @@ namespace MuseumSpel
                 int y = paintArray[i].Cor_Y * vakGrootte;
                     Console.WriteLine("intx: " + x + " inty " + y);
                     Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
-                    if (keyPressed && (Enumerable.Range(x, x + 25).Contains(speler.Cor_X + 25) && Enumerable.Range(y - 25, y).Contains(speler.Cor_Y - 25)))
+                    if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
                     {
                         Console.WriteLine("Keypressed3");
                         paintArray.Remove(paintArray[i]);
