@@ -142,7 +142,7 @@ namespace MuseumSpel
                 int y = paintArray[i].Cor_Y * vakGrootte;
                     Console.WriteLine("intx: " + x + " inty " + y);
                     Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
-                    if (keyPressed && (Enumerable.Range(x, x + 25).Contains(speler.Cor_X + 25) && Enumerable.Range(y - 25, y).Contains(speler.Cor_Y - 25)))
+                    if (keyPressed && (Enumerable.Range(x -25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
                     {
                         Console.WriteLine("Keypressed3");
                         paintArray.Remove(paintArray[i]);
@@ -150,6 +150,20 @@ namespace MuseumSpel
             }
 
         }
+
+        //public void inRange(bool keyPressed)
+        //{
+        //    for (int x = 1; x < spelObjecten.Count(); x++)
+        //    {
+        //        if (spelObjecten[x].GetType() == typeof(PowerUp))
+        //        {
+        //            if (Enumerable.Range(spelObjecten[x].Cor_X, spelObjecten[x].Cor_X + 25).Contains(speler.Cor_X + 25) && Enumerable.Range(spelObjecten[x].Cor_Y - 25, spelObjecten[x].Cor_Y).Contains(speler.Cor_Y - 25))
+        //            {
+        //                MessageBox.Show("game over");
+        //            }
+        //        }
+        //    }
+        //}
         // test om cordinaat op grid terug te krijgen
         public int GetGridCordinate(int cor)
         {

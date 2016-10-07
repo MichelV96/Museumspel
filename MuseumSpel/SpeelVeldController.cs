@@ -41,8 +41,15 @@ namespace MuseumSpel
             {
                 speelVeld.pakSchilderij(true);
             }
-                form1.Invalidate();
 
+            //if (e.KeyData == Keys.X)
+            //{
+            //    speelVeld.inRange(true);
+            //}
+
+
+
+            form1.Invalidate();
         }
 
     }

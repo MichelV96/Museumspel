@@ -10,7 +10,7 @@ namespace MuseumSpel
     {
         public int speed { get; set; }
 
-        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X, cor_Y, "Afbeeldingen\\Front_50PX.png", true)
+        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X, cor_Y, "Afbeeldingen\\00.png", true)
         {
             Speed = speed;
         }

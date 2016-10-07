@@ -28,6 +28,10 @@ namespace MuseumSpel
             speelVeld.VoegSpelObjectToe(new Schilderij(5, 5));
             speelVeld.VoegSpelObjectToe(new Schilderij(8, 5));
             speelVeld.VoegSpelObjectToe(new PowerUp(3, 6));
+            speelVeld.VoegSpelObjectToe(new Bewaker(7, 7));
+            speelVeld.VoegSpelObjectToe(new Bewaker(7, 8));
+            speelVeld.VoegSpelObjectToe(new Bewaker(7, 9));
+            speelVeld.VoegSpelObjectToe(new Bewaker(7, 10));
             Form1 form1 = new Form1(speelVeld); //Publisher
             SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld);//Controller
             form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
