@@ -33,7 +33,7 @@ namespace MuseumSpel
 
         public void gameLoop()
         {
-            Console.WriteLine("GameLoop got called");
+            //Console.WriteLine("GameLoop got called");
             //DataReset();
             //Game();
             //Menu();

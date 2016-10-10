@@ -12,7 +12,12 @@ namespace MuseumSpel
     public class Speler : SpelObject
     {
         public int speed { get; set; }
-        public bool isDisguised { get; private set; }
+        public Bitmap normalTexture {get; set;}
+
+        //Voor de powerup
+        public bool isDisguised { get; set; }
+        public DateTime endTime { get; set; }
+        public int duration = 10;
 
         public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X, cor_Y, "Afbeeldingen\\0.png", true)
         {
@@ -23,37 +28,44 @@ namespace MuseumSpel
 
         public void setPicture(Direction direction)
         {
-            if(direction == Direction.Up)
+            if (!isDisguised)
             {
-                texture = new Bitmap("Afbeeldingen\\12.png");
+                if (direction == Direction.Up)
+                {
+                    texture = new Bitmap("Afbeeldingen\\12.png");
+                }
+                else if (direction == Direction.Down)
+                {
+                    texture = new Bitmap("Afbeeldingen\\0.png");
+                }
+                else if (direction == Direction.Left)
+                {
+                    texture = new Bitmap("Afbeeldingen\\4.png");
+                }
+                else if (direction == Direction.Right)
+                {
+                    texture = new Bitmap("Afbeeldingen\\8.png");
+                }
+                if (direction == Direction.UpIdle)
+                {
+                    texture = new Bitmap("Afbeeldingen\\14.png");
+                }
+                else if (direction == Direction.DownIdle)
+                {
+                    texture = new Bitmap("Afbeeldingen\\2.png");
+                }
+                else if (direction == Direction.LeftIdle)
+                {
+                    texture = new Bitmap("Afbeeldingen\\6.png");
+                }
+                else if (direction == Direction.RightIdle)
+                {
+                    texture = new Bitmap("Afbeeldingen\\10.png");
+                }
             }
-            else if (direction == Direction.Down)
+            else
             {
-                texture = new Bitmap("Afbeeldingen\\0.png");
-            }
-            else if (direction == Direction.Left)
-            {
-                texture = new Bitmap("Afbeeldingen\\4.png");
-            }
-            else if (direction == Direction.Right)
-            {
-                texture = new Bitmap("Afbeeldingen\\8.png");
-            }
-            if (direction == Direction.UpIdle)
-            {
-                texture = new Bitmap("Afbeeldingen\\14.png");
-            }
-            else if (direction == Direction.DownIdle)
-            {
-                texture = new Bitmap("Afbeeldingen\\2.png");
-            }
-            else if (direction == Direction.LeftIdle)
-            {
-                texture = new Bitmap("Afbeeldingen\\6.png");
-            }
-            else if (direction == Direction.RightIdle)
-            {
-                texture = new Bitmap("Afbeeldingen\\10.png");
+                PowerUp();
             }
         }
         //method
@@ -79,13 +91,17 @@ namespace MuseumSpel
 
         public void PowerUp()
         {
+            //het oude plaatje
+             
             //nieuw plaatje omdat je de powerup hebt opgepakt
-            Bitmap t = new Bitmap(base.texture);
             texture = new Bitmap("Afbeeldingen\\Front_50PX.png");
-            //isdisguised op true zetten omdat je vermomd bent
-            this.isDisguised = true;
-            //na 5 sec terug naar oude plaatje
-            //texture = new Bitmap(t);
+        }
+        public void PowerDown()
+        {
+            //het oude plaatje
+            //nieuw plaatje omdat je de powerup hebt opgepakt
+            texture = new Bitmap(base.texture); ;
+            this.isDisguised = false;
         }
     }
 }

@@ -65,6 +65,11 @@ namespace MuseumSpel
             while (!gameLoop.p_gameOver)
             {
                 gameLoop.gameLoop();
+
+                if (speler.isDisguised == true && DateTime.Compare(DateTime.Now, speler.endTime) == 1)
+                {
+                    speler.PowerDown();
+                }
             }
         }
 
@@ -167,7 +172,8 @@ namespace MuseumSpel
             {
                 //verwijder de power up uit de array
                 spelObjecten.RemoveAt(this.key);
-                speler.PowerUp();
+                speler.isDisguised = true;
+                speler.endTime = DateTime.Now.AddSeconds(speler.duration);
                 this.p += 1;
             }
         }
