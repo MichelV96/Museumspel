@@ -36,6 +36,11 @@ namespace MuseumSpel
 
         }
 
+        public void OnModelChanged()
+        {
+            Invalidate();// Heel speelveld wordt opnieuw getekend
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics dc = e.Graphics;

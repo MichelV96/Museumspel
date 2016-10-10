@@ -66,7 +66,7 @@
     <Compile Include="SpeelVeldController.cs" />
     <Compile Include="Speler.cs" />
     <Compile Include="SpelObject.cs" />
-    <Compile Include="Spritebatch.cs" />
+    <Compile Include="Waterplas.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

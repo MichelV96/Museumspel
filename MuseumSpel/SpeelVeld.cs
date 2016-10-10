@@ -8,6 +8,8 @@ using System.Windows.Forms;
 
 namespace MuseumSpel
 {
+    public delegate void ModelChangedEventHandeler();
+
     public enum Direction
     {
         Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle 
@@ -25,6 +27,15 @@ namespace MuseumSpel
         //lists
         private List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
+        //event
+        public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
+        //Powerup 
+        int outfitX;
+        int outfitY;
+        //de key voor de spelobjecten array waar de powerup staat
+        int key;
+        //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
+        int p = 0;
 
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler)
         {
@@ -36,7 +47,6 @@ namespace MuseumSpel
             borderX = vakGrootte * aantalVakkenX;
             spelObjecten = new List<SpelObject>();
             paintArray = new List<SpelObject>();
-            
         }
 
         // Methodes
@@ -46,7 +56,7 @@ namespace MuseumSpel
             int x_p1, y_p1;
             int x_p2, y_p2;
             int marge = 10;
-            
+
             if (richting == Direction.Up)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
@@ -109,27 +119,14 @@ namespace MuseumSpel
                         speler.Cor_X += speler.speed;
                     break;
             }
-
-            int outfitX = 0;
-            int outfitY = 0;
-            int key = 0;
-
-            for (int x = 1; x < spelObjecten.Count(); x++)
-            {
-                if (spelObjecten[x].GetType() == typeof(PowerUp))
-                {
-                    //x en y zijn in grids, 50 is de breedte en hoogte van een grid
-                    outfitX = spelObjecten[x].Cor_X * vakGrootte;
-                    outfitY = spelObjecten[x].Cor_Y * vakGrootte;
-                    //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
-                    key = x;
-                }
-            }
+            //power up
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
-            if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y))
+            if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
             {
                 //verwijder de power up uit de array
-                spelObjecten.RemoveAt(key);
+                spelObjecten.RemoveAt(this.key);
+                speler.PowerUp();
+                this.p += 1;
             }
         }
 
@@ -142,7 +139,7 @@ namespace MuseumSpel
                 int y = paintArray[i].Cor_Y * vakGrootte;
                     Console.WriteLine("intx: " + x + " inty " + y);
                     Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
-                    if (keyPressed && (Enumerable.Range(x, x + 25).Contains(speler.Cor_X + 25) && Enumerable.Range(y - 25, y).Contains(speler.Cor_Y - 25)))
+                    if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
                     {
                         Console.WriteLine("Keypressed3");
                         paintArray.Remove(paintArray[i]);
@@ -177,6 +174,18 @@ namespace MuseumSpel
             foreach (SpelObject schilderij in paintArray)
             {
                 schilderij.PrintSpelObject(schilderij.Cor_X, schilderij.Cor_Y, vakGrootte, g);
+            }
+
+            for (int x = 0; x < spelObjecten.Count(); x++)
+            {
+                if (spelObjecten[x].GetType() == typeof(PowerUp))
+                {
+                    //x en y zijn in grids, 50 is de breedte en hoogte van een grid
+                    this.outfitX = spelObjecten[x].Cor_X * vakGrootte;
+                    this.outfitY = spelObjecten[x].Cor_Y * vakGrootte;
+                    //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
+                    this.key = x;
+                }
             }
         }
     }

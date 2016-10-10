@@ -11,7 +11,8 @@ namespace MuseumSpel
     //abstracte class voor ieder spel object, behoort tot model
     public abstract class SpelObject
     {
-        public Bitmap texture { get;  set; }
+
+        public Bitmap texture { get; set; }
         public string name { get; private set; }
         public bool isSolid { get; private set; }
         private int cor_X;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,12 @@ namespace MuseumSpel
     public class Speler : SpelObject
     {
         public int speed { get; set; }
+        public bool isDisguised { get; private set; }
 
         public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X, cor_Y, "Afbeeldingen\\0.png", true)
         {
             Speed = speed;
+            this.isDisguised = false;
         }
 
 
@@ -72,6 +75,17 @@ namespace MuseumSpel
                     throw new ArgumentOutOfRangeException();
                 }
             }
+        }
+
+        public void PowerUp()
+        {
+            //nieuw plaatje omdat je de powerup hebt opgepakt
+            Bitmap t = new Bitmap(base.texture);
+            texture = new Bitmap("Afbeeldingen\\3.png");
+            //isdisguised op true zetten omdat je vermomd bent
+            this.isDisguised = true;
+            //na 5 sec terug naar oude plaatje
+            //texture = new Bitmap(t);
         }
     }
 }
