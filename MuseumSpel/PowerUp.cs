@@ -9,8 +9,9 @@ namespace MuseumSpel
     // Model
     class PowerUp : SpelObject
     {
+  
+        public PowerUp(int x, int y) : base("Outfit", x, y, "Afbeeldingen\\power.jpg", false)
 
-        public PowerUp(int x, int y) : base("Outfit", x, y, "Afbeeldingen\\power.png", false)
         {
             
         }

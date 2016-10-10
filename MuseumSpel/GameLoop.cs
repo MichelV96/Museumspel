@@ -10,7 +10,7 @@ namespace MuseumSpel
     public class GameLoop
     {
         private int p_startTime = 0;
-        private int p_currentTime = 0;
+        public int p_currentTime = 0;
         public bool p_gameOver = false;
         public int frameCount = 0;
         public int frameTimer = 0;
@@ -29,34 +29,19 @@ namespace MuseumSpel
         {
 
             p_gameOver = true;
-            Console.WriteLine("it's over man gameover gg");
+            Console.WriteLine("It's over man gameover: gg wp");
+        }
+
+        public void redraw()
+        {
+            if (ModelChanged != null)
+            {
+                ModelChanged();
+            }
         }
 
         public void gameLoop()
         {
-            //Console.WriteLine("GameLoop got called");
-            //DataReset();
-            //Game();
-            //Menu();
-            //Form form = (Form)this;
-            //timer.Start();
-            //Nick = 0;
-
-            //while (!p_gameOver)
-            //{
-
-            //if (!menuSeen)
-            //{
-            //    Console.WriteLine("menu not seen");
-            //    Game();
-            //    Menu();
-            //}
-
-
-            //startTime = timer.ElapsedMilliseconds;
-            //Game();
-            //Application.DoEvents();
-            Console.WriteLine("GameLoop got called");
             //update timer
 
             p_currentTime = Environment.TickCount;
