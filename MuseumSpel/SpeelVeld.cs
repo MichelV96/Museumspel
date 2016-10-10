@@ -10,7 +10,7 @@ namespace MuseumSpel
 {
     public enum Direction
     {
-        Up, Down, Left, Right
+        Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle 
     }
     // The Model, SuperClass
     public class SpeelVeld
