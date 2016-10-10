@@ -139,26 +139,6 @@ namespace MuseumSpel
 
         public void SpelerMovement(Direction loopRichting)
         {
-//<<<<<<< HEAD
-//            switch (loopRichting)
-//            {
-//                case Direction.Up:
-//                    if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
-//                        speler.Cor_Y -= speler.Speed;
-//                    break;
-//                case Direction.Down:
-//                    if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
-//                        speler.Cor_Y += speler.Speed;
-//                    break;
-//                case Direction.Left:
-//                    if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
-//                        speler.Cor_X -= speler.Speed;
-//                    break;
-//                case Direction.Right:
-//                    if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
-//                        speler.Cor_X += speler.Speed;
-//                    break;
-//=======
             if (!idle)
             {
                 switch (loopRichting)
@@ -180,7 +160,6 @@ namespace MuseumSpel
                             speler.Cor_X -= speler.Speed;
                         break;
                 }
-//>>>>>>> 6c77dbb3fb8b02281e90e102dfd5062547df05a1
             }
             //power up
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
