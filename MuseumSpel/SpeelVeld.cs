@@ -56,6 +56,7 @@ namespace MuseumSpel
             int x_p1, y_p1;
             int x_p2, y_p2;
             int marge = 10;
+            Console.WriteLine("X: " + speler.Cor_X + "\nY: " + speler.Cor_Y);
 
             if (richting == Direction.Up)
             {
@@ -66,7 +67,7 @@ namespace MuseumSpel
             }else if (richting == Direction.Down)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
-                y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed - marge);
+                y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
             }else if (richting == Direction.Left)
