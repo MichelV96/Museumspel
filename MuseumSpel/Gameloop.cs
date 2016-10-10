@@ -28,7 +28,7 @@ namespace MuseumSpel
         {
 
             p_gameOver = true;
-            Console.WriteLine("it's over man gameover gg");
+            Console.WriteLine("It's over man gameover: gg wp");
         }
 
         public void redraw()
