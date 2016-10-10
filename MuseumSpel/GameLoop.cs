@@ -9,6 +9,7 @@ namespace MuseumSpel
     public class GameLoop
     {
         private int p_startTime = 0;
+        public int guardTime = 0;
         public int p_currentTime = 0;
         public bool p_gameOver = false;
         public int frameCount = 0;
@@ -46,6 +47,10 @@ namespace MuseumSpel
             p_currentTime = Environment.TickCount;
             
             //refresh at 60 FPS
+            if(p_currentTime > guardTime + 33)
+            {
+                // guard delegate JORDY NU!!!!
+            }
             if (p_currentTime > p_startTime + 16)
             {
                 framecounter2++;
