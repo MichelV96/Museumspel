@@ -12,12 +12,16 @@ namespace MuseumSpel
     public class Speler : SpelObject
     {
         private int speed;
+        private int oldSpeed;
         public bool isDisguised { get; private set; }
+        public bool isStunned { get; set; }
+        public bool stunCooldown { get; set; }
 
         public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X, cor_Y, "Afbeeldingen\\0.png", true)
         {
             Speed = speed;
             this.isDisguised = false;
+            this.isStunned = false;
         }
 
 
@@ -86,6 +90,22 @@ namespace MuseumSpel
             this.isDisguised = true;
             //na 5 sec terug naar oude plaatje
             //texture = new Bitmap(t);
+        }
+
+        public void Waterplas()
+        {
+            if (!isStunned && !stunCooldown)
+            {
+                oldSpeed = speed;
+                speed = 0;
+                isStunned = true;
+            }
+            else if (isStunned)
+            {
+                speed = oldSpeed;
+                isStunned = false;
+                stunCooldown = true;
+            }
         }
     }
 }

@@ -27,6 +27,7 @@ namespace MuseumSpel
         //lists
         private List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
+        private List<SpelObject> waterplassen;
         //event
         //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
@@ -35,6 +36,10 @@ namespace MuseumSpel
         public bool started { get; set; }
         public bool idle { get; set; }
         public int richting { get; set; }
+
+        //Waterplas
+        int waterplasX;
+        int waterplasY;
 
         //Powerup 
         int outfitX;
@@ -54,6 +59,8 @@ namespace MuseumSpel
             borderX = vakGrootte * aantalVakkenX;
             spelObjecten = new List<SpelObject>();
             paintArray = new List<SpelObject>();
+            waterplassen = new List<SpelObject>();
+
             this.gameLoop = gameloop;
         }
 
@@ -170,6 +177,13 @@ namespace MuseumSpel
                 speler.PowerUp();
                 this.p += 1;
             }
+            foreach (SpelObject Waterplas in waterplassen)
+            {
+                if(Enumerable.Range((Waterplas.Cor_X - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((Waterplas.Cor_Y -15), 30).Contains(speler.Cor_Y))
+                {
+                    speler.Waterplas();
+                }
+            }
         }
 
         public void pakSchilderij(bool keyPressed)
@@ -228,7 +242,15 @@ namespace MuseumSpel
                     //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
                     this.key = x;
                 }
+                if(spelObjecten[x].GetType() == typeof(Waterplas))
+                {
+                    //this.waterplasX = spelObjecten[x].Cor_X * vakGrootte;
+                    //this.waterplasY = spelObjecten[x].Cor_Y * vakGrootte;
+                    waterplassen.Add(spelObjecten[x]);
+                }
             }
+
+            
         }
     }
 }
