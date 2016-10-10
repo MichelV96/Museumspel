@@ -11,7 +11,7 @@ namespace MuseumSpel
     // Model
     public class Speler : SpelObject
     {
-        public int speed { get; set; }
+        private int speed;
         public bool isDisguised { get; private set; }
 
         public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X, cor_Y, "Afbeeldingen\\0.png", true)

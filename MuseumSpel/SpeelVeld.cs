@@ -61,27 +61,27 @@ namespace MuseumSpel
             if (richting == Direction.Up)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
-                y_p1 = GetGridCordinate(speler.Cor_Y - speler.speed);
+                y_p1 = GetGridCordinate(speler.Cor_Y - speler.Speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
-                y_p2 = GetGridCordinate(speler.Cor_Y - speler.speed);
+                y_p2 = GetGridCordinate(speler.Cor_Y - speler.Speed);
             }else if (richting == Direction.Down)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
-                y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
+                y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.Speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
-                y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
+                y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.Speed);
             }else if (richting == Direction.Left)
             {
-                x_p1 = GetGridCordinate(speler.Cor_X - speler.speed);
+                x_p1 = GetGridCordinate(speler.Cor_X - speler.Speed);
                 y_p1 = GetGridCordinate(speler.Cor_Y);
-                x_p2 = GetGridCordinate(speler.Cor_X - speler.speed);
+                x_p2 = GetGridCordinate(speler.Cor_X - speler.Speed);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte - marge);
             }
             else if (richting == Direction.Right)
             {
-                x_p1 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
+                x_p1 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.Speed);
                 y_p1 = GetGridCordinate(speler.Cor_Y);
-                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
+                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.Speed);
                 y_p2 = GetGridCordinate(speler.Cor_Y - marge + vakGrootte);
             } else
             {
@@ -105,19 +105,19 @@ namespace MuseumSpel
             {
                 case Direction.Up:
                     if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
-                        speler.Cor_Y -= speler.speed;
+                        speler.Cor_Y -= speler.Speed;
                     break;
                 case Direction.Down:
                     if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
-                        speler.Cor_Y += speler.speed;
+                        speler.Cor_Y += speler.Speed;
                     break;
                 case Direction.Left:
                     if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
-                        speler.Cor_X -= speler.speed;
+                        speler.Cor_X -= speler.Speed;
                     break;
                 case Direction.Right:
                     if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
-                        speler.Cor_X += speler.speed;
+                        speler.Cor_X += speler.Speed;
                     break;
             }
             //power up
