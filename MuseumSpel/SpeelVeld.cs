@@ -12,8 +12,9 @@ namespace MuseumSpel
 
     public enum Direction
     {
-        Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle 
+        Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle
     }
+    
     // The Model, SuperClass
     public class SpeelVeld
     {
@@ -163,6 +164,7 @@ namespace MuseumSpel
 
         public void SpelerMovement(Direction loopRichting)
         {
+
             if (!idle && !speler.isStunned)
             {
                 switch (loopRichting)
@@ -288,6 +290,34 @@ namespace MuseumSpel
             }
 
             
+        }
+
+
+
+        public void GuardMovment(int corEindX, int corEindY, Direction Direction, Bewaker bewaker)
+        {
+
+            if (Direction == Direction.Up &&  bewaker.Cor_Y >= corEindY)
+            {
+                bewaker.Cor_Y -= 1;
+            }
+            else if (Direction == Direction.Down && bewaker.Cor_Y <= corEindY)
+            {
+                bewaker.Cor_Y += 1;
+
+            }
+            else if (Direction == Direction.Left && bewaker.Cor_X >= corEindX)
+            {
+                bewaker.Cor_X -= 1;
+
+            }
+            else if (Direction == Direction.Right && bewaker.Cor_X <= corEindX)
+            {
+                bewaker.Cor_X += 1;
+
+            }
+
+
         }
     }
 }

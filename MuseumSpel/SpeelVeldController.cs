@@ -21,19 +21,19 @@ namespace MuseumSpel
 
         public void OnKeyPressed(KeyEventArgs e)
         {
-            if (e.KeyData == Keys.W)
+            if (e.KeyData == Keys.W || e.KeyData == Keys.Up)
             {
                 speelVeld.setRichting(Direction.Up);
             }
-            else if (e.KeyData == Keys.S)
+            else if (e.KeyData == Keys.S || e.KeyData == Keys.Down)
             {
                 speelVeld.setRichting(Direction.Down);
             }
-            else if (e.KeyData == Keys.A)
+            else if (e.KeyData == Keys.A || e.KeyData == Keys.Left)
             {
                 speelVeld.setRichting(Direction.Left);
             }
-            else if (e.KeyData == Keys.D)
+            else if (e.KeyData == Keys.D || e.KeyData == Keys.Right)
             {
                 speelVeld.setRichting(Direction.Right);
             }
