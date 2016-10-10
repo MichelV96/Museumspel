@@ -11,6 +11,7 @@ namespace MuseumSpel
     {
   
         public PowerUp(int x, int y) : base("Outfit", x, y, "Afbeeldingen\\power.jpg", false)
+
         {
             
         }

@@ -65,6 +65,13 @@ namespace MuseumSpel
             while (!gameLoop.p_gameOver)
             {
                 gameLoop.gameLoop();
+
+                if (speler.isDisguised == true && DateTime.Compare(DateTime.Now, speler.endTime) == 1)
+                {
+                    speler.PowerDown();
+                    speler.setPicture(Direction.Down);
+                    gameLoop.redraw();
+                }
             }
         }
 
@@ -148,18 +155,22 @@ namespace MuseumSpel
                     case Direction.Up:
                         if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
                             speler.Cor_Y -= speler.Speed;
+                            speler.setPicture(Direction.Up);
                         break;
                     case Direction.Right:
                         if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
                             speler.Cor_X += speler.Speed;
+                            speler.setPicture(Direction.Right);
                         break;
                     case Direction.Down:
                         if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
                             speler.Cor_Y += speler.Speed;
+                            speler.setPicture(Direction.Down);
                         break;
                     case Direction.Left:
                         if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
                             speler.Cor_X -= speler.Speed;
+                            speler.setPicture(Direction.Left);
                         break;
                 }
             }
@@ -169,7 +180,8 @@ namespace MuseumSpel
             {
                 //verwijder de power up uit de array
                 spelObjecten.RemoveAt(this.key);
-                speler.PowerUp();
+                speler.isDisguised = true;
+                speler.endTime = DateTime.Now.AddSeconds(speler.duration);
                 this.p += 1;
             }
         }
