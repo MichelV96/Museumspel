@@ -55,29 +55,23 @@ namespace MuseumSpel
             //startTime = timer.ElapsedMilliseconds;
             //Game();
             //Application.DoEvents();
+            Console.WriteLine("GameLoop got called");
             //update timer
 
             p_currentTime = Environment.TickCount;
-            //Console.WriteLine(p_currentTime.ToString()+" current");
-            //Console.WriteLine(p_startTime.ToString()+" start");
+            
             //refresh at 60 FPS
-            if (p_currentTime > p_startTime + 25)// moet 16 zijn
+            if (p_currentTime > p_startTime + 16)
             {
                 framecounter2++;
                 if (p_currentTime > frameTimer + 1000)
                 {
                     framerate2 = framecounter2;
                     framecounter2 = 0;
-                    //Console.WriteLine(framerate2.ToString());
                 }
-                //Console.WriteLine("hihihihihihihihihihihihihihihihihihihihihihihihihihihihihihi");
                 //update timing
                 p_startTime = p_currentTime;
-                //Console.WriteLine("hohohohohohohohohohohohohohohohohohohohohohohohohohohohohohoho");
-                //give the form some cycles
-                //Game_Draw();
-                //GuardIdleActions();
-                //Guard();
+                //give the form a cycle
                 if (ModelChanged != null)
                 {
                     ModelChanged();
@@ -105,7 +99,6 @@ namespace MuseumSpel
 
                 frameCount = 0;
             }
-            //}
 
         }
 

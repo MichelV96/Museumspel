@@ -19,6 +19,7 @@ namespace MuseumSpel
         public DateTime endTime { get; set; }
         public int duration = 10;
 
+
         public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X, cor_Y, "Afbeeldingen\\0.png", true)
         {
             Speed = speed;
