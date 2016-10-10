@@ -9,7 +9,7 @@ namespace MuseumSpel
     public class GameLoop
     {
         private int p_startTime = 0;
-        private int p_currentTime = 0;
+        public int p_currentTime = 0;
         public bool p_gameOver = false;
         public int frameCount = 0;
         public int frameTimer = 0;

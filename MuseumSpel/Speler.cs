@@ -11,19 +11,29 @@ namespace MuseumSpel
     // Model
     public class Speler : SpelObject
     {
+
+       
         public int speed { get; set; }
-        public Bitmap normalTexture {get; set;}
+        public Bitmap normalTexture { get; set; }
+
+        //voor de waterplas
+        public bool isStunned = false;
+        public bool stunCooldown = false;
+        private int oldSpeed;
+        public int startStun;
+        public int startCooldown;
+
 
         //Voor de powerup
         public bool isDisguised { get; set; }
         public DateTime endTime { get; set; }
         public int duration = 10;
 
-
         public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X, cor_Y, "Afbeeldingen\\0.png", true)
         {
-            Speed = speed;
+            this.speed = speed;
             this.isDisguised = false;
+            this.isStunned = false;
         }
 
 
@@ -71,24 +81,8 @@ namespace MuseumSpel
         }
         //method
 
-        //getter en setter
-        public int Speed
-        {
-            get
-            {
-                return speed;
-            }
-            set
-            {
-                if (value >= 0)
-                {
-                    speed = value;
-                } else
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
+        
+        
 
         public void PowerUp()
         {
@@ -103,6 +97,33 @@ namespace MuseumSpel
             //nieuw plaatje omdat je de powerup hebt opgepakt
             texture = new Bitmap(base.texture); ;
             this.isDisguised = false;
+        }
+
+        public void Waterplas(int currentTime)
+        {
+            if (!isStunned && !stunCooldown)
+            {
+                Console.WriteLine("STUNNED!");
+                oldSpeed = speed;
+                speed = 0;
+                startStun = currentTime;
+                isStunned = true;
+            }
+            
+        }
+
+        public void EndStun(int currentTime)
+        {
+            Console.WriteLine("UNSTUNNED!");
+            speed = oldSpeed;
+            startCooldown = currentTime;
+            isStunned = false;
+            stunCooldown = true;
+        }
+
+        public void EndCooldown()
+        {
+            stunCooldown = false;
         }
     }
 }
