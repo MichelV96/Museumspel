@@ -37,7 +37,14 @@ namespace MuseumSpel
         }
         public void OnModelChanged()
         {
-            speelVeld.SpelerMovement(speelVeld.richting);
+            if(speelVeld.richting == 1)
+                speelVeld.SpelerMovement(Direction.Up);
+            if (speelVeld.richting == 2)
+                speelVeld.SpelerMovement(Direction.Right);
+            if (speelVeld.richting == 3)
+                speelVeld.SpelerMovement(Direction.Down);
+            if (speelVeld.richting == 4)
+                speelVeld.SpelerMovement(Direction.Left);
 
             Application.DoEvents();
             this.Invalidate();// Heel speelveld wordt opnieuw getekend

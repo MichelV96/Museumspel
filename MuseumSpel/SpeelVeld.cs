@@ -12,7 +12,7 @@ namespace MuseumSpel
 
     public enum Direction
     {
-        Up, Down, Left, Right
+        Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle 
     }
     // The Model, SuperClass
     public class SpeelVeld
@@ -94,6 +94,7 @@ namespace MuseumSpel
             int x_p1, y_p1;
             int x_p2, y_p2;
             int marge = 10;
+            Console.WriteLine("X: " + speler.Cor_X + "\nY: " + speler.Cor_Y);
 
             if (richting == Direction.Up)
             {
@@ -104,7 +105,7 @@ namespace MuseumSpel
             }else if (richting == Direction.Down)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
-                y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed - marge);
+                y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
             }else if (richting == Direction.Left)
@@ -136,25 +137,25 @@ namespace MuseumSpel
             return true;
         }
 
-        public void SpelerMovement(int loopRichting)
+        public void SpelerMovement(Direction loopRichting)
         {
             if (!idle)
             {
                 switch (loopRichting)
                 {
-                    case 1:
+                    case Direction.Up:
                         if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
                             speler.Cor_Y -= speler.speed;
                         break;
-                    case 2:
+                    case Direction.Right:
                         if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
                             speler.Cor_X += speler.speed;
                         break;
-                    case 3:
+                    case Direction.Down:
                         if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
                             speler.Cor_Y += speler.speed;
                         break;
-                    case 4:
+                    case Direction.Left:
                         if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
                             speler.Cor_X -= speler.speed;
                         break;
