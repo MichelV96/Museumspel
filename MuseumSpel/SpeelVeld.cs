@@ -166,11 +166,8 @@ namespace MuseumSpel
 
         public void SpelerMovement(Direction loopRichting)
         {
-<<<<<<< HEAD
-            if (!idle)
-=======
+
             if (!idle && !speler.isStunned)
->>>>>>> 0a3a0f7e28d69332e94b89bfc3d01069a001036a
             {
                 switch (loopRichting)
                 {
