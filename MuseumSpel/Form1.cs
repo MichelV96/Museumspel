@@ -29,7 +29,6 @@ namespace MuseumSpel
             penDikte = 2;
             speelVeld.speler.Cor_X += penDikte; // overlapping
             speelVeld.speler.Cor_Y += penDikte;
-            label1.Text = speelVeld.gameLoop.time;
         }
 
         private void Form1_Load(object sender, EventArgs e)

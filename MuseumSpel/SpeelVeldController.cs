@@ -31,7 +31,7 @@ namespace MuseumSpel
                 speelVeld.setRichting(Direction.Down);
                 speelVeld.speler.setPicture(Direction.Down);
             }
-            else if (e.KeyValue == Keys.A)
+            else if (e.KeyData == Keys.A)
             {
                 speelVeld.setRichting(Direction.Left);
                 speelVeld.speler.setPicture(Direction.Left);
