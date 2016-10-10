@@ -41,15 +41,12 @@ namespace MuseumSpel
             {
                 speelVeld.pakSchilderij(true);
             }
+                form1.Invalidate();
+        }
 
-            //if (e.KeyData == Keys.X)
-            //{
-            //    speelVeld.inRange(true);
-            //}
+        public void OnKeyUp(KeyEventArgs e)
+        {
 
-
-
-            form1.Invalidate();
         }
 
     }

@@ -8,16 +8,14 @@ using System.Windows.Forms;
 
 namespace MuseumSpel
 {
-    //abstracte class voor ieder spel object
+    //abstracte class voor ieder spel object, behoort tot model
     public abstract class SpelObject
     {
-        public Bitmap texture { get; private set; }
+        public Bitmap texture { get; set; }
         public string name { get; private set; }
         public bool isSolid { get; private set; }
         private int cor_X;
         private int cor_Y;
-        //private int hoogte;
-        //private int breedte;
 
         public SpelObject(string name, int cor_X, int cor_Y, string picture, bool isSolid)
         {
@@ -32,6 +30,18 @@ namespace MuseumSpel
         public void PrintSpelObject(int cor_X, int cor_Y, int vakGrootte, Graphics g)
         {
             g.DrawImage(texture, cor_X * vakGrootte, cor_Y * vakGrootte, vakGrootte, vakGrootte);
+        }
+
+        public void PrintSpelObject2(int cor_X, int cor_Y, int vakGrootte, Graphics g)
+        {
+            Pen blackPen = new Pen(Color.Black, 3);
+
+            // Create rectangle.
+            Rectangle rect = new Rectangle(vakGrootte, vakGrootte, 50, 150);
+
+            // Draw rectangle to screen.
+            g.DrawRectangle(blackPen, rect);
+            //g.drawRect(cor_X * vakGrootteX, cor_Y * vakGrootteY, 50, 150);
         }
 
         public int Cor_X

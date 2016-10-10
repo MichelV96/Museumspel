@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MuseumSpel
 {
-    // Model
-    public class Muur : SpelObject
+    class Waterplas : SpelObject
     {
-
-        public Muur(int cor_X, int cor_Y) : base("Muur", cor_X, cor_Y, "Afbeeldingen\\wall.jpg", true)
+        public Waterplas(int cor_X, int cor_Y) : base("Waterplas", cor_X, cor_Y, "Afbeeldingen\\waterplas.jpg", false)
         {
 
         }

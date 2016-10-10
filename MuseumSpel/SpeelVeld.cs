@@ -8,6 +8,8 @@ using System.Windows.Forms;
 
 namespace MuseumSpel
 {
+    public delegate void ModelChangedEventHandeler();
+
     public enum Direction
     {
         Up, Down, Left, Right
@@ -25,6 +27,16 @@ namespace MuseumSpel
         //lists
         private List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
+        private List<SpelObject> bewArray;
+        //event
+        public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
+        //Powerup 
+        int outfitX;
+        int outfitY;
+        //de key voor de spelobjecten array waar de powerup staat
+        int key;
+        //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
+        int p = 0;
 
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler)
         {
@@ -36,7 +48,7 @@ namespace MuseumSpel
             borderX = vakGrootte * aantalVakkenX;
             spelObjecten = new List<SpelObject>();
             paintArray = new List<SpelObject>();
-            
+            bewArray = new List<SpelObject>();
         }
 
         // Methodes
@@ -46,7 +58,7 @@ namespace MuseumSpel
             int x_p1, y_p1;
             int x_p2, y_p2;
             int marge = 10;
-            
+
             if (richting == Direction.Up)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
@@ -109,27 +121,14 @@ namespace MuseumSpel
                         speler.Cor_X += speler.speed;
                     break;
             }
-
-            int outfitX = 0;
-            int outfitY = 0;
-            int key = 0;
-
-            for (int x = 1; x < spelObjecten.Count(); x++)
-            {
-                if (spelObjecten[x].GetType() == typeof(PowerUp))
-                {
-                    //x en y zijn in grids, 50 is de breedte en hoogte van een grid
-                    outfitX = spelObjecten[x].Cor_X * vakGrootte;
-                    outfitY = spelObjecten[x].Cor_Y * vakGrootte;
-                    //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
-                    key = x;
-                }
-            }
+            //power up
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
-            if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y))
+            if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
             {
                 //verwijder de power up uit de array
-                spelObjecten.RemoveAt(key);
+                spelObjecten.RemoveAt(this.key);
+                speler.PowerUp();
+                this.p += 1;
             }
         }
 
@@ -142,7 +141,7 @@ namespace MuseumSpel
                 int y = paintArray[i].Cor_Y * vakGrootte;
                     Console.WriteLine("intx: " + x + " inty " + y);
                     Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
-                    if (keyPressed && (Enumerable.Range(x -25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
+                    if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
                     {
                         Console.WriteLine("Keypressed3");
                         paintArray.Remove(paintArray[i]);
@@ -150,20 +149,6 @@ namespace MuseumSpel
             }
 
         }
-
-        //public void inRange(bool keyPressed)
-        //{
-        //    for (int x = 1; x < spelObjecten.Count(); x++)
-        //    {
-        //        if (spelObjecten[x].GetType() == typeof(PowerUp))
-        //        {
-        //            if (Enumerable.Range(spelObjecten[x].Cor_X, spelObjecten[x].Cor_X + 25).Contains(speler.Cor_X + 25) && Enumerable.Range(spelObjecten[x].Cor_Y - 25, spelObjecten[x].Cor_Y).Contains(speler.Cor_Y - 25))
-        //            {
-        //                MessageBox.Show("game over");
-        //            }
-        //        }
-        //    }
-        //}
         // test om cordinaat op grid terug te krijgen
         public int GetGridCordinate(int cor)
         {
@@ -172,13 +157,17 @@ namespace MuseumSpel
 
         public void VoegSpelObjectToe(SpelObject spelobject)
         {
-            if (spelobject.Cor_X < aantalVakkenX && spelobject.Cor_Y < aantalVakkenY && spelobject.GetType() != typeof(Schilderij))
+            if (spelobject.Cor_X < aantalVakkenX && spelobject.Cor_Y < aantalVakkenY && spelobject.GetType() != typeof(Schilderij) && spelobject.GetType() != typeof(Bewaker))
             {
                 spelObjecten.Add(spelobject);
             }
-            else
+            else if(spelobject.GetType() != typeof(Schilderij))
             {
                 paintArray.Add(spelobject);
+            }
+            else if(spelobject.GetType() != typeof(Bewaker))
+            {
+                bewArray.Add(spelobject);
             }
         }
 
@@ -191,6 +180,22 @@ namespace MuseumSpel
             foreach (SpelObject schilderij in paintArray)
             {
                 schilderij.PrintSpelObject(schilderij.Cor_X, schilderij.Cor_Y, vakGrootte, g);
+            }
+            foreach (SpelObject bewaker in bewArray)
+            {
+                bewaker.PrintSpelObject2(bewaker.Cor_X, bewaker.Cor_Y, vakGrootte, g);
+            }
+
+            for (int x = 0; x < spelObjecten.Count(); x++)
+            {
+                if (spelObjecten[x].GetType() == typeof(PowerUp))
+                {
+                    //x en y zijn in grids, 50 is de breedte en hoogte van een grid
+                    this.outfitX = spelObjecten[x].Cor_X * vakGrootte;
+                    this.outfitY = spelObjecten[x].Cor_Y * vakGrootte;
+                    //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
+                    this.key = x;
+                }
             }
         }
     }
