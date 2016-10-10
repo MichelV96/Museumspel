@@ -35,10 +35,25 @@ namespace MuseumSpel
            
 
         }
-
         public void OnModelChanged()
         {
-            Invalidate();// Heel speelveld wordt opnieuw getekend
+            if(speelVeld.richting == 1)
+                speelVeld.SpelerMovement(Direction.Up);
+            if (speelVeld.richting == 2)
+                speelVeld.SpelerMovement(Direction.Right);
+            if (speelVeld.richting == 3)
+                speelVeld.SpelerMovement(Direction.Down);
+            if (speelVeld.richting == 4)
+                speelVeld.SpelerMovement(Direction.Left);
+
+            Application.DoEvents();
+            this.Invalidate();// Heel speelveld wordt opnieuw getekend
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            MessageBox.Show("it's over man! gameover! gg!", "game shutdown");
+            speelVeld.gameLoop.ShutDown();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -52,6 +67,11 @@ namespace MuseumSpel
             }
             speelVeld.PrintSpeelVeld(dc);
             dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y);
+
+            if (!speelVeld.started)
+            {
+                speelVeld.loop();
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

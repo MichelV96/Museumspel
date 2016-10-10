@@ -23,33 +23,34 @@ namespace MuseumSpel
         {
             if (e.KeyData == Keys.W)
             {
-                speelVeld.SpelerMovement(Direction.Up);
+                speelVeld.setRichting(Direction.Up);
                 speelVeld.speler.setPicture(Direction.Up);
-            }else if (e.KeyData == Keys.S)
+            }
+            else if (e.KeyData == Keys.S)
             {
-               speelVeld.SpelerMovement(Direction.Down);
+                speelVeld.setRichting(Direction.Down);
                 speelVeld.speler.setPicture(Direction.Down);
             }
             else if (e.KeyData == Keys.A)
             {
-                speelVeld.SpelerMovement(Direction.Left);
+                speelVeld.setRichting(Direction.Left);
                 speelVeld.speler.setPicture(Direction.Left);
             }
             else if (e.KeyData == Keys.D)
             {
-                speelVeld.SpelerMovement(Direction.Right);
+                speelVeld.setRichting(Direction.Right);
                 speelVeld.speler.setPicture(Direction.Right);
             }
-
-            if(e.KeyData == Keys.F)
+            if (e.KeyData == Keys.F)
             {
                 speelVeld.pakSchilderij(true);
             }
-                form1.Invalidate();
+            form1.Invalidate();
         }
 
         public void OnKeyUp(KeyEventArgs e)
         {
+            this.speelVeld.idle = true;
             if (e.KeyData == Keys.W)
             {
                 Console.WriteLine("up");
@@ -71,7 +72,6 @@ namespace MuseumSpel
                 speelVeld.speler.setPicture(Direction.RightIdle);
             }
             form1.Invalidate();
-
         }
 
     }
