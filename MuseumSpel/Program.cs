@@ -35,6 +35,9 @@ namespace MuseumSpel
             form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
             form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
             gameloop.ModelChanged += form1.OnModelChanged; //Subscriber
+          
+            Menu menu = new Menu();
+            Application.Run(menu);
             Application.Run(form1);
             bool GameOver = true;
 
