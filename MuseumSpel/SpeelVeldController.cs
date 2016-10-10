@@ -23,30 +23,47 @@ namespace MuseumSpel
         {
             if (e.KeyData == Keys.W)
             {
-               speelVeld.SpelerMovement(Direction.Up);
-            }else if (e.KeyData == Keys.S)
+                speelVeld.setRichting(Direction.Up);
+            }
+            else if (e.KeyData == Keys.S)
             {
-               speelVeld.SpelerMovement(Direction.Down);
+                speelVeld.setRichting(Direction.Down);
             }
             else if (e.KeyData == Keys.A)
             {
-                speelVeld.SpelerMovement(Direction.Left);
+                speelVeld.setRichting(Direction.Left);
             }
             else if (e.KeyData == Keys.D)
             {
-                speelVeld.SpelerMovement(Direction.Right);
+                speelVeld.setRichting(Direction.Right);
             }
-
-            if(e.KeyData == Keys.F)
+            if (e.KeyData == Keys.F)
             {
                 speelVeld.pakSchilderij(true);
             }
-                form1.Invalidate();
+            form1.Invalidate();
         }
 
         public void OnKeyUp(KeyEventArgs e)
         {
-
+            this.speelVeld.idle = true;
+            if (e.KeyData == Keys.W)
+            {
+                speelVeld.speler.setPicture(Direction.UpIdle);
+            }
+            else if (e.KeyData == Keys.S)
+            {
+                speelVeld.speler.setPicture(Direction.DownIdle);
+            }
+            else if (e.KeyData == Keys.A)
+            {
+                speelVeld.speler.setPicture(Direction.LeftIdle);
+            }
+            else if (e.KeyData == Keys.D)
+            {
+                speelVeld.speler.setPicture(Direction.RightIdle);
+            }
+            form1.Invalidate();
         }
 
     }
