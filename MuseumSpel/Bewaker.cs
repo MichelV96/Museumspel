@@ -7,47 +7,32 @@ using System.Threading.Tasks;
 
 namespace MuseumSpel
 {
-    class Bewaker : SpelObject
+    public class Bewaker : SpelObject
     {
         public Bewaker(int cor_X, int cor_Y) : base("Bewaker", cor_X, cor_Y, "Afbeeldingen\\0.png", false)
         {
 
         }
+        
 
 
-        public void setPicture(DirectionGuard DirectionGuard)
+        public void setPicture(Direction Direction)
         {
-            if (DirectionGuard == DirectionGuard.Up)
+            if (Direction == Direction.Up)
             {
-                texture = new Bitmap("Afbeeldingen\\12.png");
+                texture = new Bitmap("Afbeeldingen\\Guard1.png");
             }
-            else if (DirectionGuard == DirectionGuard.Down)
+            else if (Direction == Direction.Down)
             {
-                texture = new Bitmap("Afbeeldingen\\0.png");
+                texture = new Bitmap("Afbeeldingen\\Guard3.png");
             }
-            else if (DirectionGuard == DirectionGuard.Left)
+            else if (Direction == Direction.Left)
             {
-                texture = new Bitmap("Afbeeldingen\\4.png");
+                texture = new Bitmap("Afbeeldingen\\Guard2.png");
             }
-            else if (DirectionGuard == DirectionGuard.Right)
+            else if (Direction == Direction.Right)
             {
-                texture = new Bitmap("Afbeeldingen\\8.png");
-            }
-            if (DirectionGuard == DirectionGuard.UpIdle)
-            {
-                texture = new Bitmap("Afbeeldingen\\14.png");
-            }
-            else if (DirectionGuard == DirectionGuard.DownIdle)
-            {
-                texture = new Bitmap("Afbeeldingen\\2.png");
-            }
-            else if (DirectionGuard == DirectionGuard.LeftIdle)
-            {
-                texture = new Bitmap("Afbeeldingen\\6.png");
-            }
-            else if (DirectionGuard == DirectionGuard.RightIdle)
-            {
-                texture = new Bitmap("Afbeeldingen\\10.png");
+                texture = new Bitmap("Afbeeldingen\\Guard0.png");
             }
         }
 
