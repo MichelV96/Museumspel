@@ -36,8 +36,13 @@ namespace MuseumSpel
             speelVeld.VoegSpelObjectToe(new Muur(14, 1));
             speelVeld.VoegSpelObjectToe(new Muur(15, 1));
             speelVeld.VoegSpelObjectToe(new Muur(1, 1));
+<<<<<<< HEAD
             #endregion 
              
+=======
+            #endregion
+
+>>>>>>> 0a3a0f7e28d69332e94b89bfc3d01069a001036a
             //Linker buiten muur
             #region Linker Buiten Muur
             speelVeld.VoegSpelObjectToe(new Muur(1, 2));
@@ -117,11 +122,19 @@ namespace MuseumSpel
 
             //Rechter binnen muur
             #region Rechter binnen muur
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 0a3a0f7e28d69332e94b89bfc3d01069a001036a
             speelVeld.VoegSpelObjectToe(new Muur(13, 6));
             speelVeld.VoegSpelObjectToe(new Muur(13, 4));
             #endregion
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a3a0f7e28d69332e94b89bfc3d01069a001036a
             //power ups
             #region power ups
             speelVeld.VoegSpelObjectToe(new PowerUp(6, 6));
@@ -137,6 +150,7 @@ namespace MuseumSpel
             speelVeld.VoegSpelObjectToe(new Schilderij(5, 5));
             speelVeld.VoegSpelObjectToe(new Schilderij(8, 5));
             #endregion
+<<<<<<< HEAD
 
             //Guard
             #region Guard
@@ -148,6 +162,9 @@ namespace MuseumSpel
 
             #endregion
 
+=======
+            #endregion
+>>>>>>> 0a3a0f7e28d69332e94b89bfc3d01069a001036a
             Form1 form1 = new Form1(speelVeld); //Publisher
             SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld);//Controller
             form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber

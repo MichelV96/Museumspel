@@ -57,7 +57,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GameLoop.cs" />
-    <Compile Include="GameTimer.cs" />
     <Compile Include="Muur.cs" />
     <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
@@ -112,6 +111,7 @@
     <Content Include="Afbeeldingen\8.png" />
     <Content Include="Afbeeldingen\9.png" />
     <Content Include="Afbeeldingen\Front_50PX.png" />
+    <Content Include="XMLSpeelVeld1.xml" />
     <None Include="Resources\Front_50PX.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
