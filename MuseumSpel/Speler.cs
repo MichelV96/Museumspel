@@ -81,7 +81,7 @@ namespace MuseumSpel
         {
             //nieuw plaatje omdat je de powerup hebt opgepakt
             Bitmap t = new Bitmap(base.texture);
-            texture = new Bitmap("Afbeeldingen\\3.png");
+            texture = new Bitmap("Afbeeldingen\\Front_50PX.png");
             //isdisguised op true zetten omdat je vermomd bent
             this.isDisguised = true;
             //na 5 sec terug naar oude plaatje

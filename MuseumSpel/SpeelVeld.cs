@@ -33,7 +33,14 @@ namespace MuseumSpel
         private List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
         //event
-        public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
+        //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
+
+        //gameloop
+        public GameLoop gameLoop { get; private set; }
+        public bool started { get; set; }
+        public bool idle { get; set; }
+        public int richting { get; set; }
+
         //Powerup 
         int outfitX;
         int outfitY;
@@ -42,7 +49,7 @@ namespace MuseumSpel
         //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
         int p = 0;
 
-        public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler)
+        public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
         {
             this.aantalVakkenX = aantalVakkenX;
             this.aantalVakkenY = aantalVakkenY;
@@ -52,9 +59,40 @@ namespace MuseumSpel
             borderX = vakGrootte * aantalVakkenX;
             spelObjecten = new List<SpelObject>();
             paintArray = new List<SpelObject>();
+            this.gameLoop = gameloop;
         }
 
         // Methodes
+
+        public void loop()
+        {
+            started = true;
+            while (!gameLoop.p_gameOver)
+            {
+                gameLoop.gameLoop();
+            }
+        }
+
+        public void setRichting(Direction loopRichting)
+        {
+            idle = false;
+            if (loopRichting == Direction.Up)
+            {
+                richting = 1;
+            }
+            else if (loopRichting == Direction.Right)
+            {
+                richting = 2;
+            }
+            else if (loopRichting == Direction.Down)
+            {
+                richting = 3;
+            }
+            else if (loopRichting == Direction.Left)
+            {
+                richting = 4;
+            }
+        }
 
         public bool CollisionCheck(Direction richting) //First attempt
         {
@@ -106,24 +144,27 @@ namespace MuseumSpel
 
         public void SpelerMovement(Direction loopRichting)
         {
-            switch (loopRichting)
+            if (!idle)
             {
-                case Direction.Up:
-                    if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
-                        speler.Cor_Y -= speler.speed;
-                    break;
-                case Direction.Down:
-                    if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
-                        speler.Cor_Y += speler.speed;
-                    break;
-                case Direction.Left:
-                    if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
-                        speler.Cor_X -= speler.speed;
-                    break;
-                case Direction.Right:
-                    if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
-                        speler.Cor_X += speler.speed;
-                    break;
+                switch (loopRichting)
+                {
+                    case Direction.Up:
+                        if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
+                            speler.Cor_Y -= speler.speed;
+                        break;
+                    case Direction.Right:
+                        if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
+                            speler.Cor_X += speler.speed;
+                        break;
+                    case Direction.Down:
+                        if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
+                            speler.Cor_Y += speler.speed;
+                        break;
+                    case Direction.Left:
+                        if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
+                            speler.Cor_X -= speler.speed;
+                        break;
+                }
             }
             //power up
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
