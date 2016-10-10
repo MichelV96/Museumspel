@@ -210,7 +210,6 @@ namespace MuseumSpel
                 {
                     if (Enumerable.Range(((waterplas.Cor_X * vakGrootte) - 15), 30).Contains(speler.Cor_X) && Enumerable.Range(((waterplas.Cor_Y * vakGrootte) - 15), 30).Contains(speler.Cor_Y) && !speler.stunCooldown && !speler.isStunned)
                     {
-                        //Console.WriteLine("shit");
                         speler.Waterplas(gameLoop.p_currentTime);
                         break;
                     }
@@ -255,6 +254,8 @@ namespace MuseumSpel
 
         public void PrintSpeelVeld(Graphics g)
         {
+           Image image = new Bitmap("Afbeeldingen\\bc.jpeg");
+           g.DrawImage(image ,0 , 0, 850, 550);
             foreach (SpelObject spelObject in spelObjecten)
             {
                 spelObject.PrintSpelObject(spelObject.Cor_X, spelObject.Cor_Y, vakGrootte, g);
@@ -287,30 +288,30 @@ namespace MuseumSpel
 
 
 
-        public void GuardMovment(int corEindX, int corEindY, Direction Direction, Bewaker bewaker)
-        {
+        //public void GuardMovment(int corEindX, int corEindY, Direction Direction, Bewaker bewaker)
+        //{
 
-            if (Direction == Direction.Up &&  bewaker.Cor_Y >= corEindY)
-            {
-                bewaker.Cor_Y -= 1;
-            }
-            else if (Direction == Direction.Down && bewaker.Cor_Y <= corEindY)
-            {
-                bewaker.Cor_Y += 1;
+        //    if (Direction == Direction.Up &&  bewaker.Cor_Y >= corEindY)
+        //    {
+        //        bewaker.Cor_Y -= 1;
+        //    }
+        //    else if (Direction == Direction.Down && bewaker.Cor_Y <= corEindY)
+        //    {
+        //        bewaker.Cor_Y += 1;
 
-            }
-            else if (Direction == Direction.Left && bewaker.Cor_X >= corEindX)
-            {
-                bewaker.Cor_X -= 1;
+        //    }
+        //    else if (Direction == Direction.Left && bewaker.Cor_X >= corEindX)
+        //    {
+        //        bewaker.Cor_X -= 1;
 
-            }
-            else if (Direction == Direction.Right && bewaker.Cor_X <= corEindX)
-            {
-                bewaker.Cor_X += 1;
+        //    }
+        //    else if (Direction == Direction.Right && bewaker.Cor_X <= corEindX)
+        //    {
+        //        bewaker.Cor_X += 1;
 
-            }
+        //    }
 
 
-        }
+        //}
     }
 }
