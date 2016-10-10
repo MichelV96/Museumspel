@@ -9,7 +9,7 @@ namespace MuseumSpel
 {
     public class Bewaker : SpelObject
     {
-        public Bewaker(int cor_X, int cor_Y) : base("Bewaker", cor_X, cor_Y, "Afbeeldingen\\0.png", false)
+        public Bewaker(int cor_X, int cor_Y) : base("Bewaker", cor_X, cor_Y, "Afbeeldingen\\Guard0.png", false)
         {
 
         }
