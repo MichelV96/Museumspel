@@ -82,7 +82,6 @@ namespace MuseumSpel
                 {
                     ModelChanged();
                 }
-                    //Application.DoEvents();
                 }
                 frameCount++;
                 if (p_currentTime > frameTimer + 1000)
