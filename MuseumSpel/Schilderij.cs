@@ -10,7 +10,7 @@ namespace MuseumSpel
     class Schilderij : SpelObject
     {
  
-        public Schilderij(int cor_X, int cor_Y) : base("Schilderij", cor_X, cor_Y, "Afbeeldingen\\Floor.png", false)
+        public Schilderij(int cor_X, int cor_Y) : base("Schilderij", cor_X, cor_Y, "Afbeeldingen\\Floor.jpg", false)
         {
             
         }

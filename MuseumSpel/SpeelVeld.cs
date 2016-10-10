@@ -20,7 +20,7 @@ namespace MuseumSpel
         //aantalRijen, aantalVakjes
         private int aantalVakkenX;
         private int aantalVakkenY;
-        private int vakGrootte;
+        public int vakGrootte { get; set; }
         public int borderX { get; set; }
         public int borderY { get; set; }
         public Speler speler { get; set; }
@@ -74,6 +74,8 @@ namespace MuseumSpel
                 if (speler.isDisguised == true && DateTime.Compare(DateTime.Now, speler.endTime) == 1)
                 {
                     speler.PowerDown();
+                    speler.setPicture(Direction.Down);
+                    gameLoop.redraw();
                 }
 
                 if(speler.isStunned && gameLoop.p_currentTime >= speler.startStun + 2000)
@@ -115,32 +117,31 @@ namespace MuseumSpel
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
-            int marge = 10;
-            Console.WriteLine("X: " + speler.Cor_X + "\nY: " + speler.Cor_Y);
+            int marge = speler.speed;
 
             if (richting == Direction.Up)
             {
-                x_p1 = GetGridCordinate(speler.Cor_X);
+                x_p1 = GetGridCordinate(speler.Cor_X + marge);
                 y_p1 = GetGridCordinate(speler.Cor_Y - speler.speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
                 y_p2 = GetGridCordinate(speler.Cor_Y - speler.speed);
             }else if (richting == Direction.Down)
             {
-                x_p1 = GetGridCordinate(speler.Cor_X);
+                x_p1 = GetGridCordinate(speler.Cor_X + marge);
                 y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
             }else if (richting == Direction.Left)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X - speler.speed);
-                y_p1 = GetGridCordinate(speler.Cor_Y);
+                y_p1 = GetGridCordinate(speler.Cor_Y + marge);
                 x_p2 = GetGridCordinate(speler.Cor_X - speler.speed);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte - marge);
             }
             else if (richting == Direction.Right)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
-                y_p1 = GetGridCordinate(speler.Cor_Y);
+                y_p1 = GetGridCordinate(speler.Cor_Y + marge);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
                 y_p2 = GetGridCordinate(speler.Cor_Y - marge + vakGrootte);
             } else
@@ -154,7 +155,10 @@ namespace MuseumSpel
             foreach (SpelObject spelObject in spelObjecten)
             {
                 if (spelObject.isSolid && (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y))
+                {
+                    int over = speler.Cor_X % vakGrootte;
                     return false;
+                }
             }
             return true;
         }
@@ -168,18 +172,22 @@ namespace MuseumSpel
                     case Direction.Up:
                         if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
                             speler.Cor_Y -= speler.speed;
+                            speler.setPicture(Direction.Up);
                         break;
                     case Direction.Right:
                         if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
                             speler.Cor_X += speler.speed;
+                            speler.setPicture(Direction.Right);
                         break;
                     case Direction.Down:
                         if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
                             speler.Cor_Y += speler.speed;
+                            speler.setPicture(Direction.Down);
                         break;
                     case Direction.Left:
                         if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
                             speler.Cor_X -= speler.speed;
+                            speler.setPicture(Direction.Left);
                         break;
                 }
             }

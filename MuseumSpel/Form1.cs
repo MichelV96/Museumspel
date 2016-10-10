@@ -66,7 +66,7 @@ namespace MuseumSpel
                 dc.DrawRectangle(p1, rec1);
             }
             speelVeld.PrintSpeelVeld(dc);
-            dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y);
+            dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, speelVeld.vakGrootte);
 
             if (!speelVeld.started)
             {

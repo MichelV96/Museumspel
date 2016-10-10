@@ -31,9 +31,17 @@ namespace MuseumSpel
             Console.WriteLine("it's over man gameover gg");
         }
 
+        public void redraw()
+        {
+            if (ModelChanged != null)
+            {
+                ModelChanged();
+            }
+        }
+
         public void gameLoop()
         {
-            //Console.WriteLine("GameLoop got called");
+           // Console.WriteLine("GameLoop got called");
             //DataReset();
             //Game();
             //Menu();
