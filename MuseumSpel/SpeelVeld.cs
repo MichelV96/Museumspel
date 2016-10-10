@@ -37,10 +37,7 @@ namespace MuseumSpel
         public bool idle { get; set; }
         public int richting { get; set; }
 
-        //Waterplas
-        int waterplasX;
-        int waterplasY;
-
+        
         //Powerup 
         int outfitX;
         int outfitY;
@@ -72,6 +69,24 @@ namespace MuseumSpel
             while (!gameLoop.p_gameOver)
             {
                 gameLoop.gameLoop();
+                //Console.WriteLine(speler.speed);
+
+                if (speler.isDisguised == true && DateTime.Compare(DateTime.Now, speler.endTime) == 1)
+                {
+                    speler.PowerDown();
+                }
+
+                if(speler.isStunned && gameLoop.p_currentTime >= speler.startStun + 2000)
+                {
+                    Console.WriteLine("stunned is true");
+                    speler.EndStun(gameLoop.p_currentTime);
+                }
+
+                if(speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 10000)
+                {
+                    Console.WriteLine("stund cooldown is true");
+                    speler.EndCooldown();
+                }
             }
         }
 
@@ -106,27 +121,27 @@ namespace MuseumSpel
             if (richting == Direction.Up)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
-                y_p1 = GetGridCordinate(speler.Cor_Y - speler.Speed);
+                y_p1 = GetGridCordinate(speler.Cor_Y - speler.speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
-                y_p2 = GetGridCordinate(speler.Cor_Y - speler.Speed);
+                y_p2 = GetGridCordinate(speler.Cor_Y - speler.speed);
             }else if (richting == Direction.Down)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X);
-                y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.Speed);
+                y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
-                y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.Speed);
+                y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
             }else if (richting == Direction.Left)
             {
-                x_p1 = GetGridCordinate(speler.Cor_X - speler.Speed);
+                x_p1 = GetGridCordinate(speler.Cor_X - speler.speed);
                 y_p1 = GetGridCordinate(speler.Cor_Y);
-                x_p2 = GetGridCordinate(speler.Cor_X - speler.Speed);
+                x_p2 = GetGridCordinate(speler.Cor_X - speler.speed);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte - marge);
             }
             else if (richting == Direction.Right)
             {
-                x_p1 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.Speed);
+                x_p1 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
                 y_p1 = GetGridCordinate(speler.Cor_Y);
-                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.Speed);
+                x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
                 y_p2 = GetGridCordinate(speler.Cor_Y - marge + vakGrootte);
             } else
             {
@@ -146,25 +161,25 @@ namespace MuseumSpel
 
         public void SpelerMovement(Direction loopRichting)
         {
-            if (!idle)
+            if (!idle && !speler.isStunned)
             {
                 switch (loopRichting)
                 {
                     case Direction.Up:
                         if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
-                            speler.Cor_Y -= speler.Speed;
+                            speler.Cor_Y -= speler.speed;
                         break;
                     case Direction.Right:
                         if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
-                            speler.Cor_X += speler.Speed;
+                            speler.Cor_X += speler.speed;
                         break;
                     case Direction.Down:
                         if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
-                            speler.Cor_Y += speler.Speed;
+                            speler.Cor_Y += speler.speed;
                         break;
                     case Direction.Left:
                         if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
-                            speler.Cor_X -= speler.Speed;
+                            speler.Cor_X -= speler.speed;
                         break;
                 }
             }
@@ -174,14 +189,21 @@ namespace MuseumSpel
             {
                 //verwijder de power up uit de array
                 spelObjecten.RemoveAt(this.key);
-                speler.PowerUp();
+                speler.isDisguised = true;
+                speler.endTime = DateTime.Now.AddSeconds(speler.duration);
                 this.p += 1;
             }
-            foreach (SpelObject Waterplas in waterplassen)
+
+            if (!speler.isStunned && !speler.stunCooldown)
             {
-                if(Enumerable.Range((Waterplas.Cor_X - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((Waterplas.Cor_Y -15), 30).Contains(speler.Cor_Y))
+                foreach (Waterplas waterplas in waterplassen)
                 {
-                    speler.Waterplas();
+                    if (Enumerable.Range(((waterplas.Cor_X * vakGrootte) - 15), 30).Contains(speler.Cor_X) && Enumerable.Range(((waterplas.Cor_Y * vakGrootte) - 15), 30).Contains(speler.Cor_Y) && !speler.stunCooldown && !speler.isStunned)
+                    {
+                        //Console.WriteLine("shit");
+                        speler.Waterplas(gameLoop.p_currentTime);
+                        break;
+                    }
                 }
             }
         }
