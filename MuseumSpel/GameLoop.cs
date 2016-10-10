@@ -41,29 +41,6 @@ namespace MuseumSpel
 
         public void gameLoop()
         {
-           // Console.WriteLine("GameLoop got called");
-            //DataReset();
-            //Game();
-            //Menu();
-            //Form form = (Form)this;
-            //timer.Start();
-            //Nick = 0;
-
-            //while (!p_gameOver)
-            //{
-
-            //if (!menuSeen)
-            //{
-            //    Console.WriteLine("menu not seen");
-            //    Game();
-            //    Menu();
-            //}
-
-
-            //startTime = timer.ElapsedMilliseconds;
-            //Game();
-            //Application.DoEvents();
-            //Console.WriteLine("GameLoop got called");
             //update timer
 
             p_currentTime = Environment.TickCount;
