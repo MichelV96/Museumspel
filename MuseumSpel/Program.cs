@@ -40,7 +40,6 @@ namespace MuseumSpel
 
             #endregion 
              
-
             //Linker buiten muur
             #region Linker Buiten Muur
             speelVeld.VoegSpelObjectToe(new Muur(1, 2));
@@ -141,11 +140,10 @@ namespace MuseumSpel
             speelVeld.VoegSpelObjectToe(new Schilderij(12, 4));
             #endregion
 
-
             //Guard
             #region Guard
-            Bewaker bewaker = new Bewaker(16, 0);
-            speelVeld.VoegSpelObjectToe(bewaker);
+            Bewaker bewaker = new Bewaker(12, 0, 2, 0, 5);
+            speelVeld.voegBewakerToe(bewaker);
             
 
             #endregion
@@ -158,7 +156,9 @@ namespace MuseumSpel
             form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
             form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
             gameloop.ModelChanged += form1.OnModelChanged; //Subscriber
-          
+            gameloop.BewakerAction += speelVeld.GuardAutomaticMovement; //Subscriber
+
+
             Menu menu = new Menu();
             Application.Run(menu);
             Application.Run(form1);

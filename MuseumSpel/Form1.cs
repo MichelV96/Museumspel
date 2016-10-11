@@ -87,6 +87,11 @@ namespace MuseumSpel
 
                 dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, speelVeld.vakGrootte);
 
+                foreach (Bewaker bewaker in speelVeld.bewakers)
+                {
+                    bewaker.PrintSpelObject(bewaker.Cor_X, bewaker.Cor_Y, speelVeld.vakGrootte, dc);
+                }
+
                 if (!speelVeld.started)
                 {
                     speelVeld.loop();

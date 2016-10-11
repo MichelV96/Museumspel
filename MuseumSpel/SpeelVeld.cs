@@ -29,6 +29,7 @@ namespace MuseumSpel
         private List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
         private List<SpelObject> waterplassen;
+        public List<Bewaker> bewakers;
         //event
         //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
@@ -59,8 +60,10 @@ namespace MuseumSpel
             spelObjecten = new List<SpelObject>();
             paintArray = new List<SpelObject>();
             waterplassen = new List<SpelObject>();
+            bewakers = new List<Bewaker>();
 
             this.gameLoop = gameloop;
+
         }
 
         // Methodes
@@ -195,6 +198,7 @@ namespace MuseumSpel
                         break;
                 }
             }
+
             //power up
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
             if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
@@ -221,6 +225,42 @@ namespace MuseumSpel
                         speler.Waterplas(gameLoop.p_currentTime);
                         gameLoop.redraw();
                         break;
+                    }
+                }
+            }
+        }
+
+
+        //Bewaker
+        public void GuardAutomaticMovement()
+        {
+            foreach (Bewaker bewaker in bewakers)
+            {
+                Console.WriteLine(bewaker.heenweg);
+                if (bewaker.heenweg)
+                {
+                    if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
+                    {
+                        
+                        //Console.WriteLine("MoveLeft");
+                        bewaker.Cor_X -= bewaker.speed;
+                        if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = false;
+                        }
+
+                    }
+                }
+                else if (!bewaker.heenweg)
+                {
+                    if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
+                    {
+                        //Console.WriteLine("MoveRight");
+                        bewaker.Cor_X += bewaker.speed;
+                        if (bewaker.Cor_X > (bewaker.wayPoints[0, 0] + 1) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = true;
+                        }
                     }
                 }
             }
@@ -254,11 +294,15 @@ namespace MuseumSpel
             if (spelobject.Cor_X < aantalVakkenX && spelobject.Cor_Y < aantalVakkenY && spelobject.GetType() != typeof(Schilderij))
             {
                 spelObjecten.Add(spelobject);
-            }
-            else
+            } else
             {
-                paintArray.Add(spelobject);
+                paintArray.Add(spelobject); 
             }
+        }
+
+        public void voegBewakerToe(Bewaker bewaker)
+        {
+            bewakers.Add(bewaker);
         }
 
         public void PrintSpeelVeld(Graphics g)
@@ -295,33 +339,5 @@ namespace MuseumSpel
 
             
         }
-
-
-
-        //public void GuardMovment(int corEindX, int corEindY, Direction Direction, Bewaker bewaker)
-        //{
-
-        //    if (Direction == Direction.Up &&  bewaker.Cor_Y >= corEindY)
-        //    {
-        //        bewaker.Cor_Y -= 1;
-        //    }
-        //    else if (Direction == Direction.Down && bewaker.Cor_Y <= corEindY)
-        //    {
-        //        bewaker.Cor_Y += 1;
-
-        //    }
-        //    else if (Direction == Direction.Left && bewaker.Cor_X >= corEindX)
-        //    {
-        //        bewaker.Cor_X -= 1;
-
-        //    }
-        //    else if (Direction == Direction.Right && bewaker.Cor_X <= corEindX)
-        //    {
-        //        bewaker.Cor_X += 1;
-
-        //    }
-
-
-        //}
     }
 }

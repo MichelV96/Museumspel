@@ -71,7 +71,6 @@ namespace MuseumSpel
             {
                 speelVeld.speler.setPicture(Direction.RightIdle);
             }
-            form1.Invalidate();
         }
 
     }
