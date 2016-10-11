@@ -14,7 +14,7 @@ namespace MuseumSpel
     {
         Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle
     }
-    
+
     // The Model, SuperClass
     public class SpeelVeld
     {
@@ -38,7 +38,7 @@ namespace MuseumSpel
         public bool idle { get; set; }
         public int richting { get; set; }
 
-        
+
         //Powerup 
         int outfitX;
         int outfitY;
@@ -52,7 +52,7 @@ namespace MuseumSpel
             this.aantalVakkenX = aantalVakkenX;
             this.aantalVakkenY = aantalVakkenY;
             vakGrootte = 50;
-            this.speler = speler;            
+            this.speler = speler;
             borderY = vakGrootte * aantalVakkenY;
             borderX = vakGrootte * aantalVakkenX;
             spelObjecten = new List<SpelObject>();
@@ -79,13 +79,13 @@ namespace MuseumSpel
                     gameLoop.redraw();
                 }
 
-                if(speler.isStunned && gameLoop.p_currentTime >= speler.startStun + 2000)
+                if (speler.isStunned && gameLoop.p_currentTime >= speler.startStun + 2000)
                 {
                     Console.WriteLine("stunned is true");
                     speler.EndStun(gameLoop.p_currentTime);
                 }
 
-                if(speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 10000)
+                if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 10000)
                 {
                     Console.WriteLine("stund cooldown is true");
                     speler.EndCooldown();
@@ -126,13 +126,15 @@ namespace MuseumSpel
                 y_p1 = GetGridCordinate(speler.Cor_Y - speler.speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
                 y_p2 = GetGridCordinate(speler.Cor_Y - speler.speed);
-            }else if (richting == Direction.Down)
+            }
+            else if (richting == Direction.Down)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X + marge);
                 y_p1 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte - marge);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte + speler.speed);
-            }else if (richting == Direction.Left)
+            }
+            else if (richting == Direction.Left)
             {
                 x_p1 = GetGridCordinate(speler.Cor_X - speler.speed);
                 y_p1 = GetGridCordinate(speler.Cor_Y + marge);
@@ -145,7 +147,8 @@ namespace MuseumSpel
                 y_p1 = GetGridCordinate(speler.Cor_Y + marge);
                 x_p2 = GetGridCordinate(speler.Cor_X + vakGrootte + speler.speed);
                 y_p2 = GetGridCordinate(speler.Cor_Y - marge + vakGrootte);
-            } else
+            }
+            else
             {
                 x_p1 = 0;
                 y_p1 = 0;
@@ -174,22 +177,22 @@ namespace MuseumSpel
                     case Direction.Up:
                         if (speler.Cor_Y >= 0 && CollisionCheck(Direction.Up))
                             speler.Cor_Y -= speler.speed;
-                            speler.setPicture(Direction.Up);
+                        speler.setPicture(Direction.Up);
                         break;
                     case Direction.Right:
                         if (speler.Cor_X + vakGrootte < borderX && CollisionCheck(Direction.Right))
                             speler.Cor_X += speler.speed;
-                            speler.setPicture(Direction.Right);
+                        speler.setPicture(Direction.Right);
                         break;
                     case Direction.Down:
                         if (speler.Cor_Y + vakGrootte < borderY && CollisionCheck(Direction.Down))
                             speler.Cor_Y += speler.speed;
-                            speler.setPicture(Direction.Down);
+                        speler.setPicture(Direction.Down);
                         break;
                     case Direction.Left:
                         if (speler.Cor_X >= 0 && CollisionCheck(Direction.Left))
                             speler.Cor_X -= speler.speed;
-                            speler.setPicture(Direction.Left);
+                        speler.setPicture(Direction.Left);
                         break;
                 }
             }
@@ -225,18 +228,18 @@ namespace MuseumSpel
 
         public void pakSchilderij(bool keyPressed)
         {
-            
+
             for (int i = 0; i < paintArray.Count; i++)
             {
                 int x = paintArray[i].Cor_X * vakGrootte;
                 int y = paintArray[i].Cor_Y * vakGrootte;
-                    Console.WriteLine("intx: " + x + " inty " + y);
-                    Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
-                    if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
-                    {
-                        Console.WriteLine("Keypressed3");
-                        paintArray.Remove(paintArray[i]);
-                    }
+                Console.WriteLine("intx: " + x + " inty " + y);
+                Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
+                if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
+                {
+                    Console.WriteLine("Keypressed3");
+                    paintArray.Remove(paintArray[i]);
+                }
             }
 
         }
@@ -260,8 +263,8 @@ namespace MuseumSpel
 
         public void PrintSpeelVeld(Graphics g)
         {
-           Image image = new Bitmap("Afbeeldingen\\bc3.jpg");
-           g.DrawImage(image ,0 , 0, 850, 550);
+            Image image = new Bitmap("Afbeeldingen\\bc3.jpg");
+            g.DrawImage(image, 0, 0, 850, 550);
             foreach (SpelObject spelObject in spelObjecten)
             {
                 spelObject.PrintSpelObject(spelObject.Cor_X, spelObject.Cor_Y, vakGrootte, g);
@@ -281,7 +284,7 @@ namespace MuseumSpel
                     //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
                     this.key = x;
                 }
-                if(spelObjecten[x].GetType() == typeof(Waterplas))
+                if (spelObjecten[x].GetType() == typeof(Waterplas))
                 {
                     //this.waterplasX = spelObjecten[x].Cor_X * vakGrootte;
                     //this.waterplasY = spelObjecten[x].Cor_Y * vakGrootte;
@@ -289,8 +292,8 @@ namespace MuseumSpel
                 }
             }
 
-            
         }
+
 
 
 
