@@ -34,6 +34,7 @@ namespace MuseumSpel
         //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
         //gameloop
+        public bool paused { get; set; }
         public GameLoop gameLoop { get; private set; }
         public bool started { get; set; }
         public bool idle { get; set; }

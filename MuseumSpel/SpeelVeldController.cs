@@ -44,6 +44,10 @@ namespace MuseumSpel
                 {
                     speelVeld.pakSchilderij(true);
                 }
+                if(e.KeyData == Keys.Escape)
+                {
+                    form1.close();
+                }
                 form1.Invalidate();
             }
         }
