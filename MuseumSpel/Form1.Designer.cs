@@ -36,6 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1256, 701);
             this.DoubleBuffered = true;
+            this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.Name = "Form1";
             this.Text = "Museum Game";
             this.Load += new System.EventHandler(this.Form1_Load);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MuseumSpel
 {
@@ -21,7 +22,7 @@ namespace MuseumSpel
         public int score = 0;
         public int framecounter2 = 0;
         public int framerate2 = 0;
-        private string time;
+        public string time;
 
         public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
