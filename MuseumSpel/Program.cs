@@ -122,7 +122,6 @@ namespace MuseumSpel
             speelVeld.VoegSpelObjectToe(new Muur(13, 4));
             #endregion
 
-
             //power ups
             #region power ups
             speelVeld.VoegSpelObjectToe(new PowerUp(6, 6));
@@ -138,6 +137,12 @@ namespace MuseumSpel
             speelVeld.VoegSpelObjectToe(new Schilderij(5, 5));
             speelVeld.VoegSpelObjectToe(new Schilderij(8, 5));
             #endregion
+
+            //Eindpunt
+            #region Eindpunt
+            speelVeld.VoegSpelObjectToe(new Eindpunt(16, 10));
+            #endregion
+
             #endregion
             Form1 form1 = new Form1(speelVeld); //Publisher
             SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld);//Controller
