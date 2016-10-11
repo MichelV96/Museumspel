@@ -242,13 +242,21 @@ namespace MuseumSpel
                     if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
                     {
                         
-                        //Console.WriteLine("MoveLeft");
+                        //Beweging naar links
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                         {
                             bewaker.heenweg = false;
                         }
-
+                    }
+                    //Beweging naar rechts
+                    if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
+                    {
+                        bewaker.Cor_X += bewaker.speed;
+                        if (bewaker.Cor_X >= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = false;
+                        }
                     }
                 }
                 else if (!bewaker.heenweg)
@@ -258,6 +266,15 @@ namespace MuseumSpel
                         //Console.WriteLine("MoveRight");
                         bewaker.Cor_X += bewaker.speed;
                         if (bewaker.Cor_X > (bewaker.wayPoints[0, 0] + 1) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = true;
+                        }
+                    }
+                    if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
+                    {
+                        //Console.WriteLine("MoveRight");
+                        bewaker.Cor_X -= bewaker.speed;
+                        if (bewaker.Cor_X < (bewaker.wayPoints[0, 0] + 1) * 50 && bewaker.Cor_X % 50 == 0)
                         {
                             bewaker.heenweg = true;
                         }
