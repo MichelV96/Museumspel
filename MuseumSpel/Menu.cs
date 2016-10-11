@@ -25,8 +25,8 @@ namespace MuseumSpel
             backgroundSound.Play();
             this.ControlBox = false;
 
-            Width = 300;
-            Height = 350;
+            Width = 910;
+            Height = 380;
             Text = "Hoofdmenu";
             // elementen in de dialog
             Button startSpel = new Button() { Text = "Start spel", Left = 15, Width = 250, Height = 50, Top = 20 };
