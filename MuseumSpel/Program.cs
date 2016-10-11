@@ -146,7 +146,11 @@ namespace MuseumSpel
             #region Guard
             Bewaker bewaker = new Bewaker(16, 0);
             speelVeld.VoegSpelObjectToe(bewaker);
-            
+            Bewaker bewaker2 = new Bewaker(13, 0);
+            speelVeld.VoegSpelObjectToe(bewaker2);
+            Bewaker bewaker3 = new Bewaker(14, 0);
+            speelVeld.VoegSpelObjectToe(bewaker3);
+
 
             #endregion
 
@@ -158,6 +162,7 @@ namespace MuseumSpel
             form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
             form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
             gameloop.ModelChanged += form1.OnModelChanged; //Subscriber
+            gameloop.ModelChanged2 += form1.OnModelChanged2; //Subscriber
             Application.Run(form1);
             bool GameOver = true;
 

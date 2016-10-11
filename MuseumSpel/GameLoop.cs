@@ -20,9 +20,12 @@ namespace MuseumSpel
         public int score = 0;
         public int framecounter2 = 0;
         public int framerate2 = 0;
-        private string time;
+        public string time;
+        public int guardTimer;
+
 
         public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
+        public event ModelChangedEventHandeler2 ModelChanged2;
 
         public void ShutDown()
         {
@@ -83,6 +86,15 @@ namespace MuseumSpel
                 frameRate = frameCount;
 
                 frameCount = 0;
+            }
+
+            if(p_currentTime > guardTimer + 30000000)
+            {
+
+                if (ModelChanged2 != null)
+                {
+                    ModelChanged2();
+                }
             }
 
         }

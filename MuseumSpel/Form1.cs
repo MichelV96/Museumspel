@@ -32,7 +32,27 @@ namespace MuseumSpel
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+
+
+        }
+
+        public void OnModelChanged2()
+        {
+
+            foreach (SpelObject spelObject in speelVeld.spelObjecten)
+            {
+                if (spelObject.GetType() == typeof(Bewaker))
+                {
+                    speelVeld.GuardMovment(16, 9, Direction.Down, spelObject);
+
+                }
+                if (spelObject.GetType() == typeof(Bewaker))
+                {
+                    speelVeld.GuardMovment(0, 9, Direction.Left, spelObject);
+
+                }
+
+            }
 
         }
         public void OnModelChanged()

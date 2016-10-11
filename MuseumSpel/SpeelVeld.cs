@@ -9,6 +9,7 @@ using System.Windows.Forms;
 namespace MuseumSpel
 {
     public delegate void ModelChangedEventHandeler();
+    public delegate void ModelChangedEventHandeler2();
 
     public enum Direction
     {
@@ -26,7 +27,7 @@ namespace MuseumSpel
         public int borderY { get; set; }
         public Speler speler { get; set; }
         //lists
-        private List<SpelObject> spelObjecten;
+        public List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
         private List<SpelObject> waterplassen;
         //event
@@ -92,6 +93,7 @@ namespace MuseumSpel
                 }
             }
         }
+
 
         public void setRichting(Direction loopRichting)
         {
@@ -287,7 +289,7 @@ namespace MuseumSpel
 
 
 
-        public void GuardMovment(int corEindX, int corEindY, Direction Direction, Bewaker bewaker)
+        public void GuardMovment(int corEindX, int corEindY, Direction Direction, SpelObject bewaker)
         {
 
             if (Direction == Direction.Up &&  bewaker.Cor_Y >= corEindY)
