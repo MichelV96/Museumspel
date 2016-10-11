@@ -119,9 +119,9 @@ namespace MuseumSpel
             Console.WriteLine("UNSTUNNED!");
             speed = oldSpeed;
             freezeMotion = false;
-            //startCooldown = currentTime;
+            startCooldown = currentTime;
             isStunned = false;
-            //stunCooldown = true;
+            stunCooldown = true;
         }
 
         public void EndCooldown()
