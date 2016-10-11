@@ -21,6 +21,7 @@ namespace MuseumSpel
 
         public void OnKeyPressed(KeyEventArgs e)
         {
+            form1.startup = false;
             if (!speelVeld.speler.isStunned)
             {
                 if (e.KeyData == Keys.W)

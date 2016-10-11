@@ -11,8 +11,7 @@ namespace MuseumSpel
     // Model
     public class Speler : SpelObject
     {
-
-       
+      
         public int speed { get; set; }
         public Bitmap normalTexture { get; set; }
 
@@ -22,7 +21,7 @@ namespace MuseumSpel
         private int oldSpeed;
         public int startStun;
         public int startCooldown;
-
+        public bool freezeMotion = false;
 
         //Voor de powerup
         public bool isDisguised { get; set; }
@@ -38,7 +37,7 @@ namespace MuseumSpel
 
         public void setPicture(Direction direction)
         {
-            if (!isDisguised)
+            if (!isDisguised && !freezeMotion)
             {
                 if (direction == Direction.Up)
                 {
@@ -73,7 +72,7 @@ namespace MuseumSpel
                     texture = new Bitmap("Afbeeldingen\\10.png");
                 }
             }
-            else
+            else if(!freezeMotion)
             {
                 PowerUp();
             }
@@ -99,22 +98,23 @@ namespace MuseumSpel
         {
             //if (!stunCooldown)
             //{
-                Console.WriteLine("STUNNED!");
-                oldSpeed = 5;
-                speed = 0;
-                startStun = currentTime;
-                //isStunned = true;
+            Console.WriteLine("STUNNED!");
+            oldSpeed = 5;
+            speed = 0;
+            startStun = currentTime;
+            freezeMotion = true;
+            //isStunned = true;
             //}
-            
         }
 
         public void EndStun(int currentTime)
         {
             Console.WriteLine("UNSTUNNED!");
             speed = oldSpeed;
-            //startCooldown = currentTime;
+            freezeMotion = false;
+            startCooldown = currentTime;
             isStunned = false;
-            //stunCooldown = true;
+            stunCooldown = true;
         }
 
         public void EndCooldown()

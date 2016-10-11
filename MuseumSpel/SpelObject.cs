@@ -28,7 +28,7 @@ namespace MuseumSpel
 
         }
 
-        public void PrintSpelObject(int cor_X, int cor_Y, int vakGrootte, Graphics g)
+        public virtual void PrintSpelObject(int cor_X, int cor_Y, int vakGrootte, Graphics g)
         {
             g.DrawImage(texture, cor_X * vakGrootte, cor_Y * vakGrootte, vakGrootte, vakGrootte);
         }

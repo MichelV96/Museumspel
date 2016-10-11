@@ -143,7 +143,7 @@ namespace MuseumSpel
             //Guard
             #region Guard
             Bewaker bewaker = new Bewaker(12, 0, 2, 0, 5);
-            speelVeld.VoegSpelObjectToe(bewaker);
+            speelVeld.voegBewakerToe(bewaker);
             
 
             #endregion
