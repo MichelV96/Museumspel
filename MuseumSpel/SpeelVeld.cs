@@ -29,6 +29,7 @@ namespace MuseumSpel
         private List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
         private List<SpelObject> waterplassen;
+        private List<SpelObject> bewakers;
         //event
         //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
@@ -58,6 +59,7 @@ namespace MuseumSpel
             spelObjecten = new List<SpelObject>();
             paintArray = new List<SpelObject>();
             waterplassen = new List<SpelObject>();
+            bewakers = new List<SpelObject>();
 
             this.gameLoop = gameloop;
         }
@@ -193,6 +195,7 @@ namespace MuseumSpel
                         break;
                 }
             }
+
             //power up
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
             if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
@@ -224,6 +227,28 @@ namespace MuseumSpel
             }
         }
 
+
+        //Bewaker
+        public void GuardAutomaticMovement()
+        {
+            Console.WriteLine("links");
+            foreach (Bewaker bewaker in bewakers)
+            {
+                if (bewaker.heenweg)
+                {
+                    if (bewaker.wayPoints[0, 0] >= bewaker.wayPoints[1, 0])
+                    {
+                        bewaker.Cor_X -= 1; //bewaker.speed EIGENLIJK
+                        
+                    }
+                }
+                else
+                {
+                    // terugweg implementeren
+                }
+            }
+        }
+
         public void pakSchilderij(bool keyPressed)
         {
             
@@ -249,13 +274,17 @@ namespace MuseumSpel
 
         public void VoegSpelObjectToe(SpelObject spelobject)
         {
-            if (spelobject.Cor_X < aantalVakkenX && spelobject.Cor_Y < aantalVakkenY && spelobject.GetType() != typeof(Schilderij))
+            if (spelobject.Cor_X < aantalVakkenX && spelobject.Cor_Y < aantalVakkenY && spelobject.GetType() == typeof(Schilderij))
             {
-                spelObjecten.Add(spelobject);
+                paintArray.Add(spelobject);
+            }
+            else if (spelobject.Cor_X < aantalVakkenX && spelobject.Cor_Y < aantalVakkenY && spelobject.GetType() == typeof(Schilderij))
+            {
+                bewakers.Add(spelobject);
             }
             else
             {
-                paintArray.Add(spelobject);
+                spelObjecten.Add(spelobject);
             }
         }
 

@@ -131,7 +131,7 @@ namespace MuseumSpel
 
             //Waterplas
             #region Waterplas
-            speelVeld.VoegSpelObjectToe(new Waterplas(2, 8));
+            speelVeld.VoegSpelObjectToe(new Waterplas(3, 8));
             #endregion
 
             //Schilderij
@@ -142,7 +142,7 @@ namespace MuseumSpel
 
             //Guard
             #region Guard
-            Bewaker bewaker = new Bewaker(16, 0);
+            Bewaker bewaker = new Bewaker(12, 0, 2, 0, 5);
             speelVeld.VoegSpelObjectToe(bewaker);
             
 
@@ -156,7 +156,9 @@ namespace MuseumSpel
             form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
             form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
             gameloop.ModelChanged += form1.OnModelChanged; //Subscriber
-          
+            gameloop.BewakerAction += speelVeld.GuardAutomaticMovement; //Subscriber
+
+
             Menu menu = new Menu();
             Application.Run(menu);
             Application.Run(form1);
