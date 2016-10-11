@@ -48,7 +48,6 @@ namespace MuseumSpel
                 speelVeld.SpelerMovement(Direction.Left);
 
             Application.DoEvents();
-
             this.Invalidate();// Heel speelveld wordt opnieuw getekend
         }
 
@@ -70,8 +69,8 @@ namespace MuseumSpel
                 }
 
                 speelVeld.PrintSpeelVeld(dc);
-            
-                    dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, speelVeld.vakGrootte);
+
+                dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, speelVeld.vakGrootte);
 
                 if (!speelVeld.started)
                 {

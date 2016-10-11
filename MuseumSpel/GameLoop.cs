@@ -41,7 +41,16 @@ namespace MuseumSpel
             }
         }
 
-
+        /*
+         * 1 seconde is 1000 tics
+         * als je x aantal frames in een seconde wilt dan doe je 1000 tics gedeeld door x aantal frames
+         * maak je eigen int waarde aan voor dit voorbeld is dat y
+         * je kunt je eigen counter maken door het volgende te doen:
+         * if (p_currentTime > y + x){
+         * y = p_currentTime;
+         * plaats hier je delegate;
+         * }
+         */
         public void gameLoop()
         {
             //update timer
