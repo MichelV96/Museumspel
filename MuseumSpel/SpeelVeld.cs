@@ -27,7 +27,7 @@ namespace MuseumSpel
         public Speler speler { get; set; }
         //lists
         private List<SpelObject> spelObjecten;
-        private List<SpelObject> paintArray;
+        public List<SpelObject> paintArray;
         private List<SpelObject> waterplassen;
         //event
         //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
