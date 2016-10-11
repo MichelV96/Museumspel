@@ -7,6 +7,8 @@ using System.Windows.Forms;
 
 namespace MuseumSpel
 {
+    public delegate void BewakerActie();
+
     public class GameLoop
     {
         private int p_startTime = 0;
@@ -25,6 +27,7 @@ namespace MuseumSpel
         public string time;
 
         public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
+        public event BewakerActie BewakerAction;
 
         public void ShutDown()
         {
@@ -58,11 +61,13 @@ namespace MuseumSpel
 
             p_currentTime = Environment.TickCount;
             
-            //refresh at 60 FPS
             if(p_currentTime > guardTime + 33)
             {
-                // guard delegate JORDY NU!!!!
+                guardTime = p_currentTime;
+                if (BewakerAction != null)
+                    BewakerAction();
             }
+            //refresh at 60 FPS
             if (p_currentTime > p_startTime + 16)
             {
                 framecounter2++;
@@ -101,8 +106,7 @@ namespace MuseumSpel
 
                 frameCount = 0;
             }
-
-        }
+            }
 
     }
 }

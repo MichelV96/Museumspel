@@ -51,6 +51,21 @@ namespace MuseumSpel
             this.Invalidate();// Heel speelveld wordt opnieuw getekend
         }
 
+        public void close()
+        {
+            speelVeld.paused = true;
+            var result = MessageBox.Show("do you want to quit?", "closing", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            if(result == DialogResult.OK)
+            {
+                this.Close();
+            }
+            if(result == DialogResult.Cancel)
+            {
+                speelVeld.paused = false;
+            }
+        }
+
         protected override void OnClosed(EventArgs e)
         {
             MessageBox.Show("it's over man! gameover! gg!", "game shutdown");
@@ -70,7 +85,12 @@ namespace MuseumSpel
 
                 speelVeld.PrintSpeelVeld(dc);
 
-                dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, speelVeld.vakGrootte);
+                speelVeld.speler.PrintSpelObject(speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, dc);
+
+                foreach (Bewaker bewaker in speelVeld.bewakers)
+                {
+                    bewaker.PrintSpelObject(bewaker.Cor_X, bewaker.Cor_Y, speelVeld.vakGrootte, dc);
+                }
 
                 if (!speelVeld.started)
                 {

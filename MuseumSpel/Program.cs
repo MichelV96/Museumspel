@@ -137,10 +137,15 @@ namespace MuseumSpel
             speelVeld.VoegSpelObjectToe(new Schilderij(4, 4));
             speelVeld.VoegSpelObjectToe(new Schilderij(12, 4));
             #endregion
-
+            
             //Eindpunt
             #region Eindpunt
             speelVeld.VoegSpelObjectToe(new Eindpunt(16, 10));
+            #endregion
+            //Guard
+            #region Guard
+            speelVeld.voegBewakerToe(new Bewaker(12, 0, 2, 0, 5));
+            speelVeld.voegBewakerToe(new Bewaker(3, 10, 12, 10, 5));
             #endregion
 
             #endregion
@@ -149,16 +154,12 @@ namespace MuseumSpel
             form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
             form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
             gameloop.ModelChanged += form1.OnModelChanged; //Subscriber
-          
+            gameloop.BewakerAction += speelVeld.GuardAutomaticMovement; //Subscriber
+
+
             Menu menu = new Menu();
             Application.Run(menu);
             Application.Run(form1);
-            bool GameOver = true;
-
-            while (!GameOver)
-            {
-
-            }
         }
     }
 }
