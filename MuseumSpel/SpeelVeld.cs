@@ -88,7 +88,8 @@ namespace MuseumSpel
                     speler.EndStun(gameLoop.p_currentTime);
                 }
 
-                if(speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 10000)
+
+                if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 1000)
                 {
                     Console.WriteLine("stund cooldown is true");
                     speler.EndCooldown();
