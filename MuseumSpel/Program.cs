@@ -137,8 +137,8 @@ namespace MuseumSpel
 
             //Schilderij
             #region Schilderij
-            speelVeld.VoegSpelObjectToe(new Schilderij(5, 5));
-            speelVeld.VoegSpelObjectToe(new Schilderij(8, 5));
+            speelVeld.VoegSpelObjectToe(new Schilderij(4, 4));
+            speelVeld.VoegSpelObjectToe(new Schilderij(12, 4));
             #endregion
 
 

@@ -211,7 +211,7 @@ namespace MuseumSpel
                     if (Enumerable.Range(((waterplas.Cor_X * vakGrootte) - 15), 30).Contains(speler.Cor_X) && Enumerable.Range(((waterplas.Cor_Y * vakGrootte) - 15), 30).Contains(speler.Cor_Y) && !speler.stunCooldown && !speler.isStunned)
                     {
                         speler.isStunned = true;
-                        speler.speed = 25;
+                        speler.speed = 15;
                         for (int i = 0; i<=4; i++)
                         {
                             gameLoop.redraw();

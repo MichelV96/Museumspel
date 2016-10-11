@@ -89,7 +89,7 @@ namespace MuseumSpel
             //het oude plaatje
              
             //nieuw plaatje omdat je de powerup hebt opgepakt
-            texture = new Bitmap("Afbeeldingen\\Front_50PX.png");
+            texture = new Bitmap("Afbeeldingen\\vermomming.png");
         }
         public void PowerDown()
         {
