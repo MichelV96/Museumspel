@@ -21,31 +21,30 @@ namespace MuseumSpel
 
         public void OnKeyPressed(KeyEventArgs e)
         {
-            if (e.KeyData == Keys.W)
+            if (!speelVeld.speler.isStunned)
             {
-                speelVeld.setRichting(Direction.Up);
-                speelVeld.speler.setPicture(Direction.Up);
+                if (e.KeyData == Keys.W)
+                {
+                    speelVeld.setRichting(Direction.Up);
+                }
+                else if (e.KeyData == Keys.S)
+                {
+                    speelVeld.setRichting(Direction.Down);
+                }
+                else if (e.KeyData == Keys.A)
+                {
+                    speelVeld.setRichting(Direction.Left);
+                }
+                else if (e.KeyData == Keys.D)
+                {
+                    speelVeld.setRichting(Direction.Right);
+                }
+                if (e.KeyData == Keys.F)
+                {
+                    speelVeld.pakSchilderij(true);
+                }
+                form1.Invalidate();
             }
-            else if (e.KeyData == Keys.S)
-            {
-                speelVeld.setRichting(Direction.Down);
-                speelVeld.speler.setPicture(Direction.Down);
-            }
-            else if (e.KeyData == Keys.A)
-            {
-                speelVeld.setRichting(Direction.Left);
-                speelVeld.speler.setPicture(Direction.Left);
-            }
-            else if (e.KeyData == Keys.D)
-            {
-                speelVeld.setRichting(Direction.Right);
-                speelVeld.speler.setPicture(Direction.Right);
-            }
-            if (e.KeyData == Keys.F)
-            {
-                speelVeld.pakSchilderij(true);
-            }
-            form1.Invalidate();
         }
 
         public void OnKeyUp(KeyEventArgs e)
