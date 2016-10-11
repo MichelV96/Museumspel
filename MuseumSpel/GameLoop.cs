@@ -61,13 +61,13 @@ namespace MuseumSpel
 
             p_currentTime = Environment.TickCount;
             
-            //refresh at 60 FPS
-            if(p_currentTime > guardTime + 1000)
+            if(p_currentTime > guardTime + 33)
             {
                 guardTime = p_currentTime;
                 if (BewakerAction != null)
                     BewakerAction();
             }
+            //refresh at 60 FPS
             if (p_currentTime > p_startTime + 16)
             {
                 framecounter2++;

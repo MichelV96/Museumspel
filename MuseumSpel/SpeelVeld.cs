@@ -29,7 +29,7 @@ namespace MuseumSpel
         private List<SpelObject> spelObjecten;
         private List<SpelObject> paintArray;
         private List<SpelObject> waterplassen;
-        private List<SpelObject> bewakers;
+        public List<Bewaker> bewakers;
         //event
         //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
@@ -59,9 +59,10 @@ namespace MuseumSpel
             spelObjecten = new List<SpelObject>();
             paintArray = new List<SpelObject>();
             waterplassen = new List<SpelObject>();
-            bewakers = new List<SpelObject>();
+            bewakers = new List<Bewaker>();
 
             this.gameLoop = gameloop;
+
         }
 
         // Methodes
@@ -231,20 +232,34 @@ namespace MuseumSpel
         //Bewaker
         public void GuardAutomaticMovement()
         {
-            Console.WriteLine("links");
             foreach (Bewaker bewaker in bewakers)
             {
+                Console.WriteLine(bewaker.heenweg);
                 if (bewaker.heenweg)
                 {
-                    if (bewaker.wayPoints[0, 0] >= bewaker.wayPoints[1, 0])
+                    if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
                     {
-                        bewaker.Cor_X -= 1; //bewaker.speed EIGENLIJK
                         
+                        //Console.WriteLine("MoveLeft");
+                        bewaker.Cor_X -= bewaker.speed;
+                        if (bewaker.Cor_X < (bewaker.wayPoints[1, 0] + 1) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = false;
+                        }
+
                     }
                 }
-                else
+                else if (!bewaker.heenweg)
                 {
-                    // terugweg implementeren
+                    if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
+                    {
+                        //Console.WriteLine("MoveRight");
+                        bewaker.Cor_X += bewaker.speed;
+                        if (bewaker.Cor_X > (bewaker.wayPoints[0, 0] + 1) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = true;
+                        }
+                    }
                 }
             }
         }
@@ -274,18 +289,18 @@ namespace MuseumSpel
 
         public void VoegSpelObjectToe(SpelObject spelobject)
         {
-            if (spelobject.Cor_X < aantalVakkenX && spelobject.Cor_Y < aantalVakkenY && spelobject.GetType() == typeof(Schilderij))
-            {
-                paintArray.Add(spelobject);
-            }
-            else if (spelobject.Cor_X < aantalVakkenX && spelobject.Cor_Y < aantalVakkenY && spelobject.GetType() == typeof(Schilderij))
-            {
-                bewakers.Add(spelobject);
-            }
-            else
+            if (spelobject.Cor_X < aantalVakkenX && spelobject.Cor_Y < aantalVakkenY && spelobject.GetType() != typeof(Schilderij))
             {
                 spelObjecten.Add(spelobject);
+            } else
+            {
+                paintArray.Add(spelobject); 
             }
+        }
+
+        public void voegBewakerToe(Bewaker bewaker)
+        {
+            bewakers.Add(bewaker);
         }
 
         public void PrintSpeelVeld(Graphics g)
@@ -322,33 +337,5 @@ namespace MuseumSpel
 
             
         }
-
-
-
-        //public void GuardMovment(int corEindX, int corEindY, Direction Direction, Bewaker bewaker)
-        //{
-
-        //    if (Direction == Direction.Up &&  bewaker.Cor_Y >= corEindY)
-        //    {
-        //        bewaker.Cor_Y -= 1;
-        //    }
-        //    else if (Direction == Direction.Down && bewaker.Cor_Y <= corEindY)
-        //    {
-        //        bewaker.Cor_Y += 1;
-
-        //    }
-        //    else if (Direction == Direction.Left && bewaker.Cor_X >= corEindX)
-        //    {
-        //        bewaker.Cor_X -= 1;
-
-        //    }
-        //    else if (Direction == Direction.Right && bewaker.Cor_X <= corEindX)
-        //    {
-        //        bewaker.Cor_X += 1;
-
-        //    }
-
-
-        //}
     }
 }

@@ -11,8 +11,7 @@ namespace MuseumSpel
     // Model
     public class Speler : SpelObject
     {
-
-       
+      
         public int speed { get; set; }
         public Bitmap normalTexture { get; set; }
 
@@ -23,7 +22,6 @@ namespace MuseumSpel
         public int startStun;
         public int startCooldown;
         public bool freezeMotion = false;
-
 
         //Voor de powerup
         public bool isDisguised { get; set; }
@@ -107,7 +105,6 @@ namespace MuseumSpel
             freezeMotion = true;
             //isStunned = true;
             //}
-
         }
 
         public void EndStun(int currentTime)
