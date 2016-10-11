@@ -11,7 +11,7 @@ namespace MuseumSpel
     public class Muur : SpelObject
     {
 
-        public Muur(int cor_X, int cor_Y) : base("Muur", cor_X, cor_Y, "Afbeeldingen\\wall.jpg", true)
+        public Muur(int cor_X, int cor_Y) : base("Muur", cor_X, cor_Y, "Afbeeldingen\\wall2.png", true)
         {
 
         }
