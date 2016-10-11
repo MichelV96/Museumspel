@@ -28,7 +28,7 @@ namespace MuseumSpel
         public DateTime endTime { get; set; }
         public int duration = 10;
 
-        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X, cor_Y, "Afbeeldingen\\0.png", true)
+        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X * 50, cor_Y * 50, "Afbeeldingen\\0.png", true)
         {
             this.speed = speed;
             this.isDisguised = false;
@@ -120,6 +120,11 @@ namespace MuseumSpel
         public void EndCooldown()
         {
             stunCooldown = false;
+        }
+
+        public override void PrintSpelObject(int cor_X, int cor_Y, int vakGrootte, Graphics g)
+        {
+            g.DrawImage(texture, cor_X, cor_Y, vakGrootte, vakGrootte);
         }
     }
 }
