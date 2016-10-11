@@ -48,8 +48,8 @@ namespace MuseumSpel
                 speelVeld.SpelerMovement(Direction.Left);
 
             Application.DoEvents();
-            
-            //this.Invalidate();// Heel speelveld wordt opnieuw getekend
+
+            this.Invalidate();// Heel speelveld wordt opnieuw getekend
         }
 
         protected override void OnClosed(EventArgs e)
