@@ -40,7 +40,6 @@ namespace MuseumSpel
 
             #endregion 
              
-
             //Linker buiten muur
             #region Linker Buiten Muur
             speelVeld.VoegSpelObjectToe(new Muur(1, 2));
@@ -132,7 +131,7 @@ namespace MuseumSpel
 
             //Waterplas
             #region Waterplas
-            speelVeld.VoegSpelObjectToe(new Waterplas(3, 8));
+            speelVeld.VoegSpelObjectToe(new Waterplas(2, 8));
             #endregion
 
             //Schilderij
@@ -140,7 +139,6 @@ namespace MuseumSpel
             speelVeld.VoegSpelObjectToe(new Schilderij(4, 4));
             speelVeld.VoegSpelObjectToe(new Schilderij(12, 4));
             #endregion
-
 
             //Guard
             #region Guard
