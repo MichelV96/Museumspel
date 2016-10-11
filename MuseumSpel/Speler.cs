@@ -36,7 +36,6 @@ namespace MuseumSpel
             this.isStunned = false;
         }
 
-
         public void setPicture(Direction direction)
         {
             if (!isDisguised)
@@ -80,9 +79,6 @@ namespace MuseumSpel
             }
         }
         //method
-
-        
-        
 
         public void PowerUp()
         {
