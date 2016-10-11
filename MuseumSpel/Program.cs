@@ -161,12 +161,6 @@ namespace MuseumSpel
             Menu menu = new Menu();
             Application.Run(menu);
             Application.Run(form1);
-            bool GameOver = true;
-
-            while (!GameOver)
-            {
-
-            }
         }
     }
 }
