@@ -101,14 +101,14 @@ namespace MuseumSpel
 
         public void Waterplas(int currentTime)
         {
-            if (!isStunned && !stunCooldown)
-            {
+            //if (!stunCooldown)
+            //{
                 Console.WriteLine("STUNNED!");
-                oldSpeed = speed;
+                oldSpeed = 5;
                 speed = 0;
                 startStun = currentTime;
-                isStunned = true;
-            }
+                //isStunned = true;
+            //}
             
         }
 
@@ -116,9 +116,9 @@ namespace MuseumSpel
         {
             Console.WriteLine("UNSTUNNED!");
             speed = oldSpeed;
-            startCooldown = currentTime;
+            //startCooldown = currentTime;
             isStunned = false;
-            stunCooldown = true;
+            //stunCooldown = true;
         }
 
         public void EndCooldown()
