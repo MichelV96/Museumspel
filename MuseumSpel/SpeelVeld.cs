@@ -126,6 +126,11 @@ namespace MuseumSpel
                 spelObjecten.RemoveAt(this.key);
                 this.p += 1;
             }
+
+            if(Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_X) && p < 1)
+            {
+                
+            }
         }
 
         public void pakSchilderij(bool keyPressed)
