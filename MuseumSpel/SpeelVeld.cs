@@ -169,7 +169,7 @@ namespace MuseumSpel
         public void SpelerMovement(Direction loopRichting)
         {
 
-            if (!idle)
+            if (!idle && !speler.freezeMotion)
             {
                 switch (loopRichting)
                 {
