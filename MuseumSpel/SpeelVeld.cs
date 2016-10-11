@@ -84,7 +84,8 @@ namespace MuseumSpel
                     speler.EndStun(gameLoop.p_currentTime);
                 }
 
-                if(speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 10000)
+
+                if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 1000)
                 {
                     Console.WriteLine("stund cooldown is true");
                     speler.EndCooldown();
@@ -117,7 +118,7 @@ namespace MuseumSpel
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
-            int marge = speler.speed;
+            int marge = speler.speed + 2;
 
             if (richting == Direction.Up)
             {
@@ -165,7 +166,7 @@ namespace MuseumSpel
 
         public void SpelerMovement(Direction loopRichting)
         {
-            if (!idle && !speler.isStunned)
+            if (!idle && !speler.freezeMotion)
             {
                 switch (loopRichting)
                 {
@@ -208,8 +209,14 @@ namespace MuseumSpel
                 {
                     if (Enumerable.Range(((waterplas.Cor_X * vakGrootte) - 15), 30).Contains(speler.Cor_X) && Enumerable.Range(((waterplas.Cor_Y * vakGrootte) - 15), 30).Contains(speler.Cor_Y) && !speler.stunCooldown && !speler.isStunned)
                     {
-                        //Console.WriteLine("shit");
+                        speler.isStunned = true;
+                        speler.speed = 15;
+                        for (int i = 0; i<=4; i++)
+                        {
+                            gameLoop.redraw();
+                        }
                         speler.Waterplas(gameLoop.p_currentTime);
+                        gameLoop.redraw();
                         break;
                     }
                 }
@@ -253,6 +260,9 @@ namespace MuseumSpel
 
         public void PrintSpeelVeld(Graphics g)
         {
+           Image image = new Bitmap("Afbeeldingen\\bc3.jpg");
+           g.DrawImage(image ,0 , 0, 850, 550);
+
             foreach (SpelObject spelObject in spelObjecten)
             {
                 spelObject.PrintSpelObject(spelObject.Cor_X, spelObject.Cor_Y, vakGrootte, g);

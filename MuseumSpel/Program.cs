@@ -134,8 +134,8 @@ namespace MuseumSpel
 
             //Schilderij
             #region Schilderij
-            speelVeld.VoegSpelObjectToe(new Schilderij(5, 5));
-            speelVeld.VoegSpelObjectToe(new Schilderij(8, 5));
+            speelVeld.VoegSpelObjectToe(new Schilderij(4, 4));
+            speelVeld.VoegSpelObjectToe(new Schilderij(12, 4));
             #endregion
 
             //Eindpunt
@@ -149,6 +149,9 @@ namespace MuseumSpel
             form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
             form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
             gameloop.ModelChanged += form1.OnModelChanged; //Subscriber
+          
+            Menu menu = new Menu();
+            Application.Run(menu);
             Application.Run(form1);
             bool GameOver = true;
 
