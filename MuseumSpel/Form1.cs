@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,6 +17,7 @@ namespace MuseumSpel
     {
         private SpeelVeld speelVeld; // model
         private int penDikte;
+        public bool startup = true;
         // Delegeate event
         public event KeyPressedEventHandeler KeyPressed;
         public event KeyPressedEventHandeler KeyRealeased;
@@ -48,6 +48,7 @@ namespace MuseumSpel
                 speelVeld.SpelerMovement(Direction.Left);
 
             Application.DoEvents();
+
             this.Invalidate();// Heel speelveld wordt opnieuw getekend
         }
 
@@ -59,20 +60,25 @@ namespace MuseumSpel
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Graphics dc = e.Graphics;
-            Pen p1 = new Pen(Color.Black, penDikte);
-            Rectangle rec1 = new Rectangle(0, 0, speelVeld.borderX, speelVeld.borderY);
-            if (rec1 != Rectangle.Empty)
-            {
-                dc.DrawRectangle(p1, rec1);
-            }
-            speelVeld.PrintSpeelVeld(dc);
-            dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, speelVeld.vakGrootte);
+                Graphics dc = e.Graphics;
+                Pen p1 = new Pen(Color.Black, penDikte);
+            
+                Rectangle rec1 = new Rectangle(0, 0, speelVeld.borderX, speelVeld.borderY);
+                if (rec1 != Rectangle.Empty)
+                {
+                    dc.DrawRectangle(p1, rec1);
+                }
 
-            if (!speelVeld.started)
-            {
-                speelVeld.loop();
-            }
+                speelVeld.PrintSpeelVeld(dc);
+            
+                    dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, speelVeld.vakGrootte);
+
+                if (!speelVeld.started)
+                {
+                    speelVeld.loop();
+                }
+                //startup = false;
+            
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
