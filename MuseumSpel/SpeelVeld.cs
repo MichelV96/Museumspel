@@ -118,7 +118,7 @@ namespace MuseumSpel
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
-            int marge = speler.speed;
+            int marge = speler.speed + 2;
 
             if (richting == Direction.Up)
             {
