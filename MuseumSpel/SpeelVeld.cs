@@ -254,7 +254,7 @@ namespace MuseumSpel
 
         public void PrintSpeelVeld(Graphics g)
         {
-           Image image = new Bitmap("Afbeeldingen\\bc.jpeg");
+           Image image = new Bitmap("Afbeeldingen\\bc3.jpg");
            g.DrawImage(image ,0 , 0, 850, 550);
             foreach (SpelObject spelObject in spelObjecten)
             {
