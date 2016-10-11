@@ -42,6 +42,7 @@ namespace MuseumSpel
         }
 
         /*
+         * p_currentTime is de huidige tic waar het systeen op zit
          * 1 seconde is 1000 tics
          * als je x aantal frames in een seconde wilt dan doe je 1000 tics gedeeld door x aantal frames
          * maak je eigen int waarde aan voor dit voorbeld is dat y
