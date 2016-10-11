@@ -243,7 +243,7 @@ namespace MuseumSpel
                         
                         //Console.WriteLine("MoveLeft");
                         bewaker.Cor_X -= bewaker.speed;
-                        if (bewaker.Cor_X < (bewaker.wayPoints[1, 0] + 1) * 50 && bewaker.Cor_X % 50 == 0)
+                        if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                         {
                             bewaker.heenweg = false;
                         }
