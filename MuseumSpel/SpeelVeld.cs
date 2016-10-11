@@ -41,6 +41,10 @@ namespace MuseumSpel
         //Powerup 
         int outfitX;
         int outfitY;
+        int gameScore = 2;
+        //Eind 
+        int eindX;
+        int eindY;
         //de key voor de spelobjecten array waar de powerup staat
         int key;
         //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
@@ -203,6 +207,15 @@ namespace MuseumSpel
                 this.p += 1;
             }
 
+            if (Enumerable.Range((eindX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((eindY - 15), 30).Contains(speler.Cor_Y) && p < 1)
+            {
+                if(gameScore == paintArray.Count)
+                {
+                    MessageBox.Show("Score = "+ gameScore);
+                    
+                }
+            }
+
             if (!speler.isStunned && !speler.stunCooldown)
             {
                 foreach (Waterplas waterplas in waterplassen)
@@ -281,6 +294,11 @@ namespace MuseumSpel
                     this.outfitY = spelObjecten[x].Cor_Y * vakGrootte;
                     //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
                     this.key = x;
+                }
+                if (spelObjecten[x].GetType() == typeof(Eindpunt))
+                {
+                    this.eindX = spelObjecten[x].Cor_X * vakGrootte;
+                    this.eindY = spelObjecten[x].Cor_Y * vakGrootte;
                 }
                 if(spelObjecten[x].GetType() == typeof(Waterplas))
                 {
