@@ -61,7 +61,7 @@ namespace MuseumSpel
 
             p_currentTime = Environment.TickCount;
             
-            if(p_currentTime > guardTime + 33)
+            if(p_currentTime > guardTime + 16)
             {
                 guardTime = p_currentTime;
                 if (BewakerAction != null)

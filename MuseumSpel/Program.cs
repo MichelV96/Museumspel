@@ -131,7 +131,8 @@ namespace MuseumSpel
 
             //Waterplas
             #region Waterplas
-            speelVeld.VoegSpelObjectToe(new Waterplas(2, 8));
+            speelVeld.VoegSpelObjectToe(new Waterplas(3, 8));
+            speelVeld.VoegSpelObjectToe(new Waterplas(8, 1));
             #endregion
 
             //Schilderij
@@ -142,10 +143,10 @@ namespace MuseumSpel
 
             //Guard
             #region Guard
-            speelVeld.voegBewakerToe(new Bewaker(12, 0, 2, 0, 5));
-            speelVeld.voegBewakerToe(new Bewaker(3, 10, 12, 10, 5));
-            speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 5));
-            speelVeld.voegBewakerToe(new Bewaker(14, 8, 14, 2, 5));
+                speelVeld.voegBewakerToe(new Bewaker(12, 0, 2, 0, 5));
+                speelVeld.voegBewakerToe(new Bewaker(3, 10, 12, 10, 5));
+                speelVeld.voegBewakerToe(new Bewaker(14, 8, 14, 2, 5));
+                speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 5));
 
             #endregion
 
