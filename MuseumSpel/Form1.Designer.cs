@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.speeltijdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.scoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.schilderijenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.schilderijenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.scoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.speeltijdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.geluidAanUitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,40 +50,20 @@
             this.scoreToolStripMenuItem,
             this.toolStripMenuItem1,
             this.speeltijdToolStripMenuItem,
-            this.menuToolStripMenuItem});
+            this.menuToolStripMenuItem,
+            this.geluidAanUitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 554);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(860, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // speeltijdToolStripMenuItem
+            // toolStripMenuItem3
             // 
-            this.speeltijdToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.speeltijdToolStripMenuItem.Name = "speeltijdToolStripMenuItem";
-            this.speeltijdToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.speeltijdToolStripMenuItem.Text = "Speeltijd";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(61, 20);
-            this.toolStripMenuItem1.Text = "00:00:00";
-            // 
-            // scoreToolStripMenuItem
-            // 
-            this.scoreToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.scoreToolStripMenuItem.Name = "scoreToolStripMenuItem";
-            this.scoreToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.scoreToolStripMenuItem.Text = "Score";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(49, 20);
-            this.toolStripMenuItem2.Text = "10000";
+            this.toolStripMenuItem3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(36, 20);
+            this.toolStripMenuItem3.Text = "0/0";
             // 
             // schilderijenToolStripMenuItem
             // 
@@ -91,19 +72,47 @@
             this.schilderijenToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.schilderijenToolStripMenuItem.Text = "Schilderijen";
             // 
-            // toolStripMenuItem3
+            // toolStripMenuItem2
             // 
-            this.toolStripMenuItem3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(36, 20);
-            this.toolStripMenuItem3.Text = "0/3";
+            this.toolStripMenuItem2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(43, 20);
+            this.toolStripMenuItem2.Text = "5000";
+            // 
+            // scoreToolStripMenuItem
+            // 
+            this.scoreToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.scoreToolStripMenuItem.Name = "scoreToolStripMenuItem";
+            this.scoreToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.scoreToolStripMenuItem.Text = "Score";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(61, 20);
+            this.toolStripMenuItem1.Text = "00:00:00";
+            // 
+            // speeltijdToolStripMenuItem
+            // 
+            this.speeltijdToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.speeltijdToolStripMenuItem.Name = "speeltijdToolStripMenuItem";
+            this.speeltijdToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.speeltijdToolStripMenuItem.Text = "Speeltijd";
             // 
             // menuToolStripMenuItem
             // 
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
-            this.menuToolStripMenuItem.Text = "Menu";
+            this.menuToolStripMenuItem.Text = "Pauze";
             this.menuToolStripMenuItem.Click += new System.EventHandler(this.menuToolStripMenuItem_Click);
+            // 
+            // geluidAanUitToolStripMenuItem
+            // 
+            this.geluidAanUitToolStripMenuItem.Name = "geluidAanUitToolStripMenuItem";
+            this.geluidAanUitToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.geluidAanUitToolStripMenuItem.Text = "Geluid Aan/Uit";
+            this.geluidAanUitToolStripMenuItem.Click += new System.EventHandler(this.geluidAanUitToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -137,6 +146,7 @@
         private System.Windows.Forms.ToolStripMenuItem schilderijenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem geluidAanUitToolStripMenuItem;
     }
 }
 

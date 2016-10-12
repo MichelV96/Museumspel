@@ -29,10 +29,12 @@ namespace MuseumSpel
         private List<SpelObject> spelObjecten;
         public List<SpelObject> paintArray;
         private List<SpelObject> waterplassen;
+        public List<Bewaker> bewakers;
         //event
         //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
         //gameloop
+        public bool paused { get; set; }
         public GameLoop gameLoop { get; private set; }
         public bool started { get; set; }
         public bool idle { get; set; }
@@ -58,8 +60,10 @@ namespace MuseumSpel
             spelObjecten = new List<SpelObject>();
             paintArray = new List<SpelObject>();
             waterplassen = new List<SpelObject>();
+            bewakers = new List<Bewaker>();
 
             this.gameLoop = gameloop;
+
         }
 
         // Methodes
@@ -85,7 +89,8 @@ namespace MuseumSpel
                     speler.EndStun(gameLoop.p_currentTime);
                 }
 
-                if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 10000)
+
+                if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 1000)
                 {
                     Console.WriteLine("stund cooldown is true");
                     speler.EndCooldown();
@@ -196,6 +201,7 @@ namespace MuseumSpel
                         break;
                 }
             }
+
             //power up
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
             if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
@@ -221,6 +227,59 @@ namespace MuseumSpel
                         speler.Waterplas(gameLoop.p_currentTime);
                         gameLoop.redraw();
                         break;
+                    }
+                }
+            }
+        }
+
+
+        //Bewaker
+        public void GuardAutomaticMovement()
+        {
+            foreach (Bewaker bewaker in bewakers)
+            {
+                Console.WriteLine(bewaker.heenweg);
+                if (bewaker.heenweg)
+                {
+                    if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
+                    {
+
+                        //Beweging naar links
+                        bewaker.Cor_X -= bewaker.speed;
+                        if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = false;
+                        }
+                    }
+                    //Beweging naar rechts
+                    if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
+                    {
+                        bewaker.Cor_X += bewaker.speed;
+                        if (bewaker.Cor_X >= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = false;
+                        }
+                    }
+                }
+                else if (!bewaker.heenweg)
+                {
+                    if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
+                    {
+                        //Console.WriteLine("MoveRight");
+                        bewaker.Cor_X += bewaker.speed;
+                        if (bewaker.Cor_X > (bewaker.wayPoints[0, 0] + 1) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = true;
+                        }
+                    }
+                    if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
+                    {
+                        //Console.WriteLine("MoveRight");
+                        bewaker.Cor_X -= bewaker.speed;
+                        if (bewaker.Cor_X < (bewaker.wayPoints[0, 0] + 1) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = true;
+                        }
                     }
                 }
             }
@@ -261,6 +320,11 @@ namespace MuseumSpel
             }
         }
 
+        public void voegBewakerToe(Bewaker bewaker)
+        {
+            bewakers.Add(bewaker);
+        }
+
         public void PrintSpeelVeld(Graphics g)
         {
             Image image = new Bitmap("Afbeeldingen\\bc3.jpg");
@@ -294,34 +358,5 @@ namespace MuseumSpel
             }
 
         }
-
-
-
-
-        //public void GuardMovment(int corEindX, int corEindY, Direction Direction, Bewaker bewaker)
-        //{
-
-        //    if (Direction == Direction.Up &&  bewaker.Cor_Y >= corEindY)
-        //    {
-        //        bewaker.Cor_Y -= 1;
-        //    }
-        //    else if (Direction == Direction.Down && bewaker.Cor_Y <= corEindY)
-        //    {
-        //        bewaker.Cor_Y += 1;
-
-        //    }
-        //    else if (Direction == Direction.Left && bewaker.Cor_X >= corEindX)
-        //    {
-        //        bewaker.Cor_X -= 1;
-
-        //    }
-        //    else if (Direction == Direction.Right && bewaker.Cor_X <= corEindX)
-        //    {
-        //        bewaker.Cor_X += 1;
-
-        //    }
-
-
-        //}
     }
 }

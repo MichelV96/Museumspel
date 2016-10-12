@@ -11,8 +11,7 @@ namespace MuseumSpel
     // Model
     public class Speler : SpelObject
     {
-
-       
+      
         public int speed { get; set; }
         public Bitmap normalTexture { get; set; }
 
@@ -24,19 +23,17 @@ namespace MuseumSpel
         public int startCooldown;
         public bool freezeMotion = false;
 
-
         //Voor de powerup
         public bool isDisguised { get; set; }
         public DateTime endTime { get; set; }
         public int duration = 10;
 
-        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X, cor_Y, "Afbeeldingen\\0.png", true)
+        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X * 50, cor_Y * 50, "Afbeeldingen\\0.png", true)
         {
             this.speed = speed;
             this.isDisguised = false;
             this.isStunned = false;
         }
-
 
         public void setPicture(Direction direction)
         {
@@ -82,9 +79,6 @@ namespace MuseumSpel
         }
         //method
 
-        
-        
-
         public void PowerUp()
         {
             //het oude plaatje
@@ -111,7 +105,6 @@ namespace MuseumSpel
             freezeMotion = true;
             //isStunned = true;
             //}
-
         }
 
         public void EndStun(int currentTime)
@@ -119,14 +112,19 @@ namespace MuseumSpel
             Console.WriteLine("UNSTUNNED!");
             speed = oldSpeed;
             freezeMotion = false;
-            //startCooldown = currentTime;
+            startCooldown = currentTime;
             isStunned = false;
-            //stunCooldown = true;
+            stunCooldown = true;
         }
 
         public void EndCooldown()
         {
             stunCooldown = false;
+        }
+
+        public override void PrintSpelObject(int cor_X, int cor_Y, int vakGrootte, Graphics g)
+        {
+            g.DrawImage(texture, cor_X, cor_Y, vakGrootte, vakGrootte);
         }
     }
 }

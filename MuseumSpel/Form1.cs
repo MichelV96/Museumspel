@@ -38,11 +38,6 @@ namespace MuseumSpel
             puntenPerSchilderij = 3000;
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -60,13 +55,26 @@ namespace MuseumSpel
                 speelVeld.SpelerMovement(Direction.Left);
 
             Application.DoEvents();
-
             this.Invalidate();// Heel speelveld wordt opnieuw getekend
+        }
+
+        public void close()
+        {
+            speelVeld.paused = true;
+            var result = MessageBox.Show("do you want to quit?", "closing", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.OK)
+            {
+                this.Close();
+            }
+            if (result == DialogResult.Cancel)
+            {
+                speelVeld.paused = false;
+            }
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            MessageBox.Show("it's over man! gameover! gg!", "game shutdown");
             speelVeld.gameLoop.ShutDown();
         }
 
@@ -83,7 +91,12 @@ namespace MuseumSpel
 
             speelVeld.PrintSpeelVeld(dc);
 
-            dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, speelVeld.vakGrootte);
+            speelVeld.speler.PrintSpelObject(speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, dc);
+
+            foreach (Bewaker bewaker in speelVeld.bewakers)
+            {
+                bewaker.PrintSpelObject(bewaker.Cor_X, bewaker.Cor_Y, speelVeld.vakGrootte, dc);
+            }
 
             if (!speelVeld.started)
             {
@@ -115,8 +128,6 @@ namespace MuseumSpel
             {
                 toolStripMenuItem2.Text = score.ToString();
             }
-
-
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -132,19 +143,23 @@ namespace MuseumSpel
                 KeyRealeased(e);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void menuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Ruben heeft het gefixt");
+            DialogResult dialogResult = MessageBox.Show("Wilt u het spel stoppen?", "Pauzemenu", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                speelVeld.gameLoop.ShutDown();
+                Application.Exit();
+            }
+            else
+            {
+                MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
+            }
+        }
+
+        private void geluidAanUitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
