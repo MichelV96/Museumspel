@@ -40,6 +40,7 @@ namespace MuseumSpel
         public bool idle { get; set; }
         public int richting { get; set; }
         private int cycle;
+        private int cyclestart;
         
         //Powerup 
         int outfitX;
@@ -73,6 +74,13 @@ namespace MuseumSpel
             started = true;
             while (!gameLoop.p_gameOver)
             {
+                //cycle++;
+                //if (gameLoop.p_currentTime >= cyclestart + 1000)
+                //{
+                //    Console.WriteLine(cycle.ToString());
+                //    cyclestart = gameLoop.p_currentTime;
+                //    cycle = 0;
+                //}
                 gameLoop.gameLoop();
                 //Console.WriteLine(speler.speed);
 
