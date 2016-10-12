@@ -126,7 +126,7 @@ namespace MuseumSpel
 
             //power ups
             #region power ups
-            speelVeld.VoegSpelObjectToe(new PowerUp(1, 0));
+            speelVeld.VoegSpelObjectToe(new PowerUp(4, 6));
             #endregion
 
             //Waterplas
