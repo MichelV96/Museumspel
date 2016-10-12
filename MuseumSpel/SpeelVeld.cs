@@ -35,9 +35,6 @@ namespace MuseumSpel
         private List<SpelObject> muren;
         private List<SpelObject> eindpunten;
         public List<Bewaker> bewakers;
-        
-        //event
-        //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
         //gameloop
         public bool paused { get; set; }
@@ -49,15 +46,16 @@ namespace MuseumSpel
         //Powerup 
         int outfitX;
         int outfitY;
-        int gameScore = 2;
-        //Eind 
-        int eindX;
-        int eindY;
+
         //de key voor de spelobjecten array waar de powerup staat
         int key;
 
         //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
         int p = 0;
+
+        //schilderij counter
+        private int aantalSchilderijen;
+        private int gepakteSchilderijen;
 
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
         {
@@ -227,14 +225,19 @@ namespace MuseumSpel
                 this.p += 1;
             }
 
-            if (Enumerable.Range((eindX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((eindY - 15), 30).Contains(speler.Cor_Y) && p < 1)
+            //eindpunt
+            #region Eindpunt
+            foreach (Eindpunt e in eindpunten)
             {
-                //if(gameScore == paintArray.Count)
-                //{
-                //    MessageBox.Show("Score = "+ gameScore);
-                    
-                //}
+                if (Enumerable.Range((e.Cor_X * vakGrootte - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((e.Cor_Y * vakGrootte - 15), 30).Contains(speler.Cor_Y))
+                {
+                    if (gepakteSchilderijen == aantalSchilderijen)
+                    {
+                        MessageBox.Show("Score = " + gepakteSchilderijen);
+                    }
+                }
             }
+            #endregion
 
             if (!speler.isStunned && !speler.stunCooldown)
             {
@@ -377,23 +380,26 @@ namespace MuseumSpel
             opgepaktDoorBewaker = true;
         }
 
+        //Schilderij oppakken
+        #region Schilderij pakken
         public void pakSchilderij(bool keyPressed)
         {
-            
             for (int i = 0; i < paintArray.Count; i++)
             {
                 int x = paintArray[i].Cor_X * vakGrootte;
                 int y = paintArray[i].Cor_Y * vakGrootte;
-                    Console.WriteLine("intx: " + x + " inty " + y);
-                    Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
                     if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
                     {
-                        Console.WriteLine("Keypressed3");
                         paintArray.Remove(paintArray[i]);
+                        gepakteSchilderijen = aantalSchilderijen - paintArray.Count;
+                    Console.WriteLine(gepakteSchilderijen);
+                    Console.WriteLine(aantalSchilderijen);
                     }
             }
 
         }
+        #endregion
+
         // test om cordinaat op grid terug te krijgen
         public int GetGridCordinate(int cor)
         {
@@ -443,14 +449,13 @@ namespace MuseumSpel
 
                 if (spelObjecten[x].GetType() == typeof(Waterplas))
                 {
-                    //this.waterplasX = spelObjecten[x].Cor_X * vakGrootte;
-                    //this.waterplasY = spelObjecten[x].Cor_Y * vakGrootte;
                     waterplassen.Add(spelObjecten[x]);
                 }
                 if (spelObjecten[x].GetType() == typeof(PowerUp))
                 {
                     powerups.Add(spelObjecten[x]);
                 }
+                aantalSchilderijen = paintArray.Count;
             }
 
         }
@@ -477,8 +482,6 @@ namespace MuseumSpel
             {
                 eindpunt.PrintSpelObject(eindpunt.Cor_X, eindpunt.Cor_Y, vakGrootte, g);
             }
-
-
 
         }
     }
