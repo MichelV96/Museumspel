@@ -44,7 +44,6 @@ namespace MuseumSpel
         public bool started { get; set; }
         public bool idle { get; set; }
         public int richting { get; set; }
-
         
         //Powerup 
         int outfitX;
@@ -241,28 +240,81 @@ namespace MuseumSpel
         {
             foreach (Bewaker bewaker in bewakers)
             {
-                //Console.WriteLine(bewaker.Cor_X + " " + bewaker.Cor_Y);
                 if (bewaker.heenweg)
                 {
+                    //Beweging naar links
                     if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
                     {
-                        
-                        //Console.WriteLine("MoveLeft");
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                         {
                             bewaker.heenweg = false;
+                            Console.WriteLine("Bewaker heenweg: " + bewaker.heenweg);
                         }
-
+                    }
+                    //Beweging naar rechts
+                    if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
+                    {
+                        bewaker.Cor_X += bewaker.speed;
+                        if (bewaker.Cor_X >= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = false;
+                        }
+                    }
+                    //Beweging naar beneden
+                    if (bewaker.wayPoints[0,1] < bewaker.wayPoints[1,1])
+                    {
+                        bewaker.Cor_Y += bewaker.speed;
+                        if (bewaker.Cor_Y >= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        {
+                            bewaker.heenweg = false;
+                        }
+                    }
+                    //Beweging naar boven
+                    if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
+                    {
+                        bewaker.Cor_Y -= bewaker.speed;
+                        if (bewaker.Cor_Y <= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        {
+                            bewaker.heenweg = false;
+                        }
                     }
                 }
                 else if (!bewaker.heenweg)
                 {
+                    //beweging naar rechts
                     if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
-                    {
-                        //Console.WriteLine("MoveRight");
+                    {     
                         bewaker.Cor_X += bewaker.speed;
                         if (bewaker.Cor_X > (bewaker.wayPoints[0, 0] + 1) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = true;
+                            Console.WriteLine("Bewaker heenweg: " + bewaker.heenweg);
+                        }
+                    }
+                    //beweging naar links
+                    if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
+                    {
+                        bewaker.Cor_X -= bewaker.speed;
+                        if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        {
+                            bewaker.heenweg = true;
+                        }
+                    }
+                    //Beweging naar boven
+                    if (bewaker.wayPoints[0, 1] < bewaker.wayPoints[1, 1])
+                    {
+                        bewaker.Cor_Y -= bewaker.speed;
+                        if (bewaker.Cor_Y <= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        {
+                            bewaker.heenweg = true;
+                        }
+                    }
+                    //Beweging naar beneden
+                    if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
+                    {
+                        bewaker.Cor_Y += bewaker.speed;
+                        if (bewaker.Cor_Y >= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                         {
                             bewaker.heenweg = true;
                         }

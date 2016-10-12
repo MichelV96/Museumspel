@@ -89,7 +89,7 @@ namespace MuseumSpel
                 
                 speelVeld.PrintSpeelVeld(dc);
 
-                dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, speelVeld.vakGrootte);
+                speelVeld.speler.PrintSpelObject(speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, dc);
 
                 foreach (Bewaker bewaker in speelVeld.bewakers)
                 {
