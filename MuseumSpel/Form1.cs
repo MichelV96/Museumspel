@@ -20,7 +20,6 @@ namespace MuseumSpel
         public bool startup = true;
         Graphics dc;
         PaintEventArgs dc2;
-        Region dc3;
         // Delegeate event
         public event KeyPressedEventHandeler KeyPressed;
         public event KeyPressedEventHandeler KeyRealeased;
@@ -92,15 +91,15 @@ namespace MuseumSpel
                 Rectangle rec1 = new Rectangle(0, 0, speelVeld.borderX, speelVeld.borderY);
                 if (rec1 != Rectangle.Empty)
                 {
-                    dc.DrawRectangle(p1, rec1);
+                    //  dc.DrawRectangle(p1, rec1);
                 }
+            Rectangle rec2;
                 
                 speelVeld.PrintSpeelVeld(dc);
-            #region MyClass definition
 
             speelVeld.speler.PrintSpelObject(speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, dc2.Graphics);
 
-            #endregion
+
             foreach (Bewaker bewaker in speelVeld.bewakers)
                 {
                     bewaker.PrintSpelObject(bewaker.Cor_X, bewaker.Cor_Y, speelVeld.vakGrootte, dc);
