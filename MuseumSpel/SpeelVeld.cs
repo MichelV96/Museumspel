@@ -39,7 +39,6 @@ namespace MuseumSpel
         public bool started { get; set; }
         public bool idle { get; set; }
         public int richting { get; set; }
-        private int cycle;
         
         //Powerup 
         int outfitX;
@@ -266,6 +265,15 @@ namespace MuseumSpel
                             bewaker.heenweg = false;
                         }
                     }
+                    //Beweging naar boven
+                    if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
+                    {
+                        bewaker.Cor_Y -= bewaker.speed;
+                        if (bewaker.Cor_Y <= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        {
+                            bewaker.heenweg = false;
+                        }
+                    }
                 }
                 else if (!bewaker.heenweg)
                 {
@@ -293,6 +301,15 @@ namespace MuseumSpel
                     {
                         bewaker.Cor_Y -= bewaker.speed;
                         if (bewaker.Cor_Y <= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        {
+                            bewaker.heenweg = true;
+                        }
+                    }
+                    //Beweging naar beneden
+                    if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
+                    {
+                        bewaker.Cor_Y += bewaker.speed;
+                        if (bewaker.Cor_Y >= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                         {
                             bewaker.heenweg = true;
                         }
