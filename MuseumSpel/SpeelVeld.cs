@@ -63,7 +63,6 @@ namespace MuseumSpel
         }
 
         // Methodes
-
         public void loop()
         {
             started = true;
@@ -166,7 +165,6 @@ namespace MuseumSpel
 
         public void SpelerMovement(Direction loopRichting)
         {
-
             if (!idle)
             {
                 switch (loopRichting)
