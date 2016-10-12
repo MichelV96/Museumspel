@@ -238,7 +238,7 @@ namespace MuseumSpel
         {
             foreach (Bewaker bewaker in bewakers)
             {
-                Console.WriteLine(bewaker.heenweg);
+                //Console.WriteLine(bewaker.heenweg);
                 if (bewaker.heenweg)
                 {
                     if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])

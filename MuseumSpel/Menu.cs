@@ -40,7 +40,7 @@ namespace MuseumSpel
             Controls.Add(startSpel);
             Controls.Add(opties);
             Controls.Add(sluitSpel);
-            this.Show();
+
         }
 
         private void Start()
@@ -64,7 +64,7 @@ namespace MuseumSpel
             opties.Font = new Font(opties.Font, FontStyle.Bold);
 
             Label lOmhoog = new Label() { Text = "omhoog: ", Left = 30, Top = 102, AutoSize = true };
-            TextBox tOmhoog = new TextBox() {Left = 85, Top = 100, Size = new Size(25, 25) };
+            TextBox tOmhoog = new TextBox() { Left = 85, Top = 100, Size = new Size(25, 25) };
 
             Label lOmlaag = new Label() { Text = "omlaag: ", Left = 30, Top = 132, AutoSize = true };
             TextBox tOmlaag = new TextBox() { Left = 85, Top = 130, Size = new Size(25, 25) };
@@ -102,6 +102,28 @@ namespace MuseumSpel
             options.Controls.Add(close);
             options.ShowDialog();
 
+        }
+
+        //Geluid aan en uit zetten
+        public void pasGeluidAan()
+        {
+            //SoundAan false maken als true is en andersom
+            this.soundAan = !this.soundAan;
+
+            //Stop muziek als true, play muziek als false
+            if (!soundAan)
+            {
+                backgroundSound.Stop();
+            }
+            else
+            {
+                backgroundSound.Play();
+            }
+        }
+
+        public bool getSoundAan()
+        {
+            return soundAan;
         }
 
         private void SoundOn_Click(object sender, EventArgs e)

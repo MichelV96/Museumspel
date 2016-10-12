@@ -22,6 +22,10 @@ namespace MuseumSpel
         private int beginScore;
         private int puntenPerSchilderij;
         public bool startup = true;
+        private Menu menu;
+        Graphics dc;
+        PaintEventArgs dc2;
+        Region dc3;
         // Delegeate event
         public event KeyPressedEventHandeler KeyPressed;
         public event KeyPressedEventHandeler KeyRealeased;
@@ -36,6 +40,7 @@ namespace MuseumSpel
             aantalSchilderijen = speelVeld.paintArray.Count;
             beginScore = 5000;
             puntenPerSchilderij = 3000;
+            menu = new Menu();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -55,8 +60,9 @@ namespace MuseumSpel
                 speelVeld.SpelerMovement(Direction.Left);
 
             Application.DoEvents();
-            this.Invalidate();// Heel speelveld wordt opnieuw getekend
+            this.Refresh();// Heel speelveld wordt opnieuw getekend
         }
+
 
         public void close()
         {
@@ -80,6 +86,7 @@ namespace MuseumSpel
 
         protected override void OnPaint(PaintEventArgs e)
         {
+
             Graphics dc = e.Graphics;
             Pen p1 = new Pen(Color.Black, penDikte);
 
@@ -157,9 +164,20 @@ namespace MuseumSpel
             }
         }
 
+        //Geluid uit en aan zetten
         private void geluidAanUitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            menu.pasGeluidAan();
+            bool soundAan = menu.getSoundAan();
 
+            if (soundAan)
+            {
+                geluidAanUitToolStripMenuItem.Image = new Bitmap("Afbeeldingen//sound_on.png");
+            }
+            else
+            {
+                geluidAanUitToolStripMenuItem.Image = new Bitmap("Afbeeldingen//sound_off.png");
+            }
         }
     }
 }

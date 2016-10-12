@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.schilderijenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -109,9 +110,9 @@
             // 
             // geluidAanUitToolStripMenuItem
             // 
+            this.geluidAanUitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("geluidAanUitToolStripMenuItem.Image")));
             this.geluidAanUitToolStripMenuItem.Name = "geluidAanUitToolStripMenuItem";
-            this.geluidAanUitToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
-            this.geluidAanUitToolStripMenuItem.Text = "Geluid Aan/Uit";
+            this.geluidAanUitToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
             this.geluidAanUitToolStripMenuItem.Click += new System.EventHandler(this.geluidAanUitToolStripMenuItem_Click);
             // 
             // Form1
