@@ -21,6 +21,7 @@ namespace MuseumSpel
 
         public void OnKeyPressed(KeyEventArgs e)
         {
+            form1.startup = false;
             if (!speelVeld.speler.isStunned)
             {
                 if (e.KeyData == Keys.W)
@@ -43,7 +44,10 @@ namespace MuseumSpel
                 {
                     speelVeld.pakSchilderij(true);
                 }
-                form1.Invalidate();
+                if(e.KeyData == Keys.Escape)
+                {
+                    form1.close();
+                }
             }
         }
 
@@ -66,7 +70,6 @@ namespace MuseumSpel
             {
                 speelVeld.speler.setPicture(Direction.RightIdle);
             }
-            form1.Invalidate();
         }
 
     }

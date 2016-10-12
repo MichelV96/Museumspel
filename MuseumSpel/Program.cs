@@ -56,10 +56,14 @@ namespace MuseumSpel
                 speelVeld.VoegSpelObjectToe(new PowerUp(x, y));
             }
 
+
             //Guard
             #region Guard
-            Bewaker bewaker = new Bewaker(16, 0);
-            speelVeld.VoegSpelObjectToe(bewaker);
+            speelVeld.voegBewakerToe(new Bewaker(12, 0, 2, 0, 5));
+            speelVeld.voegBewakerToe(new Bewaker(3, 10, 12, 10, 5));
+            speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 5));
+            speelVeld.voegBewakerToe(new Bewaker(14, 8, 14, 2, 5));
+
             #endregion
 
             Form1 form1 = new Form1(speelVeld); //Publisher
@@ -67,10 +71,13 @@ namespace MuseumSpel
             form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
             form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
             gameloop.ModelChanged += form1.OnModelChanged; //Subscriber
-          
+            gameloop.BewakerAction += speelVeld.GuardAutomaticMovement; //Subscriber
+            gameloop.BewakerAction += speelVeld.GuardDetectPlayer; //Subscriber
+
             Menu menu = new Menu();
-            Application.Run(menu);
-            Application.Run(form1);
+                Application.Run(menu);
+                Application.Run(form1);
+            
             bool GameOver = true;
 
             while (!GameOver)

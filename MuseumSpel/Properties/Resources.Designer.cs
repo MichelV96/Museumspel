@@ -63,6 +63,16 @@ namespace MuseumSpel.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bc3 {
+            get {
+                object obj = ResourceManager.GetObject("bc3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Front_50PX {
             get {
                 object obj = ResourceManager.GetObject("Front_50PX", resourceCulture);

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,6 +17,10 @@ namespace MuseumSpel
     {
         private SpeelVeld speelVeld; // model
         private int penDikte;
+        public bool startup = true;
+        Graphics dc;
+        PaintEventArgs dc2;
+        Region dc3;
         // Delegeate event
         public event KeyPressedEventHandeler KeyPressed;
         public event KeyPressedEventHandeler KeyRealeased;
@@ -33,8 +36,7 @@ namespace MuseumSpel
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
-
+            speelVeld.vulArraysMetObjecten();
         }
         public void OnModelChanged()
         {
@@ -47,8 +49,30 @@ namespace MuseumSpel
             if (speelVeld.richting == 4)
                 speelVeld.SpelerMovement(Direction.Left);
 
+            if (speelVeld.opgepaktDoorBewaker)
+            {
+                speelVeld.gameLoop.ShutDown();
+                this.Close();
+            }
             Application.DoEvents();
-            this.Invalidate();// Heel speelveld wordt opnieuw getekend
+            this.Refresh();// Heel speelveld wordt opnieuw getekend
+
+        }
+        
+
+        public void close()
+        {
+            speelVeld.paused = true;
+            var result = MessageBox.Show("do you want to quit?", "closing", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            if(result == DialogResult.OK)
+            {
+                this.Close();
+            }
+            if(result == DialogResult.Cancel)
+            {
+                speelVeld.paused = false;
+            }
         }
 
         protected override void OnClosed(EventArgs e)
@@ -59,20 +83,35 @@ namespace MuseumSpel
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Graphics dc = e.Graphics;
-            Pen p1 = new Pen(Color.Black, penDikte);
-            Rectangle rec1 = new Rectangle(0, 0, speelVeld.borderX, speelVeld.borderY);
-            if (rec1 != Rectangle.Empty)
-            {
-                dc.DrawRectangle(p1, rec1);
-            }
-            speelVeld.PrintSpeelVeld(dc);
-            dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, speelVeld.vakGrootte);
+            
+                dc = e.Graphics;
+            dc2 = e;
+            
+                Pen p1 = new Pen(Color.Black, penDikte);
+            
+                Rectangle rec1 = new Rectangle(0, 0, speelVeld.borderX, speelVeld.borderY);
+                if (rec1 != Rectangle.Empty)
+                {
+                    dc.DrawRectangle(p1, rec1);
+                }
+                
+                speelVeld.PrintSpeelVeld(dc);
+            #region MyClass definition
 
-            if (!speelVeld.started)
-            {
-                speelVeld.loop();
-            }
+            speelVeld.speler.PrintSpelObject(speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, dc2.Graphics);
+
+            #endregion
+            foreach (Bewaker bewaker in speelVeld.bewakers)
+                {
+                    bewaker.PrintSpelObject(bewaker.Cor_X, bewaker.Cor_Y, speelVeld.vakGrootte, dc);
+                }
+
+                if (!speelVeld.started)
+                {
+                    speelVeld.loop();
+                }
+                //startup = false;
+            
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -86,6 +125,11 @@ namespace MuseumSpel
         {
             if (KeyRealeased != null)
                 KeyRealeased(e);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.Invalidate();
         }
     }
 }

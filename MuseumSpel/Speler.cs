@@ -11,8 +11,7 @@ namespace MuseumSpel
     // Model
     public class Speler : SpelObject
     {
-
-       
+      
         public int speed { get; set; }
         public Bitmap normalTexture { get; set; }
 
@@ -22,24 +21,23 @@ namespace MuseumSpel
         private int oldSpeed;
         public int startStun;
         public int startCooldown;
-
+        public bool freezeMotion = false;
 
         //Voor de powerup
         public bool isDisguised { get; set; }
         public DateTime endTime { get; set; }
         public int duration = 10;
 
-        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X, cor_Y, "Afbeeldingen\\0.png", true)
+        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X * 50, cor_Y * 50, "Afbeeldingen\\0.png", true)
         {
             this.speed = speed;
             this.isDisguised = false;
             this.isStunned = false;
         }
 
-
         public void setPicture(Direction direction)
         {
-            if (!isDisguised)
+            if (!isDisguised && !freezeMotion)
             {
                 if (direction == Direction.Up)
                 {
@@ -74,28 +72,25 @@ namespace MuseumSpel
                     texture = new Bitmap("Afbeeldingen\\10.png");
                 }
             }
-            else
+            else if(!freezeMotion)
             {
                 PowerUp();
             }
         }
         //method
 
-        
-        
-
         public void PowerUp()
         {
             //het oude plaatje
              
             //nieuw plaatje omdat je de powerup hebt opgepakt
-            texture = new Bitmap("Afbeeldingen\\vermomming.png");
+            texture = new Bitmap("Afbeeldingen\\power.png");
         }
         public void PowerDown()
         {
             //het oude plaatje
             //nieuw plaatje omdat je de powerup hebt opgepakt
-            texture = new Bitmap(base.texture); ;
+            texture = new Bitmap(base.texture);
             this.isDisguised = false;
         }
 
@@ -103,27 +98,33 @@ namespace MuseumSpel
         {
             //if (!stunCooldown)
             //{
-                Console.WriteLine("STUNNED!");
-                oldSpeed = 5;
-                speed = 0;
-                startStun = currentTime;
-                //isStunned = true;
+            Console.WriteLine("STUNNED!");
+            oldSpeed = 5;
+            speed = 0;
+            startStun = currentTime;
+            freezeMotion = true;
+            //isStunned = true;
             //}
-            
         }
 
         public void EndStun(int currentTime)
         {
             Console.WriteLine("UNSTUNNED!");
             speed = oldSpeed;
-            //startCooldown = currentTime;
+            freezeMotion = false;
+            startCooldown = currentTime;
             isStunned = false;
-            //stunCooldown = true;
+            stunCooldown = true;
         }
 
         public void EndCooldown()
         {
             stunCooldown = false;
+        }
+
+        public override void PrintSpelObject(int cor_X, int cor_Y, int vakGrootte, Graphics g)
+        {
+            g.DrawImage(texture, cor_X, cor_Y, vakGrootte, vakGrootte);
         }
     }
 }

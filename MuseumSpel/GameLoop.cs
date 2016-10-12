@@ -7,9 +7,12 @@ using System.Windows.Forms;
 
 namespace MuseumSpel
 {
+    public delegate void BewakerActie();
+
     public class GameLoop
     {
         private int p_startTime = 0;
+        public int guardTime = 0;
         public int p_currentTime = 0;
         public bool p_gameOver = false;
         public int frameCount = 0;
@@ -24,6 +27,7 @@ namespace MuseumSpel
         public string time;
 
         public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
+        public event BewakerActie BewakerAction;
 
         public void ShutDown()
         {
@@ -40,13 +44,29 @@ namespace MuseumSpel
             }
         }
 
-
+        /*
+         * p_currentTime is de huidige tic waar het systeen op zit
+         * 1 seconde is 1000 tics
+         * als je x aantal frames in een seconde wilt dan doe je 1000 tics gedeeld door x aantal frames
+         * maak je eigen int waarde aan voor dit voorbeld is dat y
+         * je kunt je eigen counter maken door het volgende te doen:
+         * if (p_currentTime > y + x){
+         * y = p_currentTime;
+         * plaats hier je delegate;
+         * }
+         */
         public void gameLoop()
         {
             //update timer
 
             p_currentTime = Environment.TickCount;
             
+            if(p_currentTime > guardTime + 33)
+            {
+                guardTime = p_currentTime;
+                if (BewakerAction != null)
+                    BewakerAction();
+            }
             //refresh at 60 FPS
             if (p_currentTime > p_startTime + 16)
             {
@@ -86,8 +106,7 @@ namespace MuseumSpel
 
                 frameCount = 0;
             }
-
-        }
+            }
 
     }
 }
