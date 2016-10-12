@@ -44,6 +44,8 @@ namespace MuseumSpel
         public bool started { get; set; }
         public bool idle { get; set; }
         public int richting { get; set; }
+        private int cycle;
+        private int cyclestart;
         
         //Powerup 
         int outfitX;
@@ -71,12 +73,18 @@ namespace MuseumSpel
         }
 
         // Methodes
-
         public void loop()
         {
             started = true;
             while (!gameLoop.p_gameOver)
             {
+                //cycle++;
+                //if (gameLoop.p_currentTime >= cyclestart + 1000)
+                //{
+                //    Console.WriteLine(cycle.ToString());
+                //    cyclestart = gameLoop.p_currentTime;
+                //    cycle = 0;
+                //}
                 gameLoop.gameLoop();
                 //Console.WriteLine(speler.speed);
 
@@ -175,7 +183,6 @@ namespace MuseumSpel
 
         public void SpelerMovement(Direction loopRichting)
         {
-
             if (!idle && !speler.freezeMotion)
             {
                 switch (loopRichting)

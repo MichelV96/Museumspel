@@ -56,6 +56,7 @@ namespace MuseumSpel
             }
             Application.DoEvents();
             this.Refresh();// Heel speelveld wordt opnieuw getekend
+
         }
         
 
