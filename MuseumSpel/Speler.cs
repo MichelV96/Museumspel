@@ -84,13 +84,13 @@ namespace MuseumSpel
             //het oude plaatje
              
             //nieuw plaatje omdat je de powerup hebt opgepakt
-            texture = new Bitmap("Afbeeldingen\\vermomming.png");
+            texture = new Bitmap("Afbeeldingen\\power.png");
         }
         public void PowerDown()
         {
             //het oude plaatje
             //nieuw plaatje omdat je de powerup hebt opgepakt
-            texture = new Bitmap(base.texture); ;
+            texture = new Bitmap(base.texture);
             this.isDisguised = false;
         }
 
