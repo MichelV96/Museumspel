@@ -33,8 +33,7 @@ namespace MuseumSpel
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
-
+            speelVeld.vulArraysMetObjecten();
         }
         public void OnModelChanged()
         {
@@ -47,6 +46,11 @@ namespace MuseumSpel
             if (speelVeld.richting == 4)
                 speelVeld.SpelerMovement(Direction.Left);
 
+            if (speelVeld.opgepaktDoorBewaker)
+            {
+                speelVeld.gameLoop.ShutDown();
+                this.Close();
+            }
             Application.DoEvents();
             this.Invalidate();// Heel speelveld wordt opnieuw getekend
         }
@@ -82,7 +86,7 @@ namespace MuseumSpel
                 {
                     dc.DrawRectangle(p1, rec1);
                 }
-
+                
                 speelVeld.PrintSpeelVeld(dc);
 
                 dc.DrawImage(speelVeld.speler.texture, speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, speelVeld.vakGrootte);
@@ -111,6 +115,11 @@ namespace MuseumSpel
         {
             if (KeyRealeased != null)
                 KeyRealeased(e);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.Invalidate();
         }
     }
 }

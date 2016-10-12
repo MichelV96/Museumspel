@@ -126,12 +126,12 @@ namespace MuseumSpel
 
             //power ups
             #region power ups
-            speelVeld.VoegSpelObjectToe(new PowerUp(6, 6));
+            speelVeld.VoegSpelObjectToe(new PowerUp(1, 0));
             #endregion
 
             //Waterplas
             #region Waterplas
-            speelVeld.VoegSpelObjectToe(new Waterplas(3, 8));
+            speelVeld.VoegSpelObjectToe(new Waterplas(2, 8));
             #endregion
 
             //Schilderij
@@ -157,11 +157,12 @@ namespace MuseumSpel
             form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
             gameloop.ModelChanged += form1.OnModelChanged; //Subscriber
             gameloop.BewakerAction += speelVeld.GuardAutomaticMovement; //Subscriber
-
+            gameloop.BewakerAction += speelVeld.GuardDetectPlayer; //Subscriber
 
             Menu menu = new Menu();
-            Application.Run(menu);
-            Application.Run(form1);
+                Application.Run(menu);
+                Application.Run(form1);
+            
             bool GameOver = true;
 
             while (!GameOver)
