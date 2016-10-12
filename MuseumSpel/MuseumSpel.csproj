@@ -121,6 +121,7 @@
     <Content Include="Afbeeldingen\8.png" />
     <Content Include="Afbeeldingen\9.png" />
     <Content Include="Afbeeldingen\Front_50PX.png" />
+    <None Include="bin\Debug\Afbeeldingen\bc3.jpg" />
     <Content Include="XMLSpeelVeld1.xml" />
     <None Include="Resources\Front_50PX.png" />
   </ItemGroup>

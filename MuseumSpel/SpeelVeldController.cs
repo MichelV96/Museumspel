@@ -48,7 +48,6 @@ namespace MuseumSpel
                 {
                     form1.close();
                 }
-                form1.Invalidate();
             }
         }
 

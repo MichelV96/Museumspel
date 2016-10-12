@@ -18,6 +18,9 @@ namespace MuseumSpel
         private SpeelVeld speelVeld; // model
         private int penDikte;
         public bool startup = true;
+        Graphics dc;
+        PaintEventArgs dc2;
+        Region dc3;
         // Delegeate event
         public event KeyPressedEventHandeler KeyPressed;
         public event KeyPressedEventHandeler KeyRealeased;
@@ -33,8 +36,7 @@ namespace MuseumSpel
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
-
+            speelVeld.vulArraysMetObjecten();
         }
         public void OnModelChanged()
         {
@@ -47,9 +49,16 @@ namespace MuseumSpel
             if (speelVeld.richting == 4)
                 speelVeld.SpelerMovement(Direction.Left);
 
+            if (speelVeld.opgepaktDoorBewaker)
+            {
+                speelVeld.gameLoop.ShutDown();
+                this.Close();
+            }
             Application.DoEvents();
-            this.Invalidate();// Heel speelveld wordt opnieuw getekend
+            this.Refresh();// Heel speelveld wordt opnieuw getekend
+
         }
+        
 
         public void close()
         {
@@ -74,7 +83,10 @@ namespace MuseumSpel
 
         protected override void OnPaint(PaintEventArgs e)
         {
-                Graphics dc = e.Graphics;
+            
+                dc = e.Graphics;
+            dc2 = e;
+            
                 Pen p1 = new Pen(Color.Black, penDikte);
             
                 Rectangle rec1 = new Rectangle(0, 0, speelVeld.borderX, speelVeld.borderY);
@@ -82,12 +94,14 @@ namespace MuseumSpel
                 {
                     dc.DrawRectangle(p1, rec1);
                 }
-
+                
                 speelVeld.PrintSpeelVeld(dc);
+            #region MyClass definition
 
-                speelVeld.speler.PrintSpelObject(speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, dc);
+            speelVeld.speler.PrintSpelObject(speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, dc2.Graphics);
 
-                foreach (Bewaker bewaker in speelVeld.bewakers)
+            #endregion
+            foreach (Bewaker bewaker in speelVeld.bewakers)
                 {
                     bewaker.PrintSpelObject(bewaker.Cor_X, bewaker.Cor_Y, speelVeld.vakGrootte, dc);
                 }
@@ -111,6 +125,11 @@ namespace MuseumSpel
         {
             if (KeyRealeased != null)
                 KeyRealeased(e);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.Invalidate();
         }
     }
 }
