@@ -247,7 +247,7 @@ namespace MuseumSpel
         {
             foreach (Bewaker bewaker in bewakers)
             {
-                if (bewaker.heenweg)
+                if (bewaker.path == 1)
                 {
                     //Beweging naar links
                     if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
@@ -255,8 +255,7 @@ namespace MuseumSpel
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                         {
-                            bewaker.heenweg = false;
-                            Console.WriteLine("Bewaker heenweg: " + bewaker.heenweg);
+                            bewaker.path = 2;
                         }
                     }
                     //Beweging naar rechts
@@ -265,7 +264,7 @@ namespace MuseumSpel
                         bewaker.Cor_X += bewaker.speed;
                         if (bewaker.Cor_X >= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                         {
-                            bewaker.heenweg = false;
+                            bewaker.path = 2;
                         }
                     }
                     //Beweging naar beneden
@@ -274,7 +273,7 @@ namespace MuseumSpel
                         bewaker.Cor_Y += bewaker.speed;
                         if (bewaker.Cor_Y >= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                         {
-                            bewaker.heenweg = false;
+                            bewaker.path = 2;
                         }
                     }
                     //Beweging naar boven
@@ -283,20 +282,25 @@ namespace MuseumSpel
                         bewaker.Cor_Y -= bewaker.speed;
                         if (bewaker.Cor_Y <= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                         {
-                            bewaker.heenweg = false;
+                            bewaker.path = 2;
                         }
                     }
                 }
-                else if (!bewaker.heenweg)
+                else if (bewaker.path == 2)
                 {
                     //beweging naar rechts
                     if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
                     {     
                         bewaker.Cor_X += bewaker.speed;
-                        if (bewaker.Cor_X > (bewaker.wayPoints[0, 0] + 1) * 50 && bewaker.Cor_X % 50 == 0)
+                        if (bewaker.Cor_X >= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                         {
-                            bewaker.heenweg = true;
-                            Console.WriteLine("Bewaker heenweg: " + bewaker.heenweg);
+                            if (bewaker.aantalpaths > 2) {
+                                bewaker.path = 3;
+                            }
+                            else
+                            {
+                                bewaker.path = 1;
+                            }
                         }
                     }
                     //beweging naar links
@@ -305,7 +309,14 @@ namespace MuseumSpel
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                         {
-                            bewaker.heenweg = true;
+                            if (bewaker.aantalpaths > 2)
+                            {
+                                bewaker.path = 3;
+                            }
+                            else
+                            {
+                                bewaker.path = 1;
+                            }
                         }
                     }
                     //Beweging naar boven
@@ -314,7 +325,14 @@ namespace MuseumSpel
                         bewaker.Cor_Y -= bewaker.speed;
                         if (bewaker.Cor_Y <= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                         {
-                            bewaker.heenweg = true;
+                            if (bewaker.aantalpaths > 2)
+                            {
+                                bewaker.path = 3;
+                            }
+                            else
+                            {
+                                bewaker.path = 1;
+                            }
                         }
                     }
                     //Beweging naar beneden
@@ -323,7 +341,14 @@ namespace MuseumSpel
                         bewaker.Cor_Y += bewaker.speed;
                         if (bewaker.Cor_Y >= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                         {
-                            bewaker.heenweg = true;
+                            if (bewaker.aantalpaths > 2)
+                            {
+                                bewaker.path = 3;
+                            }
+                            else
+                            {
+                                bewaker.path = 1;
+                            }
                         }
                     }
                 }

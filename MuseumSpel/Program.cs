@@ -30,6 +30,7 @@ namespace MuseumSpel
             XmlNodeList waterplassen = doc.DocumentElement.SelectNodes("/levels/level/gameobjecten/waterplassen/waterplas");
             XmlNodeList powerups = doc.DocumentElement.SelectNodes("/levels/level/gameobjecten/powerups/powerup");
 
+
             //de trim is zodat alle tabs en spaties weg wordengehaald
             foreach (XmlNode muur in muren)
             {
