@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace MuseumSpel
 {
-    class Bewaker : SpelObject
+    public class Bewaker : SpelObject
     {
         public int[,] wayPoints;
         public bool heenweg { get; set; }
