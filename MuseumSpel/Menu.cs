@@ -108,5 +108,10 @@ namespace MuseumSpel
         {
             throw new NotImplementedException();
         }
+
+        private void Menu_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
