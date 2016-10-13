@@ -555,6 +555,10 @@ namespace MuseumSpel
             speler.Cor_X = speler.start_cor_x;
             speler.Cor_Y = speler.start_cor_y;
             idle = true;
+
+            gameLoop.seconds = 0;
+            gameLoop.minutes = 0;
+            gameLoop.hours = 0;
         }
     }
 }
