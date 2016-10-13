@@ -32,8 +32,10 @@ namespace MuseumSpel
             var schilderijen = level.Descendants("schilderijen").Descendants("schilderij");
             var powerups = level.Descendants("powerups").Descendants("powerup");
             var waterplassen = level.Descendants("waterplassen").Descendants("waterplas");
+            var eindpunten = level.Descendants("eindpunten").Descendants("eindpunt");
+
             //en ze aanmaken + toevoegen aan het speelveld
-           foreach (XElement e in muren)
+            foreach (XElement e in muren)
            {
                 int x = Int32.Parse(e.Element("x").Value.Trim());
                 int y = Int32.Parse(e.Element("y").Value.Trim());
@@ -59,6 +61,13 @@ namespace MuseumSpel
                 int x = Int32.Parse(e.Element("x").Value.Trim());
                 int y = Int32.Parse(e.Element("y").Value.Trim());
                 speelVeld.VoegSpelObjectToe(new Waterplas(x, y));
+            }
+
+            foreach (XElement e in eindpunten)
+            {
+                int x = Int32.Parse(e.Element("x").Value.Trim());
+                int y = Int32.Parse(e.Element("y").Value.Trim());
+                speelVeld.VoegSpelObjectToe(new Eindpunt(x, y));
             }
 
             //Guard
