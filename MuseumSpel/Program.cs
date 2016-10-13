@@ -25,17 +25,16 @@ namespace MuseumSpel
             //xml
             XDocument doc = new XDocument();
             doc = XDocument.Load(@"speelveld.xml");
-
+            //om het goede level te zoeken in de xml file.
             var level = from lvl in doc.Root.Elements("level") where (String) lvl.Element("nummer") == "1" select lvl;
-
+            //alle gameobjecten
             var muren = level.Descendants("muren").Descendants("muur");
             var schilderijen = level.Descendants("schilderijen").Descendants("schilderij");
             var powerups = level.Descendants("powerups").Descendants("powerup");
             var waterplassen = level.Descendants("waterplassen").Descendants("waterplas");
-
+            //en ze aanmaken + toevoegen aan het speelveld
            foreach (XElement e in muren)
            {
-                Console.WriteLine("x: " + e.Element("x").Value + " y: " + e.Element("y").Value);
                 int x = Int32.Parse(e.Element("x").Value.Trim());
                 int y = Int32.Parse(e.Element("y").Value.Trim());
                 speelVeld.VoegSpelObjectToe(new Muur(x, y));
@@ -43,7 +42,6 @@ namespace MuseumSpel
 
             foreach (XElement e in schilderijen)
             {
-                Console.WriteLine("x: " + e.Element("x").Value + " y: " + e.Element("y").Value);
                 int x = Int32.Parse(e.Element("x").Value.Trim());
                 int y = Int32.Parse(e.Element("y").Value.Trim());
                 speelVeld.VoegSpelObjectToe(new Schilderij(x, y));
@@ -51,7 +49,6 @@ namespace MuseumSpel
 
             foreach (XElement e in powerups)
             {
-                Console.WriteLine("x: " + e.Element("x").Value + " y: " + e.Element("y").Value);
                 int x = Int32.Parse(e.Element("x").Value.Trim());
                 int y = Int32.Parse(e.Element("y").Value.Trim());
                 speelVeld.VoegSpelObjectToe(new PowerUp(x, y));
@@ -59,7 +56,6 @@ namespace MuseumSpel
 
             foreach (XElement e in waterplassen)
             {
-                Console.WriteLine("x: " + e.Element("x").Value + " y: " + e.Element("y").Value);
                 int x = Int32.Parse(e.Element("x").Value.Trim());
                 int y = Int32.Parse(e.Element("y").Value.Trim());
                 speelVeld.VoegSpelObjectToe(new Waterplas(x, y));
@@ -83,8 +79,8 @@ namespace MuseumSpel
             gameloop.BewakerAction += speelVeld.GuardDetectPlayer; //Subscriber
 
             Menu menu = new Menu();
-                Application.Run(menu);
-                Application.Run(form1);
+            Application.Run(menu);
+            Application.Run(form1);
             
             bool GameOver = true;
 
