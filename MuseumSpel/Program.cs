@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace MuseumSpel
 {
@@ -22,40 +23,47 @@ namespace MuseumSpel
             SpeelVeld speelVeld = new SpeelVeld(17, 11, speler, gameloop);//Model
 
             //xml
-            XmlDocument doc = new XmlDocument();
-            doc.Load(@"speelveld.xml");
+            XDocument doc = new XDocument();
+            doc = XDocument.Load(@"speelveld.xml");
 
-            XmlNodeList muren = doc.DocumentElement.SelectNodes("/levels/level/gameobjecten/muren/muur");
-            XmlNodeList schilderijen = doc.DocumentElement.SelectNodes("/levels/level/gameobjecten/schilderijen/schilderij");
-            XmlNodeList waterplassen = doc.DocumentElement.SelectNodes("/levels/level/gameobjecten/waterplassen/waterplas");
-            XmlNodeList powerups = doc.DocumentElement.SelectNodes("/levels/level/gameobjecten/powerups/powerup");
+            var level = from lvl in doc.Root.Elements("level") where (String) lvl.Element("nummer") == "1" select lvl;
 
-            //de trim is zodat alle tabs en spaties weg wordengehaald
-            foreach (XmlNode muur in muren)
-            {
-                int x = Int32.Parse(muur.SelectSingleNode("x").InnerText.Trim());
-                int y = Int32.Parse(muur.SelectSingleNode("y").InnerText.Trim());
+            var muren = level.Descendants("muren").Descendants("muur");
+            var schilderijen = level.Descendants("schilderijen").Descendants("schilderij");
+            var powerups = level.Descendants("powerups").Descendants("powerup");
+            var waterplassen = level.Descendants("waterplassen").Descendants("waterplas");
+
+           foreach (XElement e in muren)
+           {
+                Console.WriteLine("x: " + e.Element("x").Value + " y: " + e.Element("y").Value);
+                int x = Int32.Parse(e.Element("x").Value.Trim());
+                int y = Int32.Parse(e.Element("y").Value.Trim());
                 speelVeld.VoegSpelObjectToe(new Muur(x, y));
             }
-            foreach (XmlNode schilderij in schilderijen)
+
+            foreach (XElement e in schilderijen)
             {
-                int x = Int32.Parse(schilderij.SelectSingleNode("x").InnerText.Trim());
-                int y = Int32.Parse(schilderij.SelectSingleNode("y").InnerText.Trim());
+                Console.WriteLine("x: " + e.Element("x").Value + " y: " + e.Element("y").Value);
+                int x = Int32.Parse(e.Element("x").Value.Trim());
+                int y = Int32.Parse(e.Element("y").Value.Trim());
                 speelVeld.VoegSpelObjectToe(new Schilderij(x, y));
             }
-            foreach (XmlNode waterplas in waterplassen)
+
+            foreach (XElement e in powerups)
             {
-                int x = Int32.Parse(waterplas.SelectSingleNode("x").InnerText.Trim());
-                int y = Int32.Parse(waterplas.SelectSingleNode("y").InnerText.Trim());
-                speelVeld.VoegSpelObjectToe(new Waterplas(x, y));
-            }
-            foreach (XmlNode powerup in powerups)
-            {
-                int x = Int32.Parse(powerup.SelectSingleNode("x").InnerText.Trim());
-                int y = Int32.Parse(powerup.SelectSingleNode("y").InnerText.Trim());
+                Console.WriteLine("x: " + e.Element("x").Value + " y: " + e.Element("y").Value);
+                int x = Int32.Parse(e.Element("x").Value.Trim());
+                int y = Int32.Parse(e.Element("y").Value.Trim());
                 speelVeld.VoegSpelObjectToe(new PowerUp(x, y));
             }
 
+            foreach (XElement e in waterplassen)
+            {
+                Console.WriteLine("x: " + e.Element("x").Value + " y: " + e.Element("y").Value);
+                int x = Int32.Parse(e.Element("x").Value.Trim());
+                int y = Int32.Parse(e.Element("y").Value.Trim());
+                speelVeld.VoegSpelObjectToe(new Waterplas(x, y));
+            }
 
             //Guard
             #region Guard

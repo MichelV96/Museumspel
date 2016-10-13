@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <levels>
 	<level>
+		<nummer>1</nummer>
 		<gameobjecten>
 			<muren>
 				<muur>
