@@ -61,10 +61,11 @@ namespace MuseumSpel
             //Guard
             #region Guard
             speelVeld.voegBewakerToe(new Bewaker(12, 0, 2, 0, 5));
-            speelVeld.voegBewakerToe(new Bewaker(3, 10, 12, 10, 5));
-            speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 5));
-            speelVeld.voegBewakerToe(new Bewaker(14, 3, 14, 5, 5));
+            //speelVeld.voegBewakerToe(new Bewaker(3, 10, 12, 10, 5));
+            //speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 5));
+            speelVeld.voegBewakerToe(new Bewaker(16, 1, 16, 10, 5));
             speelVeld.voegBewakerToe(new Bewaker(4, 4, 4, 4, 5));
+            speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 14, 10, 14, 0, 5));
 
             #endregion
 

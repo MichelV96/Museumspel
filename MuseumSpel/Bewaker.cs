@@ -10,6 +10,7 @@ namespace MuseumSpel
     public class Bewaker : SpelObject
     {
         public int[,] wayPoints;
+        public int richting; //1=boven, 2=beneden, 3=rechts, 4=links
         public int path;
         public int aantalpaths;
         public int speed;
@@ -20,7 +21,8 @@ namespace MuseumSpel
                 wayPoints = new int[2, 2] { { cor_X, cor_Y }, { eind_cor_X, eind_cor_Y } };
                 this.speed = speed;
                 path = 1;
-                aantalpaths = 2;               
+                aantalpaths = 2;
+                richting = 1;        
             }
         }
 
