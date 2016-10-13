@@ -31,6 +31,7 @@ namespace MuseumSpel
             XmlNodeList powerups = doc.DocumentElement.SelectNodes("/levels/level/gameobjecten/powerups/powerup");
             XmlNodeList eindpunten = doc.DocumentElement.SelectNodes("/levels/level/gameobjecten/eindpunten/eindpunt");
             speelVeld.VoegSpelObjectToe(new Eindpunt(16, 10));
+
             //de trim is zodat alle tabs en spaties weg wordengehaald
             foreach (XmlNode muur in muren)
             {
@@ -70,7 +71,9 @@ namespace MuseumSpel
             speelVeld.voegBewakerToe(new Bewaker(12, 0, 2, 0, 5));
             speelVeld.voegBewakerToe(new Bewaker(3, 10, 12, 10, 5));
             speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 5));
-            speelVeld.voegBewakerToe(new Bewaker(14, 8, 14, 2, 5));
+            speelVeld.voegBewakerToe(new Bewaker(14, 3, 14, 5, 5));
+            speelVeld.voegBewakerToe(new Bewaker(4, 4, 4, 4, 5));
+
             #endregion
 
             Form1 form1 = new Form1(speelVeld); //Publisher
