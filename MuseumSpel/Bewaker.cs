@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace MuseumSpel
 {
@@ -37,7 +37,6 @@ namespace MuseumSpel
         {
             g.DrawImage(texture, cor_X , cor_Y, vakGrootte, vakGrootte);
         }
-
     }
 
 }

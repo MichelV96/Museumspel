@@ -13,9 +13,8 @@ namespace MuseumSpel
 
     public enum Direction
     {
-        Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle
+        Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle 
     }
-    
     // The Model, SuperClass
     public class SpeelVeld
     {
@@ -35,6 +34,7 @@ namespace MuseumSpel
         private List<SpelObject> waterplassen;
         private List<SpelObject> powerups;
         private List<SpelObject> muren;
+        private List<SpelObject> eindpunten;
         public List<Bewaker> bewakers;
         //event
         public event ShutdownEventHandeler shuttingUp;
@@ -46,18 +46,23 @@ namespace MuseumSpel
         public bool started { get; set; }
         public bool idle { get; set; }
         public int richting { get; set; }
-        private int cycle;
-        private int cyclestart;
         
         //Powerup 
         int outfitX;
         int outfitY;
+
+        //de key voor de spelobjecten array waar de powerup staat
+        int key;
+
         //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
         int p = 0;
-
+        
         //values voor reset
         private List<SpelObject> usedPowerUps;
         private List<SpelObject> takenPaintArray;
+        //schilderij counter
+        private int aantalSchilderijen;
+        private int gepakteSchilderijen;
 
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
         {
@@ -75,7 +80,7 @@ namespace MuseumSpel
             powerups = new List<SpelObject>();
             usedPowerUps = new List<SpelObject>();
             bewakers = new List<Bewaker>();
-
+            eindpunten = new List<SpelObject>();
             this.gameLoop = gameloop;
 
         }
@@ -229,6 +234,20 @@ namespace MuseumSpel
                 speler.endTime = DateTime.Now.AddSeconds(speler.duration);
                 this.p += 1;
             }
+
+            //eindpunt
+            #region Eindpunt
+            foreach (Eindpunt e in eindpunten)
+            {
+                if (Enumerable.Range((e.Cor_X * vakGrootte - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((e.Cor_Y * vakGrootte - 15), 30).Contains(speler.Cor_Y))
+                {
+                    if (gepakteSchilderijen == aantalSchilderijen)
+                    {
+                        MessageBox.Show("Score = " + gepakteSchilderijen);
+                    }
+                }
+            }
+            #endregion
 
             if (!speler.isStunned && !speler.stunCooldown)
             {
@@ -392,9 +411,10 @@ namespace MuseumSpel
             opgepaktDoorBewaker = true;
         }
 
+        //Schilderij oppakken
+        #region Schilderij pakken
         public void pakSchilderij(bool keyPressed)
         {
-
             for (int i = 0; i < paintArray.Count; i++)
             {
                 int x = paintArray[i].Cor_X * vakGrootte;
@@ -406,10 +426,16 @@ namespace MuseumSpel
                     Console.WriteLine("Keypressed3");
                     takenPaintArray.Add(paintArray[i]);
                     paintArray.Remove(paintArray[i]);
+                    gepakteSchilderijen = aantalSchilderijen - paintArray.Count;
+                    Console.WriteLine(gepakteSchilderijen);
+                    Console.WriteLine(aantalSchilderijen);
                 }
             }
+            
 
         }
+        #endregion
+
         // test om cordinaat op grid terug te krijgen
         public int GetGridCordinate(int cor)
         {
@@ -450,16 +476,21 @@ namespace MuseumSpel
                     //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
                  
                 }
+
+                if (spelObjecten[x].GetType() == typeof(Eindpunt))
+                {
+                    eindpunten.Add(spelObjecten[x]);
+                }
+
                 if (spelObjecten[x].GetType() == typeof(Waterplas))
                 {
-                    //this.waterplasX = spelObjecten[x].Cor_X * vakGrootte;
-                    //this.waterplasY = spelObjecten[x].Cor_Y * vakGrootte;
                     waterplassen.Add(spelObjecten[x]);
                 }
                 if (spelObjecten[x].GetType() == typeof(PowerUp))
                 {
                     powerups.Add(spelObjecten[x]);
                 }
+                aantalSchilderijen = paintArray.Count;
             }
 
         }
@@ -481,6 +512,10 @@ namespace MuseumSpel
             foreach (SpelObject powerup in powerups)
             {
                 powerup.PrintSpelObject(powerup.Cor_X, powerup.Cor_Y, vakGrootte, g);
+            }
+            foreach (SpelObject eindpunt in eindpunten)
+            {
+                eindpunt.PrintSpelObject(eindpunt.Cor_X, eindpunt.Cor_Y, vakGrootte, g);
             }
         }
 
