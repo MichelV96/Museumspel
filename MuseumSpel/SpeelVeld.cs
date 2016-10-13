@@ -9,6 +9,7 @@ using System.Windows.Forms;
 namespace MuseumSpel
 {
     public delegate void ModelChangedEventHandeler();
+    public delegate void ShutdownEventHandeler();
 
     public enum Direction
     {
@@ -36,6 +37,7 @@ namespace MuseumSpel
         private List<SpelObject> muren;
         public List<Bewaker> bewakers;
         //event
+        public event ShutdownEventHandeler shuttingUp;
         //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
         //gameloop
@@ -53,6 +55,10 @@ namespace MuseumSpel
         //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
         int p = 0;
 
+        //values voor reset
+        private List<SpelObject> usedPowerUps;
+        private List<SpelObject> takenPaintArray;
+
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
         {
             this.aantalVakkenX = aantalVakkenX;
@@ -64,8 +70,10 @@ namespace MuseumSpel
             spelObjecten = new List<SpelObject>();
             muren = new List<SpelObject>();
             paintArray = new List<SpelObject>();
+            takenPaintArray = new List<SpelObject>();
             waterplassen = new List<SpelObject>();
             powerups = new List<SpelObject>();
+            usedPowerUps = new List<SpelObject>();
             bewakers = new List<Bewaker>();
 
             this.gameLoop = gameloop;
@@ -215,6 +223,7 @@ namespace MuseumSpel
             if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
             {
                 //verwijder de power up uit de array
+                usedPowerUps.Add(powerups[0]);
                 powerups.RemoveAt(0);
                 speler.isDisguised = true;
                 speler.endTime = DateTime.Now.AddSeconds(speler.duration);
@@ -366,15 +375,9 @@ namespace MuseumSpel
                     {
                         
                         Console.WriteLine("Toughing");
-                        var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n Druk op yes om terug te gaan naar menu of op cancel op het programma af te sluiten. " ,
-                            "Gameover", MessageBoxButtons.OKCancel);
-                        if (result == DialogResult.OK)
+                        if(shuttingUp != null)
                         {
-                            opgepaktDoorBewaker = true;
-                        }
-                        else if (result == DialogResult.Cancel)
-                        {
-
+                            shuttingUp();
                         }
 
                     }
@@ -391,18 +394,19 @@ namespace MuseumSpel
 
         public void pakSchilderij(bool keyPressed)
         {
-            
+
             for (int i = 0; i < paintArray.Count; i++)
             {
                 int x = paintArray[i].Cor_X * vakGrootte;
                 int y = paintArray[i].Cor_Y * vakGrootte;
-                    Console.WriteLine("intx: " + x + " inty " + y);
-                    Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
-                    if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
-                    {
-                        Console.WriteLine("Keypressed3");
-                        paintArray.Remove(paintArray[i]);
-                    }
+                Console.WriteLine("intx: " + x + " inty " + y);
+                Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
+                if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
+                {
+                    Console.WriteLine("Keypressed3");
+                    takenPaintArray.Add(paintArray[i]);
+                    paintArray.Remove(paintArray[i]);
+                }
             }
 
         }
@@ -478,9 +482,44 @@ namespace MuseumSpel
             {
                 powerup.PrintSpelObject(powerup.Cor_X, powerup.Cor_Y, vakGrootte, g);
             }
+        }
 
-
-
+        public void Reset()
+        {
+            if (takenPaintArray.Count != 0) {
+                foreach (SpelObject schilderij in takenPaintArray)
+                {
+                    if (!paintArray.Contains(schilderij))
+                    {
+                        paintArray.Add(schilderij);
+                    }
+                }
+            }
+            if (usedPowerUps.Count != 0)
+            {
+                foreach (SpelObject powerUp in usedPowerUps)
+                {
+                    if (!powerups.Contains(powerUp))
+                    {
+                        powerups.Add(powerUp);
+                    }
+                    if (!spelObjecten.Contains(powerUp))
+                    {
+                        spelObjecten.Add(powerUp);
+                    }
+                }
+                this.p = 0;
+                
+            }
+            foreach(Bewaker bewaker in bewakers)
+            {
+                bewaker.Cor_X = bewaker.start_cor_x;
+                bewaker.Cor_Y = bewaker.start_cor_y;
+                bewaker.path = 1;
+            }
+            speler.Cor_X = speler.start_cor_x;
+            speler.Cor_Y = speler.start_cor_y;
+            idle = true;
         }
     }
 }

@@ -75,6 +75,7 @@ namespace MuseumSpel
             gameloop.ModelChanged += form1.OnModelChanged; //Subscriber
             gameloop.BewakerAction += speelVeld.GuardAutomaticMovement; //Subscriber
             gameloop.BewakerAction += speelVeld.GuardDetectPlayer; //Subscriber
+            speelVeld.shuttingUp += form1.shuttingUp; //Subscriber
 
             Menu menu = new Menu();
                 Application.Run(menu);

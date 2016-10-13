@@ -12,6 +12,7 @@ namespace MuseumSpel
 {
     // Delegate => publisher
     public delegate void KeyPressedEventHandeler(KeyEventArgs e);
+    
 
     public partial class Form1 : Form
     {
@@ -48,27 +49,42 @@ namespace MuseumSpel
             if (speelVeld.richting == 4)
                 speelVeld.SpelerMovement(Direction.Left);
 
-            if (speelVeld.opgepaktDoorBewaker)
-            {
-                speelVeld.gameLoop.ShutDown();
-                this.Close();
-            }
+            //if (speelVeld.opgepaktDoorBewaker)
+            //{
+            //    speelVeld.gameLoop.ShutDown();
+            //    this.Close();
+            //}
             Application.DoEvents();
             this.Refresh();// Heel speelveld wordt opnieuw getekend
 
         }
-        
+        public void shuttingUp()
+        {
+            var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n Druk op yes om terug te gaan naar menu of op cancel op het programma af te sluiten. ",
+                            "Gameover", MessageBoxButtons.RetryCancel);
+            if (result == DialogResult.Retry)
+            {
+                speelVeld.Reset();
+                speelVeld.opgepaktDoorBewaker = true;
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                this.Close();
+            }
+        }
+
 
         public void close()
         {
             speelVeld.paused = true;
             var result = MessageBox.Show("do you want to quit?", "closing", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
-            if(result == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
-                this.Close();
+                speelVeld.gameLoop.ShutDown();
+                //this.Close();
             }
-            if(result == DialogResult.Cancel)
+            if (result == DialogResult.Cancel)
             {
                 speelVeld.paused = false;
             }
@@ -76,8 +92,18 @@ namespace MuseumSpel
 
         protected override void OnClosed(EventArgs e)
         {
-            MessageBox.Show("it's over man! gameover! gg!", "game shutdown");
-            speelVeld.gameLoop.ShutDown();
+            this.close();
+            //speelVeld.paused = true;
+            //var result = MessageBox.Show("do you want to quit?", "closing", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+            //if (result == DialogResult.OK)
+            //{
+            //    speelVeld.gameLoop.ShutDown();
+            //}
+            //if (result == DialogResult.Cancel)
+            //{
+            //    speelVeld.paused = false;
+            //}
         }
 
         protected override void OnPaint(PaintEventArgs e)
