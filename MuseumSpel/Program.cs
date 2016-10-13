@@ -77,8 +77,8 @@ namespace MuseumSpel
             gameloop.BewakerAction += speelVeld.GuardDetectPlayer; //Subscriber
 
             Menu menu = new Menu();
-                Application.Run(menu);
-                Application.Run(form1);
+            Application.Run(menu);
+            Application.Run(form1);
             
             bool GameOver = true;
 

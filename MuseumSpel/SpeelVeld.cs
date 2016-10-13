@@ -364,8 +364,6 @@ namespace MuseumSpel
                 {
                     if (Enumerable.Range((bewaker.Cor_X), bewakerRange).Contains(speler.Cor_X + (vakGrootte/2)) && Enumerable.Range((bewaker.Cor_Y), bewakerRange).Contains(speler.Cor_Y + (vakGrootte/2)))
                     {
-                        
-                        Console.WriteLine("Toughing");
                         var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n Druk op yes om terug te gaan naar menu of op cancel op het programma af te sluiten. " ,
                             "Gameover", MessageBoxButtons.OKCancel);
                         if (result == DialogResult.OK)
