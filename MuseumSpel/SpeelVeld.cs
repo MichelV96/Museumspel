@@ -12,9 +12,8 @@ namespace MuseumSpel
 
     public enum Direction
     {
-        Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle
+        Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle 
     }
-    
     // The Model, SuperClass
     public class SpeelVeld
     {
@@ -34,9 +33,8 @@ namespace MuseumSpel
         private List<SpelObject> waterplassen;
         private List<SpelObject> powerups;
         private List<SpelObject> muren;
+        private List<SpelObject> eindpunten;
         public List<Bewaker> bewakers;
-        //event
-        //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
         //gameloop
         public bool paused { get; set; }
@@ -44,14 +42,20 @@ namespace MuseumSpel
         public bool started { get; set; }
         public bool idle { get; set; }
         public int richting { get; set; }
-        private int cycle;
-        private int cyclestart;
         
         //Powerup 
         int outfitX;
         int outfitY;
+
+        //de key voor de spelobjecten array waar de powerup staat
+        int key;
+
         //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
         int p = 0;
+
+        //schilderij counter
+        private int aantalSchilderijen;
+        private int gepakteSchilderijen;
 
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
         {
@@ -67,7 +71,7 @@ namespace MuseumSpel
             waterplassen = new List<SpelObject>();
             powerups = new List<SpelObject>();
             bewakers = new List<Bewaker>();
-
+            eindpunten = new List<SpelObject>();
             this.gameLoop = gameloop;
 
         }
@@ -221,6 +225,20 @@ namespace MuseumSpel
                 this.p += 1;
             }
 
+            //eindpunt
+            #region Eindpunt
+            foreach (Eindpunt e in eindpunten)
+            {
+                if (Enumerable.Range((e.Cor_X * vakGrootte - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((e.Cor_Y * vakGrootte - 15), 30).Contains(speler.Cor_Y))
+                {
+                    if (gepakteSchilderijen == aantalSchilderijen)
+                    {
+                        MessageBox.Show("Score = " + gepakteSchilderijen);
+                    }
+                }
+            }
+            #endregion
+
             if (!speler.isStunned && !speler.stunCooldown)
             {
                 foreach (Waterplas waterplas in waterplassen)
@@ -247,7 +265,7 @@ namespace MuseumSpel
         {
             foreach (Bewaker bewaker in bewakers)
             {
-                if (bewaker.heenweg)
+                if (bewaker.path == 1)
                 {
                     //Beweging naar links
                     if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
@@ -255,8 +273,7 @@ namespace MuseumSpel
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                         {
-                            bewaker.heenweg = false;
-                            Console.WriteLine("Bewaker heenweg: " + bewaker.heenweg);
+                            bewaker.path = 2;
                         }
                     }
                     //Beweging naar rechts
@@ -265,7 +282,7 @@ namespace MuseumSpel
                         bewaker.Cor_X += bewaker.speed;
                         if (bewaker.Cor_X >= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                         {
-                            bewaker.heenweg = false;
+                            bewaker.path = 2;
                         }
                     }
                     //Beweging naar beneden
@@ -274,7 +291,7 @@ namespace MuseumSpel
                         bewaker.Cor_Y += bewaker.speed;
                         if (bewaker.Cor_Y >= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                         {
-                            bewaker.heenweg = false;
+                            bewaker.path = 2;
                         }
                     }
                     //Beweging naar boven
@@ -283,20 +300,25 @@ namespace MuseumSpel
                         bewaker.Cor_Y -= bewaker.speed;
                         if (bewaker.Cor_Y <= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                         {
-                            bewaker.heenweg = false;
+                            bewaker.path = 2;
                         }
                     }
                 }
-                else if (!bewaker.heenweg)
+                else if (bewaker.path == 2)
                 {
                     //beweging naar rechts
                     if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
                     {     
                         bewaker.Cor_X += bewaker.speed;
-                        if (bewaker.Cor_X > (bewaker.wayPoints[0, 0] + 1) * 50 && bewaker.Cor_X % 50 == 0)
+                        if (bewaker.Cor_X >= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                         {
-                            bewaker.heenweg = true;
-                            Console.WriteLine("Bewaker heenweg: " + bewaker.heenweg);
+                            if (bewaker.aantalpaths > 2) {
+                                bewaker.path = 3;
+                            }
+                            else
+                            {
+                                bewaker.path = 1;
+                            }
                         }
                     }
                     //beweging naar links
@@ -305,7 +327,14 @@ namespace MuseumSpel
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                         {
-                            bewaker.heenweg = true;
+                            if (bewaker.aantalpaths > 2)
+                            {
+                                bewaker.path = 3;
+                            }
+                            else
+                            {
+                                bewaker.path = 1;
+                            }
                         }
                     }
                     //Beweging naar boven
@@ -314,7 +343,14 @@ namespace MuseumSpel
                         bewaker.Cor_Y -= bewaker.speed;
                         if (bewaker.Cor_Y <= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                         {
-                            bewaker.heenweg = true;
+                            if (bewaker.aantalpaths > 2)
+                            {
+                                bewaker.path = 3;
+                            }
+                            else
+                            {
+                                bewaker.path = 1;
+                            }
                         }
                     }
                     //Beweging naar beneden
@@ -323,7 +359,14 @@ namespace MuseumSpel
                         bewaker.Cor_Y += bewaker.speed;
                         if (bewaker.Cor_Y >= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                         {
-                            bewaker.heenweg = true;
+                            if (bewaker.aantalpaths > 2)
+                            {
+                                bewaker.path = 3;
+                            }
+                            else
+                            {
+                                bewaker.path = 1;
+                            }
                         }
                     }
                 }
@@ -337,9 +380,11 @@ namespace MuseumSpel
             {
                 foreach (Bewaker bewaker in bewakers)
                 {
-                    if (Enumerable.Range((bewaker.Cor_X), bewakerRange).Contains(speler.Cor_X) && Enumerable.Range((bewaker.Cor_Y), bewakerRange).Contains(speler.Cor_Y))
+                    if (Enumerable.Range((bewaker.Cor_X), bewakerRange).Contains(speler.Cor_X + (vakGrootte/2)) && Enumerable.Range((bewaker.Cor_Y), bewakerRange).Contains(speler.Cor_Y + (vakGrootte/2)))
                     {
-                        var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n Druk op yes om terug te gaan naar menu of op cancel op het programma af te sluiten. ",
+                        
+                        Console.WriteLine("Toughing");
+                        var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n Druk op yes om terug te gaan naar menu of op cancel op het programma af te sluiten. " ,
                             "Gameover", MessageBoxButtons.OKCancel);
                         if (result == DialogResult.OK)
                         {
@@ -362,23 +407,26 @@ namespace MuseumSpel
             opgepaktDoorBewaker = true;
         }
 
+        //Schilderij oppakken
+        #region Schilderij pakken
         public void pakSchilderij(bool keyPressed)
         {
-            
             for (int i = 0; i < paintArray.Count; i++)
             {
                 int x = paintArray[i].Cor_X * vakGrootte;
                 int y = paintArray[i].Cor_Y * vakGrootte;
-                    Console.WriteLine("intx: " + x + " inty " + y);
-                    Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
                     if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
                     {
-                        Console.WriteLine("Keypressed3");
                         paintArray.Remove(paintArray[i]);
+                        gepakteSchilderijen = aantalSchilderijen - paintArray.Count;
+                    Console.WriteLine(gepakteSchilderijen);
+                    Console.WriteLine(aantalSchilderijen);
                     }
             }
 
         }
+        #endregion
+
         // test om cordinaat op grid terug te krijgen
         public int GetGridCordinate(int cor)
         {
@@ -403,7 +451,6 @@ namespace MuseumSpel
 
         public void vulArraysMetObjecten()
         {
-            Console.WriteLine("Test");
 
             for (int x = 0; x < spelObjecten.Count(); x++)
             {
@@ -420,16 +467,21 @@ namespace MuseumSpel
                     //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
                  
                 }
+
+                if (spelObjecten[x].GetType() == typeof(Eindpunt))
+                {
+                    eindpunten.Add(spelObjecten[x]);
+                }
+
                 if (spelObjecten[x].GetType() == typeof(Waterplas))
                 {
-                    //this.waterplasX = spelObjecten[x].Cor_X * vakGrootte;
-                    //this.waterplasY = spelObjecten[x].Cor_Y * vakGrootte;
                     waterplassen.Add(spelObjecten[x]);
                 }
                 if (spelObjecten[x].GetType() == typeof(PowerUp))
                 {
                     powerups.Add(spelObjecten[x]);
                 }
+                aantalSchilderijen = paintArray.Count;
             }
 
         }
@@ -452,8 +504,10 @@ namespace MuseumSpel
             {
                 powerup.PrintSpelObject(powerup.Cor_X, powerup.Cor_Y, vakGrootte, g);
             }
-
-
+            foreach (SpelObject eindpunt in eindpunten)
+            {
+                eindpunt.PrintSpelObject(eindpunt.Cor_X, eindpunt.Cor_Y, vakGrootte, g);
+            }
 
         }
     }
