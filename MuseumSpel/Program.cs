@@ -18,7 +18,7 @@ namespace MuseumSpel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Speler speler = new Speler("Player", 0, 0, 5);
+            Speler speler = new Speler("Player", 13, 0, 5);
             GameLoop gameloop = new GameLoop();
             SpeelVeld speelVeld = new SpeelVeld(17, 11, speler, gameloop);//Model
 
@@ -78,6 +78,8 @@ namespace MuseumSpel
             speelVeld.voegBewakerToe(new Bewaker(16, 1, 16, 10, 5, Direction.Left));
             speelVeld.voegBewakerToe(new Bewaker(4, 4, 4, 4, 5, Direction.Left));
             speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 14, 8, 14, 2, 5, Direction.Left));
+            speelVeld.voegBewakerToe(new Bewaker(5, 10, 10, 10, 5, Direction.Left));
+
 
             #endregion
 

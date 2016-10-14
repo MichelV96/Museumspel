@@ -18,9 +18,6 @@ namespace MuseumSpel
     // The Model, SuperClass
     public class SpeelVeld
     {
-        //guard
-        private int bewakerRange = 50;
-        public bool opgepaktDoorBewaker = false;
         //aantalRijen, aantalVakjes
         private int aantalVakkenX;
         private int aantalVakkenY;
@@ -46,7 +43,13 @@ namespace MuseumSpel
         public bool started { get; set; }
         public bool idle { get; set; }
         public int richting { get; set; }
-        
+        //guard (kan mogelijk in class bewaker)
+        private int RangeStartUpAndLeftBewaker; // moet 124 zijn bij vakgroote 50
+        private int RangeEndUpAndLeftBewaker;  // moet 199 zijn bij vakgroote 50
+        private int RangeStartDownAndRightBewaker; //moet 0 zijn bij elk vakgroote
+        private int RangeEndDownAndRightBewaker; // moet 175 zijn bij vakgroote 50
+        public bool opgepaktDoorBewaker = false;
+
         //Powerup 
         int outfitX;
         int outfitY;
@@ -80,6 +83,11 @@ namespace MuseumSpel
             powerups = new List<SpelObject>();
             usedPowerUps = new List<SpelObject>();
             bewakers = new List<Bewaker>();
+            //Guard Range bepalen (kan mogelijk in class bewaker).
+            RangeStartUpAndLeftBewaker = (vakGrootte * 2) + (vakGrootte/2) - 1;
+            RangeEndUpAndLeftBewaker = (vakGrootte * 4) - 1;
+            RangeEndDownAndRightBewaker = (vakGrootte * 3) + (vakGrootte / 2);
+            RangeStartDownAndRightBewaker = 0;
             eindpunten = new List<SpelObject>();
             this.gameLoop = gameloop;
 
@@ -273,6 +281,7 @@ namespace MuseumSpel
 
 
         //Bewaker
+        #region Bewaker Movment
         public void GuardAutomaticMovement()
         {
             foreach (Bewaker bewaker in bewakers)
@@ -429,24 +438,47 @@ namespace MuseumSpel
                 #endregion
             }
         }
-
-        #region Guard Detection
+        #endregion
+        
         //Detecteren van speler als guard. 
+        #region Guard Detection
         public void GuardDetectPlayer()
         {
             if (speler.isDisguised == false)
             {
                 foreach (Bewaker bewaker in bewakers)
                 {
-                    if (Enumerable.Range((bewaker.Cor_X), bewakerRange).Contains(speler.Cor_X + (vakGrootte/2)) && Enumerable.Range((bewaker.Cor_Y), bewakerRange).Contains(speler.Cor_Y + (vakGrootte/2)))
-                    {
-                        
-                        Console.WriteLine("Toughing");
-                        if(shuttingUp != null)
-                        {
-                            shuttingUp();
-                        }
 
+                    switch (bewaker.richting)
+                    {
+                        //boven
+                        case 1:
+                            if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            {
+                                Console.WriteLine("Boven detectie");
+                            }
+                                break;
+                        //onder
+                        case 2:
+                            if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            {
+                                Console.WriteLine("Onder detectie");
+                            }
+                            break;
+                        //rechts
+                        case 3:
+                            if (Enumerable.Range((bewaker.Cor_X + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            {
+                                Console.WriteLine("Rechts detectie");
+                            }
+                            break;
+                        //links
+                        case 4:
+                            if(Enumerable.Range((bewaker.Cor_X - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            {
+                                Console.WriteLine("Links detectie");
+                            }
+                            break;
                     }
                 }
 
