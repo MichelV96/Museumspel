@@ -47,9 +47,6 @@ namespace MuseumSpel
         int outfitX;
         int outfitY;
 
-        //de key voor de spelobjecten array waar de powerup staat
-        int key;
-
         //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
         int p = 0;
 
