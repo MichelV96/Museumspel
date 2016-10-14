@@ -285,7 +285,7 @@ namespace MuseumSpel
                     {
                         bewaker.richting = 4;
                         bewaker.Cor_X -= bewaker.speed;
-                        if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                         {
                             Console.WriteLine("path is nu 2");
                             bewaker.path = 2;
@@ -296,7 +296,7 @@ namespace MuseumSpel
                     {
                         bewaker.richting = 3;
                         bewaker.Cor_X += bewaker.speed;
-                        if (bewaker.Cor_X >= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        if (bewaker.Cor_X >= (bewaker.wayPoints[1, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                         {
                             bewaker.path = 2;
                         }
@@ -306,7 +306,7 @@ namespace MuseumSpel
                     {
                         bewaker.richting = 2;
                         bewaker.Cor_Y += bewaker.speed;
-                        if (bewaker.Cor_Y >= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        if (bewaker.Cor_Y >= (bewaker.wayPoints[1, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
                         {
                             bewaker.path = 2;
                         }
@@ -316,7 +316,7 @@ namespace MuseumSpel
                     {
                         bewaker.richting = 1;
                         bewaker.Cor_Y -= bewaker.speed;
-                        if (bewaker.Cor_Y <= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        if (bewaker.Cor_Y <= (bewaker.wayPoints[1, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
                         {
                             bewaker.path = 2;
                         }
@@ -331,8 +331,9 @@ namespace MuseumSpel
                         //beweging naar rechts
                         if (bewaker.wayPoints[1, 0] < bewaker.wayPoints[2, 0])
                         {
+                            bewaker.richting = 3;
                             bewaker.Cor_X += bewaker.speed;
-                            if (bewaker.Cor_X >= (bewaker.wayPoints[2, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                            if (bewaker.Cor_X >= (bewaker.wayPoints[2, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                             {
                                 bewaker.path = 3;
                             }
@@ -340,8 +341,9 @@ namespace MuseumSpel
                         //bewging naar links
                         if (bewaker.wayPoints[1, 0] > bewaker.wayPoints[2, 0])
                         {
+                            bewaker.richting = 4;
                             bewaker.Cor_X -= bewaker.speed;
-                            if (bewaker.Cor_X <= (bewaker.wayPoints[2, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                            if (bewaker.Cor_X <= (bewaker.wayPoints[2, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                             {
                                 bewaker.path = 3;
                             }
@@ -352,7 +354,7 @@ namespace MuseumSpel
                         //beweging naar rechts
                         if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
                         {
-                            bewaker.richting = 4;
+                            bewaker.richting = 3;
                             bewaker.Cor_X += bewaker.speed;
                             if (bewaker.Cor_X >= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                             {                     
@@ -362,7 +364,7 @@ namespace MuseumSpel
                         //beweging naar links
                         if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
                         {
-                            bewaker.richting = 3;
+                            bewaker.richting = 4;
                             bewaker.Cor_X -= bewaker.speed;
                             if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                             {
@@ -396,16 +398,31 @@ namespace MuseumSpel
                 #region path 3
                 else if (bewaker.path == 3)
                 {
-                    if (bewaker.aantalpaths > 3)
+                    if (bewaker.aantalpaths > 3)//derde waypoint
                     {
                         //bewging naar boven
                         if (bewaker.wayPoints[2, 1] > bewaker.wayPoints[3, 1])
                         {
                             bewaker.Cor_Y -= bewaker.speed;
-                            //(bewaker.Cor_Y >= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
-                            //{
-                            //    bewaker.path = 4;
-                            //}
+                            if (bewaker.Cor_Y <= (bewaker.wayPoints[3, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
+                            {
+                                bewaker.path = 4;
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+                #region path 3
+                else if (bewaker.path == 4)
+                {
+                    //Beweging naar links
+                    if (bewaker.wayPoints[3, 0] > bewaker.wayPoints[0, 0])
+                    {
+                        bewaker.Cor_X -= bewaker.speed;
+                        if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
+                        {
+                            bewaker.path = 1;
                         }
                     }
                 }

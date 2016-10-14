@@ -77,7 +77,7 @@ namespace MuseumSpel
             //speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 5, Direction.Left));
             speelVeld.voegBewakerToe(new Bewaker(16, 1, 16, 10, 5, Direction.Left));
             speelVeld.voegBewakerToe(new Bewaker(4, 4, 4, 4, 5, Direction.Left));
-            speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 14, 10, 14, 0, 5, Direction.Left));
+            speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 14, 8, 14, 2, 5, Direction.Left));
 
             #endregion
 
