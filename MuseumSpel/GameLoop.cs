@@ -100,7 +100,7 @@ namespace MuseumSpel
                     minutes = 0;
                 }
                 time = hours.ToString() + ":" + minutes.ToString() + ":" + seconds.ToString();
-                Console.WriteLine(time);
+                //Console.WriteLine(time);
                 frameTimer = p_currentTime;
                 frameRate = frameCount;
 
