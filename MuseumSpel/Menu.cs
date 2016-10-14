@@ -40,7 +40,6 @@ namespace MuseumSpel
             Controls.Add(startSpel);
             Controls.Add(opties);
             Controls.Add(sluitSpel);
-            this.Show();
         }
 
         private void Start()
@@ -112,6 +111,29 @@ namespace MuseumSpel
         private void Menu_Load(object sender, EventArgs e)
         {
 
+        }
+
+        //Geluid aan en uit zetten
+        public void pasGeluidAan()
+        {
+            //SoundAan false maken als true is en andersom
+            this.soundAan = !this.soundAan;
+
+            //Stop muziek als true, play muziek als false
+            if (!soundAan)
+            {
+                backgroundSound.Stop();
+            }
+            else
+            {
+                backgroundSound.Play();
+            }
+        }
+
+        //Getter van soundAan
+        public bool getSoundAan()
+        {
+            return soundAan;
         }
     }
 }

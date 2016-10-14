@@ -156,5 +156,56 @@ namespace MuseumSpel
         {
             this.Invalidate();
         }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void scoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pauzeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Wilt u het spel stoppen?", "Pauzemenu", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                speelVeld.gameLoop.ShutDown();
+                Application.Exit();
+            }
+            else
+            {
+                MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
+            }
+        }
+
+        private void geluidToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (speelVeld.pasGeluidAan() == "aan")
+            {
+                geluidToolStripMenuItem.Image = new Bitmap("Afbeeldingen//sound_on.png");
+            }
+            else
+            {
+                geluidToolStripMenuItem.Image = new Bitmap("Afbeeldingen//sound_off.png");
+            }
+        }
+
+        private void restartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var Result = MessageBox.Show("wil je opnieuw beginnen?", "Restart", MessageBoxButtons.RetryCancel, MessageBoxIcon.Question);
+
+            if(Result == DialogResult.Retry)
+            {
+                speelVeld.Reset();
+                MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
+            }
+            else if(Result == DialogResult.Cancel)
+            {
+                MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
+            }
+        }
     }
 }

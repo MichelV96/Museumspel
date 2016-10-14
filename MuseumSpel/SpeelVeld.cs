@@ -63,6 +63,7 @@ namespace MuseumSpel
         //schilderij counter
         public int aantalSchilderijen;
         public int gepakteSchilderijen;
+        private Menu menu;
 
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
         {
@@ -82,6 +83,7 @@ namespace MuseumSpel
             bewakers = new List<Bewaker>();
             eindpunten = new List<SpelObject>();
             this.gameLoop = gameloop;
+            menu = new Menu();
 
         }
 
@@ -561,6 +563,22 @@ namespace MuseumSpel
             gameLoop.seconds = 0;
             gameLoop.minutes = 0;
             gameLoop.hours = 0;
+        }
+
+        //Pas geluid aan en geef een waarde mee naar de form voor het menu
+        public string pasGeluidAan()
+        {
+            menu.pasGeluidAan();
+            bool soundAan = menu.getSoundAan();
+
+            if (soundAan)
+            {
+                return "aan";
+            }
+            else
+            {
+                return "uit";
+            }
         }
     }
 }
