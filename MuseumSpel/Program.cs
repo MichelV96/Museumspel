@@ -72,13 +72,17 @@ namespace MuseumSpel
 
             //Guard
             #region Guard
-            speelVeld.voegBewakerToe(new Bewaker(12, 0, 2, 0, 5, Direction.Left));
-            //speelVeld.voegBewakerToe(new Bewaker(3, 10, 12, 10, 5, Direction.Left));
-            //speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 5, Direction.Left));
-            speelVeld.voegBewakerToe(new Bewaker(16, 1, 16, 10, 5, Direction.Left));
-            speelVeld.voegBewakerToe(new Bewaker(4, 4, 4, 4, 5, Direction.Left));
-            speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 14, 8, 14, 2, 5, Direction.Left));
-            speelVeld.voegBewakerToe(new Bewaker(5, 10, 10, 10, 5, Direction.Left));
+            //speelVeld.voegBewakerToe(new Bewaker(12, 0, 2, 0, 5, Direction.Left));
+            ////speelVeld.voegBewakerToe(new Bewaker(3, 10, 12, 10, 5, Direction.Left));
+            ////speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 5, Direction.Left));
+            //speelVeld.voegBewakerToe(new Bewaker(16, 1, 16, 10, 5, Direction.Left));
+            //speelVeld.voegBewakerToe(new Bewaker(4, 4, 4, 4, 5, Direction.Left));
+            //speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 14, 8, 14, 2, 5, Direction.Left));
+            //speelVeld.voegBewakerToe(new Bewaker(5, 10, 10, 10, 5, Direction.Left));
+            speelVeld.voegBewakerToe(new Bewaker(7, 0, 7, 0, 5, Direction.Left));
+            speelVeld.voegBewakerToe(new Bewaker(7, 10, 7, 10, 5, Direction.Right));
+            speelVeld.voegBewakerToe(new Bewaker(16, 5, 16, 5, 5, Direction.Up));
+            speelVeld.voegBewakerToe(new Bewaker(2, 5, 2, 5, 5, Direction.Down));
 
 
             #endregion
