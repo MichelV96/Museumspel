@@ -28,7 +28,7 @@ namespace MuseumSpel
         {
             InitializeComponent();
             this.speelVeld = speelVeld;
-            penDikte = 2;
+            penDikte = 0;
             speelVeld.speler.Cor_X += penDikte; // overlapping
             speelVeld.speler.Cor_Y += penDikte;
         }
