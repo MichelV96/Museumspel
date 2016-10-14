@@ -14,9 +14,12 @@ namespace MuseumSpel
     public partial class Menu : Form
     {
         SoundPlayer backgroundSound = new SoundPlayer("Sound\\sound.wav");
-        bool soundAan = true;
+        private bool soundAan = true;
+        public bool startSpel { get; private set; }
+        public int spelLevel { get; private set; }
+        public int Value;
 
-        public Menu()
+        public Menu(int levels)
         {
             InitializeComponent();
 
@@ -32,22 +35,37 @@ namespace MuseumSpel
             Button startSpel = new Button() { Text = "Start spel", Left = 15, Width = 250, Height = 50, Top = 20 };
             Button opties = new Button() { Text = "Opties", Left = 15, Width = 250, Height = 50, Top = 75 };
             Button sluitSpel = new Button() { Text = "Afsluiten", Left = 15, Width = 250, Height = 50, Top = 130 };
+            ComboBox kiesLevel = new ComboBox() { Text = "Kies level", Left = 15, Width = 250, Height = 50, Top = 185 };
+
+            kiesLevel.DisplayMember = "Text";
+
+            for (int i = 0; i < levels; i++)
+            {
+                kiesLevel.Items.Add(new { Text = "level" + (i + 1) });
+            }
+
+
             //on click methode
-            startSpel.Click += (sender, e) => { this.Close(); };
+            startSpel.Click += (sender, e) => {
+                if((kiesLevel.SelectedIndex + 1) == 0)
+                {
+                    MessageBox.Show("kies een level");
+                }
+                else
+                {
+                    this.startSpel = true;
+                    this.spelLevel = kiesLevel.SelectedIndex + 1;
+                    this.Close();
+                }
+            };
             opties.Click += (sender, e) => { Options(); };
             sluitSpel.Click += (sender, e) => { Application.Exit(); };
             //voeg de elementen toe
             Controls.Add(startSpel);
             Controls.Add(opties);
             Controls.Add(sluitSpel);
+            Controls.Add(kiesLevel);
             this.Show();
-        }
-
-        private void Start()
-        {
-            Form menu = new Form();
-
-            menu.ShowDialog();
         }
 
         private void Options()

@@ -15,21 +15,21 @@ namespace MuseumSpel
         public int aantalpaths;
         public int speed;
 
-        public Bewaker(int cor_X, int cor_Y, int eind_cor_X, int eind_cor_Y, int speed, Direction richting) : base("Bewaker", cor_X * 50, cor_Y * 50, "Afbeeldingen\\guard3.png", false)
+        public Bewaker(int cor_X, int cor_Y, int eind_cor_X, int eind_cor_Y, Direction richting) : base("Bewaker", cor_X * 50, cor_Y * 50, "Afbeeldingen\\guard3.png", false)
         {
             {  
                 wayPoints = new int[2, 2] { { cor_X, cor_Y }, { eind_cor_X, eind_cor_Y } };
-                this.speed = speed;
+                speed = 5;
                 path = 1;
                 aantalpaths = 2;
                 Setrichting(richting);       
             }
         }
 
-        public Bewaker(int cor_X1, int cor_Y1, int cor_X2, int cor_Y2, int cor_X3, int cor_Y3, int cor_X4, int cor_Y4, int speed, Direction richting) : base("Bewaker", cor_X1 * 50, cor_Y1 * 50, "Afbeeldingen\\guard3.png", false)
+        public Bewaker(int cor_X1, int cor_Y1, int cor_X2, int cor_Y2, int cor_X3, int cor_Y3, int cor_X4, int cor_Y4, Direction richting) : base("Bewaker", cor_X1 * 50, cor_Y1 * 50, "Afbeeldingen\\guard3.png", false)
         {
             wayPoints = new int[4, 2] { { cor_X1, cor_Y1 }, { cor_X2, cor_Y2 }, { cor_X3, cor_Y3 }, { cor_X4, cor_Y4 } };
-            this.speed = speed;
+            speed = 5;
             path = 1;
             aantalpaths = 4;
             Setrichting(richting);
