@@ -206,7 +206,6 @@ namespace MuseumSpel
             if(Result == DialogResult.Retry)
             {
                 speelVeld.Reset();
-                MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
             }
             else if(Result == DialogResult.Cancel)
             {

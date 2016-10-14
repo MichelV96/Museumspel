@@ -693,7 +693,8 @@ namespace MuseumSpel
             gameLoop.seconds = 0;
             gameLoop.minutes = 0;
             gameLoop.hours = 0;
-
+            gameLoop.redraw();
+            MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
         }
         
 
