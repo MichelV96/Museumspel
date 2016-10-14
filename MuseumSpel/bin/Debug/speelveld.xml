@@ -309,6 +309,39 @@
 					<y>10</y>
 				</eindpunt>
 			</eindpunten>
+			<bewakers>
+				<bewaker>
+					<startx>12</startx>
+					<starty>0</starty>
+					<punten>
+						<punt>2</punt>
+						<punt>0</punt>
+					</punten>
+					<richting>Left</richting>
+				</bewaker>
+				<bewaker>
+					<startx>16</startx>
+					<starty>1</starty>
+					<punten>
+						<punt>16</punt>
+						<punt>10</punt>
+					</punten>
+					<richting>Left</richting>
+				</bewaker>
+				<bewaker>
+					<startx>2</startx>
+					<starty>2</starty>
+					<punten>
+						<punt>2</punt>
+						<punt>8</punt>
+						<punt>14</punt>
+						<punt>8</punt>
+						<punt>14</punt>
+						<punt>2</punt>
+					</punten>
+					<richting>Left</richting>
+				</bewaker>
+			</bewakers>
 		</gameobjecten>
 	</level>
 	<level>
