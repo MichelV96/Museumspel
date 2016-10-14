@@ -655,6 +655,7 @@ namespace MuseumSpel
         {
             if (takenPaintArray.Count != 0)
             {
+                gepakteSchilderijen = 0;
                 foreach (SpelObject schilderij in takenPaintArray)
                 {
                     if (!paintArray.Contains(schilderij))
