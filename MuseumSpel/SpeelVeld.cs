@@ -287,7 +287,7 @@ namespace MuseumSpel
                 if (bewaker.path == 1) // eerste waypoint
                 {
                     //Beweging naar links
-                    if (GetGridCordinate(bewaker.Cor_X) >= bewaker.wayPoints[1, 0])
+                    if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
                     {
                         bewaker.richting = 4;
                         bewaker.Cor_X -= bewaker.speed;
@@ -406,6 +406,24 @@ namespace MuseumSpel
                 {
                     if (bewaker.aantalpaths > 3)//derde waypoint
                     {
+                        //bewging naar rechts
+                        if (bewaker.wayPoints[2, 0] < bewaker.wayPoints[3, 0])
+                        {
+                            bewaker.Cor_X += bewaker.speed;
+                            if (bewaker.Cor_X >= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
+                            {
+                                bewaker.path = 4;
+                            }
+                        }
+                        //bewging naar link
+                        if (bewaker.wayPoints[2, 0] > bewaker.wayPoints[3, 0])
+                        {
+                            bewaker.Cor_X -= bewaker.speed;
+                            if (bewaker.Cor_X <= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
+                            {
+                                bewaker.path = 4;
+                            }
+                        }
                         //bewging naar boven
                         if (bewaker.wayPoints[2, 1] > bewaker.wayPoints[3, 1])
                         {
@@ -415,16 +433,25 @@ namespace MuseumSpel
                                 bewaker.path = 4;
                             }
                         }
+                        //bewging naar beneden
+                        if (bewaker.wayPoints[2, 1] < bewaker.wayPoints[3, 1])
+                        {
+                            bewaker.Cor_Y += bewaker.speed;
+                            if (bewaker.Cor_Y >= (bewaker.wayPoints[3, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
+                            {
+                                bewaker.path = 4;
+                            }
+                        }
                     }
                 }
                 #endregion
-
-                #region path 3
+                #region path 4
                 else if (bewaker.path == 4)
                 {
                     //Beweging naar links
                     if (bewaker.wayPoints[3, 0] > bewaker.wayPoints[0, 0])
                     {
+                        bewaker.richting = 4;
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                         {
