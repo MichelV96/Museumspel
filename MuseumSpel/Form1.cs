@@ -17,21 +17,19 @@ namespace MuseumSpel
     public partial class Form1 : Form
     {
         private SpeelVeld speelVeld; // model
-        private int penDikte;
         public bool startup = true;
         Graphics dc;
         PaintEventArgs dc2;
         // Delegeate event
         public event KeyPressedEventHandeler KeyPressed;
         public event KeyPressedEventHandeler KeyRealeased;
+        public Menu menu;
 
-        public Form1(SpeelVeld speelVeld)
+        public Form1(SpeelVeld speelVeld, Menu menu)
         {
             InitializeComponent();
             this.speelVeld = speelVeld;
-            penDikte = 2;
-            speelVeld.speler.Cor_X += penDikte; // overlapping
-            speelVeld.speler.Cor_Y += penDikte;
+            this.menu = menu;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -119,20 +117,11 @@ namespace MuseumSpel
         {
             
                 dc = e.Graphics;
-            dc2 = e;
-            
-                Pen p1 = new Pen(Color.Black, penDikte);
-            
-                Rectangle rec1 = new Rectangle(0, 0, speelVeld.borderX, speelVeld.borderY);
-                if (rec1 != Rectangle.Empty)
-                {
-                    //  dc.DrawRectangle(p1, rec1);
-                }
-            Rectangle rec2;
+                dc2 = e;
                 
                 speelVeld.PrintSpeelVeld(dc);
 
-            speelVeld.speler.PrintSpelObject(speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, dc2.Graphics);
+                speelVeld.speler.PrintSpelObject(speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, dc2.Graphics);
 
 
             foreach (Bewaker bewaker in speelVeld.bewakers)
@@ -200,7 +189,7 @@ namespace MuseumSpel
 
         private void geluidToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (speelVeld.pasGeluidAan() == "aan")
+            if (pasGeluidAan() == "aan")
             {
                 geluidToolStripMenuItem.Image = new Bitmap("Afbeeldingen//sound_on.png");
             }
@@ -222,6 +211,21 @@ namespace MuseumSpel
             else if(Result == DialogResult.Cancel)
             {
                 MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
+            }
+        }
+
+        public string pasGeluidAan()
+        {
+            menu.pasGeluidAan();
+            bool soundAan = menu.getSoundAan();
+
+            if (soundAan)
+            {
+                return "aan";
+            }
+            else
+            {
+                return "uit";
             }
         }
 

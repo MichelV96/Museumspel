@@ -18,9 +18,6 @@ namespace MuseumSpel
     // The Model, SuperClass
     public class SpeelVeld
     {
-        //guard
-        private int bewakerRange = 50;
-        public bool opgepaktDoorBewaker = false;
         //aantalRijen, aantalVakjes
         private int aantalVakkenX;
         private int aantalVakkenY;
@@ -47,12 +44,16 @@ namespace MuseumSpel
         public bool idle { get; set; }
         public int richting { get; set; }
 
+        //guard (kan mogelijk in class bewaker)
+        private int RangeStartUpAndLeftBewaker; // moet 124 zijn bij vakgroote 50
+        private int RangeEndUpAndLeftBewaker;  // moet 199 zijn bij vakgroote 50
+        private int RangeStartDownAndRightBewaker; //moet 0 zijn bij elk vakgroote
+        private int RangeEndDownAndRightBewaker; // moet 175 zijn bij vakgroote 50
+        public bool opgepaktDoorBewaker = false;
+
         //Powerup 
         int outfitX;
         int outfitY;
-
-        //de key voor de spelobjecten array waar de powerup staat
-        int key;
 
         //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
         int p = 0;
@@ -68,8 +69,7 @@ namespace MuseumSpel
         private int puntenPerSchilderij;
 
 
-        //menu
-        private Menu menu;
+        
 
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
         {
@@ -87,11 +87,15 @@ namespace MuseumSpel
             powerups = new List<SpelObject>();
             usedPowerUps = new List<SpelObject>();
             bewakers = new List<Bewaker>();
+            //Guard Range bepalen (kan mogelijk in class bewaker).
+            RangeStartUpAndLeftBewaker = (vakGrootte * 2) + (vakGrootte/2) - 1;
+            RangeEndUpAndLeftBewaker = (vakGrootte * 4) - 1;
+            RangeEndDownAndRightBewaker = (vakGrootte * 3) + (vakGrootte / 2);
+            RangeStartDownAndRightBewaker = 0;
             eindpunten = new List<SpelObject>();
             this.gameLoop = gameloop;
             beginScore = 5000;
             puntenPerSchilderij = 3000;
-            menu = new Menu();
 
         }
 
@@ -286,26 +290,31 @@ namespace MuseumSpel
 
 
         //Bewaker
+        #region Bewaker Movment
         public void GuardAutomaticMovement()
         {
             foreach (Bewaker bewaker in bewakers)
             {
-                if (bewaker.path == 1)
+                #region path 1
+                if (bewaker.path == 1) // eerste waypoint
                 {
                     //Beweging naar links
                     if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
                     {
+                        bewaker.richting = 4;
                         bewaker.Cor_X -= bewaker.speed;
-                        if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                         {
+                            Console.WriteLine("path is nu 2");
                             bewaker.path = 2;
                         }
                     }
                     //Beweging naar rechts
                     if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
                     {
+                        bewaker.richting = 3;
                         bewaker.Cor_X += bewaker.speed;
-                        if (bewaker.Cor_X >= (bewaker.wayPoints[1, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        if (bewaker.Cor_X >= (bewaker.wayPoints[1, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                         {
                             bewaker.path = 2;
                         }
@@ -313,8 +322,9 @@ namespace MuseumSpel
                     //Beweging naar beneden
                     if (bewaker.wayPoints[0, 1] < bewaker.wayPoints[1, 1])
                     {
+                        bewaker.richting = 2;
                         bewaker.Cor_Y += bewaker.speed;
-                        if (bewaker.Cor_Y >= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        if (bewaker.Cor_Y >= (bewaker.wayPoints[1, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
                         {
                             bewaker.path = 2;
                         }
@@ -322,99 +332,204 @@ namespace MuseumSpel
                     //Beweging naar boven
                     if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
                     {
+                        bewaker.richting = 1;
                         bewaker.Cor_Y -= bewaker.speed;
-                        if (bewaker.Cor_Y <= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        if (bewaker.Cor_Y <= (bewaker.wayPoints[1, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
                         {
                             bewaker.path = 2;
                         }
                     }
                 }
-                else if (bewaker.path == 2)
+                #endregion
+                #region path 2
+                else if (bewaker.path == 2)//tweede waypoint
                 {
-                    //beweging naar rechts
-                    if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
+                    if (bewaker.aantalpaths > 2)//bewakers met meer dan twee points
                     {
-                        bewaker.Cor_X += bewaker.speed;
-                        if (bewaker.Cor_X >= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        //beweging naar rechts
+                        if (bewaker.wayPoints[1, 0] < bewaker.wayPoints[2, 0])
                         {
-                            if (bewaker.aantalpaths > 2)
+                            bewaker.richting = 3;
+                            bewaker.Cor_X += bewaker.speed;
+                            if (bewaker.Cor_X >= (bewaker.wayPoints[2, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                             {
                                 bewaker.path = 3;
                             }
-                            else
+                        }
+                        //bewging naar links
+                        if (bewaker.wayPoints[1, 0] > bewaker.wayPoints[2, 0])
+                        {
+                            bewaker.richting = 4;
+                            bewaker.Cor_X -= bewaker.speed;
+                            if (bewaker.Cor_X <= (bewaker.wayPoints[2, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                             {
-                                bewaker.path = 1;
+                                bewaker.path = 3;
                             }
                         }
                     }
-                    //beweging naar links
-                    if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
+                    else
                     {
-                        bewaker.Cor_X -= bewaker.speed;
-                        if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        //beweging naar rechts
+                        if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
                         {
-                            if (bewaker.aantalpaths > 2)
-                            {
-                                bewaker.path = 3;
-                            }
-                            else
-                            {
+                            bewaker.richting = 3;
+                            bewaker.Cor_X += bewaker.speed;
+                            if (bewaker.Cor_X >= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                            {                     
                                 bewaker.path = 1;
                             }
                         }
-                    }
-                    //Beweging naar boven
-                    if (bewaker.wayPoints[0, 1] < bewaker.wayPoints[1, 1])
-                    {
-                        bewaker.Cor_Y -= bewaker.speed;
-                        if (bewaker.Cor_Y <= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        //beweging naar links
+                        if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
                         {
-                            if (bewaker.aantalpaths > 2)
+                            bewaker.richting = 4;
+                            bewaker.Cor_X -= bewaker.speed;
+                            if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                             {
-                                bewaker.path = 3;
-                            }
-                            else
-                            {
-                                bewaker.path = 1;
+                               bewaker.path = 1;   
                             }
                         }
-                    }
-                    //Beweging naar beneden
-                    if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
-                    {
-                        bewaker.Cor_Y += bewaker.speed;
-                        if (bewaker.Cor_Y >= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        //Beweging naar boven
+                        if (bewaker.wayPoints[0, 1] < bewaker.wayPoints[1, 1])
                         {
-                            if (bewaker.aantalpaths > 2)
-                            {
-                                bewaker.path = 3;
+                            bewaker.richting = 1;
+                            bewaker.Cor_Y -= bewaker.speed;
+                            if (bewaker.Cor_Y <= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                            {          
+                                    bewaker.path = 1;
                             }
-                            else
+                        }
+                        //Beweging naar beneden
+                        if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
+                        {
+                            bewaker.richting = 2;
+                            bewaker.Cor_Y += bewaker.speed;
+                            if (bewaker.Cor_Y >= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                             {
-                                bewaker.path = 1;
+                                if (bewaker.aantalpaths > 2)
+                                    bewaker.path = 1;
                             }
                         }
                     }
                 }
+                #endregion
+                #region path 3
+                else if (bewaker.path == 3)
+                {
+                    if (bewaker.aantalpaths > 3)//derde waypoint
+                    {
+                        //bewging naar rechts
+                        if (bewaker.wayPoints[2, 0] < bewaker.wayPoints[3, 0])
+                        {
+                            bewaker.Cor_X += bewaker.speed;
+                            if (bewaker.Cor_X >= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
+                            {
+                                bewaker.path = 4;
+                            }
+                        }
+                        //bewging naar link
+                        if (bewaker.wayPoints[2, 0] > bewaker.wayPoints[3, 0])
+                        {
+                            bewaker.Cor_X -= bewaker.speed;
+                            if (bewaker.Cor_X <= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
+                            {
+                                bewaker.path = 4;
+                            }
+                        }
+                        //bewging naar boven
+                        if (bewaker.wayPoints[2, 1] > bewaker.wayPoints[3, 1])
+                        {
+                            bewaker.Cor_Y -= bewaker.speed;
+                            if (bewaker.Cor_Y <= (bewaker.wayPoints[3, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
+                            {
+                                bewaker.path = 4;
+                            }
+                        }
+                        //bewging naar beneden
+                        if (bewaker.wayPoints[2, 1] < bewaker.wayPoints[3, 1])
+                        {
+                            bewaker.Cor_Y += bewaker.speed;
+                            if (bewaker.Cor_Y >= (bewaker.wayPoints[3, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
+                            {
+                                bewaker.path = 4;
+                            }
+                        }
+                    }
+                }
+                #endregion
+                #region path 4
+                else if (bewaker.path == 4)
+                {
+                    //Beweging naar links
+                    if (bewaker.wayPoints[3, 0] > bewaker.wayPoints[0, 0])
+                    {
+                        bewaker.richting = 4;
+                        bewaker.Cor_X -= bewaker.speed;
+                        if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
+                        {
+                            bewaker.path = 1;
+                        }
+                    }
+                }
+                #endregion
             }
         }
-        #region Guard Detection
+        #endregion
+        
         //Detecteren van speler als guard. 
+        #region Guard Detection
         public void GuardDetectPlayer()
         {
             if (speler.isDisguised == false)
             {
                 foreach (Bewaker bewaker in bewakers)
                 {
-                    if (Enumerable.Range((bewaker.Cor_X), bewakerRange).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), bewakerRange).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                    switch (bewaker.richting)
                     {
-
-                        Console.WriteLine("Toughing");
-                        if (shuttingUp != null)
-                        {
-                            shuttingUp();
-                        }
-
+                        //boven
+                        case 1:
+                            if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            {
+                                Console.WriteLine("Boven detectie");
+                                    if (shuttingUp != null)
+                                    {
+                                        shuttingUp();
+                                    }
+                                }
+                                break;
+                        //onder
+                        case 2:
+                            if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            {
+                                Console.WriteLine("Onder detectie");
+                                    if (shuttingUp != null)
+                                    {
+                                        shuttingUp();
+                                    }
+                                }
+                            break;
+                        //rechts
+                        case 3:
+                            if (Enumerable.Range((bewaker.Cor_X + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            {
+                                Console.WriteLine("Rechts detectie");
+                                    if (shuttingUp != null)
+                                    {
+                                        shuttingUp();
+                                    }
+                                }
+                            break;
+                        //links
+                        case 4:
+                            if(Enumerable.Range((bewaker.Cor_X - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            {
+                                Console.WriteLine("Links detectie");
+                                    if (shuttingUp != null)
+                                    {
+                                        shuttingUp();
+                                    }
+                                }
+                            break;
                     }
                 }
 
@@ -577,23 +692,9 @@ namespace MuseumSpel
             gameLoop.seconds = 0;
             gameLoop.minutes = 0;
             gameLoop.hours = 0;
-        }
 
-        //Pas geluid aan en geef een waarde mee naar de form voor het menu
-        public string pasGeluidAan()
-        {
-            menu.pasGeluidAan();
-            bool soundAan = menu.getSoundAan();
-
-            if (soundAan)
-            {
-                return "aan";
-            }
-            else
-            {
-                return "uit";
-            }
         }
+        
 
         //Bepaal de score en zet dit in het menu
         public int bepaalScore()
@@ -607,5 +708,6 @@ namespace MuseumSpel
 
 
         }
+        
     }
 }
