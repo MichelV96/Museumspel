@@ -61,8 +61,8 @@ namespace MuseumSpel
         private List<SpelObject> usedPowerUps;
         private List<SpelObject> takenPaintArray;
         //schilderij counter
-        private int aantalSchilderijen;
-        private int gepakteSchilderijen;
+        public int aantalSchilderijen;
+        public int gepakteSchilderijen;
 
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
         {
@@ -91,6 +91,7 @@ namespace MuseumSpel
             started = true;
             while (!gameLoop.p_gameOver)
             {
+                #region
                 //cycle++;
                 //if (gameLoop.p_currentTime >= cyclestart + 1000)
                 //{
@@ -98,6 +99,7 @@ namespace MuseumSpel
                 //    cyclestart = gameLoop.p_currentTime;
                 //    cycle = 0;
                 //}
+                #endregion
                 gameLoop.gameLoop();
                 //Console.WriteLine(speler.speed);
 
