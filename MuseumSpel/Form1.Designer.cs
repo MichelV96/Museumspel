@@ -74,6 +74,7 @@
             this.pauzeToolStripMenuItem.Name = "pauzeToolStripMenuItem";
             this.pauzeToolStripMenuItem.Size = new System.Drawing.Size(69, 29);
             this.pauzeToolStripMenuItem.Text = "Pauze";
+            this.pauzeToolStripMenuItem.ToolTipText = "pauzeerd de game";
             this.pauzeToolStripMenuItem.Click += new System.EventHandler(this.pauzeToolStripMenuItem_Click);
             // 
             // geluidToolStripMenuItem
@@ -81,6 +82,7 @@
             this.geluidToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("geluidToolStripMenuItem.Image")));
             this.geluidToolStripMenuItem.Name = "geluidToolStripMenuItem";
             this.geluidToolStripMenuItem.Size = new System.Drawing.Size(36, 29);
+            this.geluidToolStripMenuItem.ToolTipText = "Geluid aan/uit";
             this.geluidToolStripMenuItem.Click += new System.EventHandler(this.geluidToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
@@ -89,6 +91,8 @@
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(51, 29);
             this.toolStripMenuItem3.Text = "0/0";
+            this.toolStripMenuItem3.ToolTipText = "gepakt/max";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // schilderijenToolStripMenuItem
             // 
@@ -96,6 +100,7 @@
             this.schilderijenToolStripMenuItem.Name = "schilderijenToolStripMenuItem";
             this.schilderijenToolStripMenuItem.Size = new System.Drawing.Size(113, 29);
             this.schilderijenToolStripMenuItem.Text = "Schilderijen";
+            this.schilderijenToolStripMenuItem.ToolTipText = "hoeveel schilderijen je hebt";
             // 
             // toolStripMenuItem2
             // 
@@ -103,6 +108,7 @@
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(34, 29);
             this.toolStripMenuItem2.Text = "0";
+            this.toolStripMenuItem2.ToolTipText = "aantal punten";
             // 
             // scoreToolStripMenuItem
             // 
@@ -110,6 +116,7 @@
             this.scoreToolStripMenuItem.Name = "scoreToolStripMenuItem";
             this.scoreToolStripMenuItem.Size = new System.Drawing.Size(68, 29);
             this.scoreToolStripMenuItem.Text = "Score";
+            this.scoreToolStripMenuItem.ToolTipText = "hoeveel punten je hebt";
             this.scoreToolStripMenuItem.Click += new System.EventHandler(this.scoreToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
@@ -118,6 +125,8 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(92, 29);
             this.toolStripMenuItem1.Text = "00:00:00";
+            this.toolStripMenuItem1.ToolTipText = "hoe lang je al aan het spelen bent.";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // speeltijdToolStripMenuItem
             // 
@@ -125,12 +134,14 @@
             this.speeltijdToolStripMenuItem.Name = "speeltijdToolStripMenuItem";
             this.speeltijdToolStripMenuItem.Size = new System.Drawing.Size(92, 29);
             this.speeltijdToolStripMenuItem.Text = "Speeltijd";
+            this.speeltijdToolStripMenuItem.ToolTipText = "hoe lang je al aan het spelen bent.";
             // 
             // restartToolStripMenuItem
             // 
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
             this.restartToolStripMenuItem.Size = new System.Drawing.Size(78, 29);
             this.restartToolStripMenuItem.Text = "Restart";
+            this.restartToolStripMenuItem.ToolTipText = "hier kun je opnieuw beginnen.";
             this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
             // 
             // Form1
