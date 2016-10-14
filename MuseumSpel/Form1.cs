@@ -73,8 +73,12 @@ namespace MuseumSpel
             }
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            close(e);
+        }
 
-        public void close()
+        public void close(FormClosingEventArgs e)
         {
             speelVeld.paused = true;
             var result = MessageBox.Show("do you want to quit?", "closing", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
@@ -82,17 +86,22 @@ namespace MuseumSpel
             if (result == DialogResult.OK)
             {
                 speelVeld.gameLoop.ShutDown();
-                this.Close();
+                base.OnFormClosing(e);
+                //this.Close();
             }
             if (result == DialogResult.Cancel)
             {
+                e.Cancel = true;
                 speelVeld.paused = false;
+                base.OnFormClosing(e);
+                MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
             }
         }
 
         protected override void OnClosed(EventArgs e)
         {
             //this.close();
+            
             //speelVeld.paused = true;
             //var result = MessageBox.Show("do you want to quit?", "closing", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
@@ -175,8 +184,6 @@ namespace MuseumSpel
         {
             this.Invalidate();
         }
-        
-
         private void pauzeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("Wilt u het spel stoppen?", "Pauzemenu", MessageBoxButtons.YesNo);
@@ -227,5 +234,16 @@ namespace MuseumSpel
         {
 
         }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void scoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
