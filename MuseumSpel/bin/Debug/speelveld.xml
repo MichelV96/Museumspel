@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <levels>
 	<level>
+		<nummer>1</nummer>
 		<gameobjecten>
 			<muren>
 				<muur>
@@ -301,6 +303,12 @@
 					<y>8</y>
 				</waterplas>
 			</waterplassen>
+			<eindpunten>
+				<eindpunt>
+					<x>16</x>
+					<y>10</y>
+				</eindpunt>
+			</eindpunten>
 		</gameobjecten>
 	</level>
 </levels>

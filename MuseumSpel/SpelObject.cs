@@ -11,6 +11,9 @@ namespace MuseumSpel
     //abstracte class voor ieder spel object, behoort tot model
     public abstract class SpelObject
     {
+        //starting values
+        public int start_cor_x;
+        public int start_cor_y;
 
         public Bitmap texture { get; set; }
         public string name { get; private set; }
@@ -22,7 +25,9 @@ namespace MuseumSpel
         {
             this.name = name;
             Cor_X = cor_X;
+            start_cor_x = cor_X;
             Cor_Y = cor_Y;
+            start_cor_y = cor_Y;
             this.texture = new Bitmap(picture);
             this.isSolid= isSolid;
 

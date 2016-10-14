@@ -9,12 +9,12 @@ using System.Windows.Forms;
 namespace MuseumSpel
 {
     public delegate void ModelChangedEventHandeler();
+    public delegate void ShutdownEventHandeler();
 
     public enum Direction
     {
-        Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle
+        Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle 
     }
-    
     // The Model, SuperClass
     public class SpeelVeld
     {
@@ -31,8 +31,10 @@ namespace MuseumSpel
         private List<SpelObject> waterplassen;
         private List<SpelObject> powerups;
         private List<SpelObject> muren;
+        private List<SpelObject> eindpunten;
         public List<Bewaker> bewakers;
         //event
+        public event ShutdownEventHandeler shuttingUp;
         //public event ModelChangedEventHandeler ModelChanged; // wanneer je de View aanroepen doe je: ModelChanged();
 
         //gameloop
@@ -51,8 +53,19 @@ namespace MuseumSpel
         //Powerup 
         int outfitX;
         int outfitY;
+
+        //de key voor de spelobjecten array waar de powerup staat
+        int key;
+
         //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
         int p = 0;
+        
+        //values voor reset
+        private List<SpelObject> usedPowerUps;
+        private List<SpelObject> takenPaintArray;
+        //schilderij counter
+        public int aantalSchilderijen;
+        public int gepakteSchilderijen;
 
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
         {
@@ -65,17 +78,17 @@ namespace MuseumSpel
             spelObjecten = new List<SpelObject>();
             muren = new List<SpelObject>();
             paintArray = new List<SpelObject>();
+            takenPaintArray = new List<SpelObject>();
             waterplassen = new List<SpelObject>();
             powerups = new List<SpelObject>();
+            usedPowerUps = new List<SpelObject>();
             bewakers = new List<Bewaker>();
-
             //Guard Range bepalen (kan mogelijk in class bewaker).
             RangeStartUpAndLeftBewaker = (vakGrootte * 2) + (vakGrootte/2) - 1;
             RangeEndUpAndLeftBewaker = (vakGrootte * 4) - 1;
             RangeEndDownAndRightBewaker = (vakGrootte * 3) + (vakGrootte / 2);
             RangeStartDownAndRightBewaker = 0;
-
-
+            eindpunten = new List<SpelObject>();
             this.gameLoop = gameloop;
 
         }
@@ -86,6 +99,7 @@ namespace MuseumSpel
             started = true;
             while (!gameLoop.p_gameOver)
             {
+                #region
                 //cycle++;
                 //if (gameLoop.p_currentTime >= cyclestart + 1000)
                 //{
@@ -93,6 +107,7 @@ namespace MuseumSpel
                 //    cyclestart = gameLoop.p_currentTime;
                 //    cycle = 0;
                 //}
+                #endregion
                 gameLoop.gameLoop();
                 //Console.WriteLine(speler.speed);
 
@@ -223,11 +238,26 @@ namespace MuseumSpel
             if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
             {
                 //verwijder de power up uit de array
+                usedPowerUps.Add(powerups[0]);
                 powerups.RemoveAt(0);
                 speler.isDisguised = true;
                 speler.endTime = DateTime.Now.AddSeconds(speler.duration);
                 this.p += 1;
             }
+
+            //eindpunt
+            #region Eindpunt
+            foreach (Eindpunt e in eindpunten)
+            {
+                if (Enumerable.Range((e.Cor_X * vakGrootte - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((e.Cor_Y * vakGrootte - 15), 30).Contains(speler.Cor_Y))
+                {
+                    if (gepakteSchilderijen == aantalSchilderijen)
+                    {
+                        MessageBox.Show("Score = " + gepakteSchilderijen);
+                    }
+                }
+            }
+            #endregion
 
             if (!speler.isStunned && !speler.stunCooldown)
             {
@@ -256,6 +286,7 @@ namespace MuseumSpel
         {
             foreach (Bewaker bewaker in bewakers)
             {
+                #region path 1
                 if (bewaker.path == 1) // eerste waypoint
                 {
                     //Beweging naar links
@@ -300,80 +331,98 @@ namespace MuseumSpel
                         }
                     }
                 }
+                #endregion
+                #region path 2
                 else if (bewaker.path == 2)//tweede waypoint
                 {
-                    //beweging naar rechts
-                    if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
+                    if (bewaker.aantalpaths > 2)//bewakers met meer dan twee points
                     {
-                        bewaker.richting = 4;
-                        bewaker.Cor_X += bewaker.speed;
-                        if (bewaker.Cor_X >= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        //beweging naar rechts
+                        if (bewaker.wayPoints[1, 0] < bewaker.wayPoints[2, 0])
                         {
-                            if (bewaker.aantalpaths > 2) {
+                            bewaker.Cor_X += bewaker.speed;
+                            if (bewaker.Cor_X >= (bewaker.wayPoints[2, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                            {
                                 bewaker.path = 3;
                             }
-                            else
+                        }
+                        //bewging naar links
+                        if (bewaker.wayPoints[1, 0] > bewaker.wayPoints[2, 0])
+                        {
+                            bewaker.Cor_X -= bewaker.speed;
+                            if (bewaker.Cor_X <= (bewaker.wayPoints[2, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                             {
-                                bewaker.path = 1;
+                                bewaker.path = 3;
                             }
                         }
                     }
-                    //beweging naar links
-                    if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
+                    else
                     {
-                        bewaker.richting = 3;
-                        bewaker.Cor_X -= bewaker.speed;
-                        if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                        //beweging naar rechts
+                        if (bewaker.wayPoints[0, 0] > bewaker.wayPoints[1, 0])
                         {
-                            if (bewaker.aantalpaths > 2)
-                            {
-                                bewaker.path = 3;
-                            }
-                            else
-                            {
+                            bewaker.richting = 4;
+                            bewaker.Cor_X += bewaker.speed;
+                            if (bewaker.Cor_X >= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
+                            {                     
                                 bewaker.path = 1;
                             }
                         }
-                    }
-                    //Beweging naar boven
-                    if (bewaker.wayPoints[0, 1] < bewaker.wayPoints[1, 1])
-                    {
-                        bewaker.richting = 1;
-                        bewaker.Cor_Y -= bewaker.speed;
-                        if (bewaker.Cor_Y <= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        //beweging naar links
+                        if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
                         {
-                            if (bewaker.aantalpaths > 2)
+                            bewaker.richting = 3;
+                            bewaker.Cor_X -= bewaker.speed;
+                            if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0]) * 50 && bewaker.Cor_X % 50 == 0)
                             {
-                                bewaker.path = 3;
-                            }
-                            else
-                            {
-                                bewaker.path = 1;
+                               bewaker.path = 1;   
                             }
                         }
-                    }
-                    //Beweging naar beneden
-                    if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
-                    {
-                        bewaker.richting = 2;
-                        bewaker.Cor_Y += bewaker.speed;
-                        if (bewaker.Cor_Y >= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                        //Beweging naar boven
+                        if (bewaker.wayPoints[0, 1] < bewaker.wayPoints[1, 1])
                         {
-                            if (bewaker.aantalpaths > 2)
-                            {
-                                bewaker.path = 3;
+                            bewaker.richting = 1;
+                            bewaker.Cor_Y -= bewaker.speed;
+                            if (bewaker.Cor_Y <= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                            {          
+                                    bewaker.path = 1;
                             }
-                            else
+                        }
+                        //Beweging naar beneden
+                        if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
+                        {
+                            bewaker.richting = 2;
+                            bewaker.Cor_Y += bewaker.speed;
+                            if (bewaker.Cor_Y >= (bewaker.wayPoints[0, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
                             {
-                                bewaker.path = 1;
+                                if (bewaker.aantalpaths > 2)
+                                    bewaker.path = 1;
                             }
                         }
                     }
                 }
+                #endregion
+                #region path 3
+                else if (bewaker.path == 3)
+                {
+                    if (bewaker.aantalpaths > 3)
+                    {
+                        //bewging naar boven
+                        if (bewaker.wayPoints[2, 1] > bewaker.wayPoints[3, 1])
+                        {
+                            bewaker.Cor_Y -= bewaker.speed;
+                            //(bewaker.Cor_Y >= (bewaker.wayPoints[1, 1]) * 50 && bewaker.Cor_Y % 50 == 0)
+                            //{
+                            //    bewaker.path = 4;
+                            //}
+                        }
+                    }
+                }
+                #endregion
             }
         }
         #endregion
-
+        
         //Detecteren van speler als guard. 
         #region Guard Detection
         public void GuardDetectPlayer()
@@ -414,20 +463,6 @@ namespace MuseumSpel
                             }
                             break;
                     }
-                    //if (Enumerable.Range((bewaker.Cor_X), bewakerRange).Contains(speler.Cor_X + (vakGrootte/2)) && Enumerable.Range((bewaker.Cor_Y), bewakerRange).Contains(speler.Cor_Y + (vakGrootte/2)))
-                    //{
-                    //    var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n Druk op yes om terug te gaan naar menu of op cancel op het programma af te sluiten. " ,
-                    //        "Gameover", MessageBoxButtons.OKCancel);
-                    //    if (result == DialogResult.OK)
-                    //    {
-                    //        opgepaktDoorBewaker = true;
-                    //    }
-                    //    else if (result == DialogResult.Cancel)
-                    //    {
-
-                    //    }
-
-                    //}
                 }
 
             }
@@ -439,23 +474,31 @@ namespace MuseumSpel
             opgepaktDoorBewaker = true;
         }
 
+        //Schilderij oppakken
+        #region Schilderij pakken
         public void pakSchilderij(bool keyPressed)
         {
-            
             for (int i = 0; i < paintArray.Count; i++)
             {
                 int x = paintArray[i].Cor_X * vakGrootte;
                 int y = paintArray[i].Cor_Y * vakGrootte;
-                    Console.WriteLine("intx: " + x + " inty " + y);
-                    Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
-                    if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
-                    {
-                        Console.WriteLine("Keypressed3");
-                        paintArray.Remove(paintArray[i]);
-                    }
+                Console.WriteLine("intx: " + x + " inty " + y);
+                Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
+                if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
+                {
+                    Console.WriteLine("Keypressed3");
+                    takenPaintArray.Add(paintArray[i]);
+                    paintArray.Remove(paintArray[i]);
+                    gepakteSchilderijen = aantalSchilderijen - paintArray.Count;
+                    Console.WriteLine(gepakteSchilderijen);
+                    Console.WriteLine(aantalSchilderijen);
+                }
             }
+            
 
         }
+        #endregion
+
         // test om cordinaat op grid terug te krijgen
         public int GetGridCordinate(int cor)
         {
@@ -496,16 +539,21 @@ namespace MuseumSpel
                     //key in de array onthouden voor het verwijderen als de powerup wordt gepakt 
                  
                 }
+
+                if (spelObjecten[x].GetType() == typeof(Eindpunt))
+                {
+                    eindpunten.Add(spelObjecten[x]);
+                }
+
                 if (spelObjecten[x].GetType() == typeof(Waterplas))
                 {
-                    //this.waterplasX = spelObjecten[x].Cor_X * vakGrootte;
-                    //this.waterplasY = spelObjecten[x].Cor_Y * vakGrootte;
                     waterplassen.Add(spelObjecten[x]);
                 }
                 if (spelObjecten[x].GetType() == typeof(PowerUp))
                 {
                     powerups.Add(spelObjecten[x]);
                 }
+                aantalSchilderijen = paintArray.Count;
             }
 
         }
@@ -528,8 +576,52 @@ namespace MuseumSpel
             {
                 powerup.PrintSpelObject(powerup.Cor_X, powerup.Cor_Y, vakGrootte, g);
             }
+            foreach (SpelObject eindpunt in eindpunten)
+            {
+                eindpunt.PrintSpelObject(eindpunt.Cor_X, eindpunt.Cor_Y, vakGrootte, g);
+            }
+        }
 
+        public void Reset()
+        {
+            if (takenPaintArray.Count != 0) {
+                foreach (SpelObject schilderij in takenPaintArray)
+                {
+                    if (!paintArray.Contains(schilderij))
+                    {
+                        paintArray.Add(schilderij);
+                    }
+                }
+            }
+            if (usedPowerUps.Count != 0)
+            {
+                foreach (SpelObject powerUp in usedPowerUps)
+                {
+                    if (!powerups.Contains(powerUp))
+                    {
+                        powerups.Add(powerUp);
+                    }
+                    if (!spelObjecten.Contains(powerUp))
+                    {
+                        spelObjecten.Add(powerUp);
+                    }
+                }
+                this.p = 0;
+                
+            }
+            foreach(Bewaker bewaker in bewakers)
+            {
+                bewaker.Cor_X = bewaker.start_cor_x;
+                bewaker.Cor_Y = bewaker.start_cor_y;
+                bewaker.path = 1;
+            }
+            speler.Cor_X = speler.start_cor_x;
+            speler.Cor_Y = speler.start_cor_y;
+            idle = true;
 
+            gameLoop.seconds = 0;
+            gameLoop.minutes = 0;
+            gameLoop.hours = 0;
 
         }
     }
