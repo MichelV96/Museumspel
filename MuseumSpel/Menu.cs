@@ -137,5 +137,28 @@ namespace MuseumSpel
         {
 
         }
+
+        //Geluid aan en uit zetten
+        public void pasGeluidAan()
+        {
+            //SoundAan false maken als true is en andersom
+            this.soundAan = !this.soundAan;
+
+            //Stop muziek als true, play muziek als false
+            if (!soundAan)
+            {
+                backgroundSound.Stop();
+            }
+            else
+            {
+                backgroundSound.Play();
+            }
+        }
+
+        //Getter van soundAan
+        public bool getSoundAan()
+        {
+            return soundAan;
+        }
     }
 }

@@ -95,21 +95,20 @@ namespace MuseumSpel
                     }
                     if(aantalPunten == 2)
                     {
-                        speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], 5, enumRichting));
+                        speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], enumRichting));
                     }
                     if (aantalPunten == 4)
                     {
-                        //speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], guardPunten[2], guardPunten[3], 5, enumRichting));
+                        //speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], guardPunten[2], guardPunten[3], enumRichting));
                     }
                     if (aantalPunten == 6)
                     {
-                        speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], guardPunten[2], guardPunten[3], guardPunten[4], guardPunten[5], 5, enumRichting));
+                        speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], guardPunten[2], guardPunten[3], guardPunten[4], guardPunten[5], enumRichting));
                     }
-
 
                 }
 
-                Form1 form1 = new Form1(speelVeld); //Publisher
+                Form1 form1 = new Form1(speelVeld, menu); //Publisher
                 SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld);//Controller
                 form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
                 form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
