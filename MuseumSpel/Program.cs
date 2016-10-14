@@ -80,13 +80,13 @@ namespace MuseumSpel
 
                 //Guard
                 #region Guard
-                speelVeld.voegBewakerToe(new Bewaker(12, 0, 2, 0, 5, Direction.Left));
+                speelVeld.voegBewakerToe(new Bewaker(12, 0, 2, 0, Direction.Left));
                 //speelVeld.voegBewakerToe(new Bewaker(3, 10, 12, 10, 5, Direction.Left));
                 //speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 5, Direction.Left));
-                speelVeld.voegBewakerToe(new Bewaker(16, 1, 16, 10, 5, Direction.Left));
-                speelVeld.voegBewakerToe(new Bewaker(4, 4, 4, 4, 5, Direction.Left));
-                speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 14, 8, 14, 2, 5, Direction.Left));
-                speelVeld.voegBewakerToe(new Bewaker(5, 10, 10, 10, 5, Direction.Left));
+                speelVeld.voegBewakerToe(new Bewaker(16, 1, 16, 10, Direction.Left));
+                speelVeld.voegBewakerToe(new Bewaker(4, 4, 4, 4, Direction.Left));
+                speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 14, 8, 14, 2, Direction.Left));
+                speelVeld.voegBewakerToe(new Bewaker(5, 10, 10, 10, Direction.Left));
                     #endregion
 
 
