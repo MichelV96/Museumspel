@@ -11,6 +11,7 @@ namespace MuseumSpel
     // Model
     public class Speler : SpelObject
     {
+        
       
         public int speed { get; set; }
         public Bitmap normalTexture { get; set; }
