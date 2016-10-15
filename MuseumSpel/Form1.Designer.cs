@@ -62,9 +62,10 @@
             this.toolStripMenuItem1,
             this.speeltijdToolStripMenuItem,
             this.restartToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 859);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 681);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1271, 33);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1130, 32);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -72,7 +73,7 @@
             // pauzeToolStripMenuItem
             // 
             this.pauzeToolStripMenuItem.Name = "pauzeToolStripMenuItem";
-            this.pauzeToolStripMenuItem.Size = new System.Drawing.Size(69, 29);
+            this.pauzeToolStripMenuItem.Size = new System.Drawing.Size(59, 28);
             this.pauzeToolStripMenuItem.Text = "Pauze";
             this.pauzeToolStripMenuItem.ToolTipText = "pauzeerd de game";
             this.pauzeToolStripMenuItem.Click += new System.EventHandler(this.pauzeToolStripMenuItem_Click);
@@ -81,7 +82,7 @@
             // 
             this.geluidToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("geluidToolStripMenuItem.Image")));
             this.geluidToolStripMenuItem.Name = "geluidToolStripMenuItem";
-            this.geluidToolStripMenuItem.Size = new System.Drawing.Size(36, 29);
+            this.geluidToolStripMenuItem.Size = new System.Drawing.Size(36, 28);
             this.geluidToolStripMenuItem.ToolTipText = "Geluid aan/uit";
             this.geluidToolStripMenuItem.Click += new System.EventHandler(this.geluidToolStripMenuItem_Click);
             // 
@@ -89,7 +90,7 @@
             // 
             this.toolStripMenuItem3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(51, 29);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(43, 28);
             this.toolStripMenuItem3.Text = "0/0";
             this.toolStripMenuItem3.ToolTipText = "gepakt/max";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
@@ -98,7 +99,7 @@
             // 
             this.schilderijenToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.schilderijenToolStripMenuItem.Name = "schilderijenToolStripMenuItem";
-            this.schilderijenToolStripMenuItem.Size = new System.Drawing.Size(113, 29);
+            this.schilderijenToolStripMenuItem.Size = new System.Drawing.Size(98, 28);
             this.schilderijenToolStripMenuItem.Text = "Schilderijen";
             this.schilderijenToolStripMenuItem.ToolTipText = "hoeveel schilderijen je hebt";
             // 
@@ -106,7 +107,7 @@
             // 
             this.toolStripMenuItem2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(34, 29);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(29, 28);
             this.toolStripMenuItem2.Text = "0";
             this.toolStripMenuItem2.ToolTipText = "aantal punten";
             // 
@@ -114,7 +115,7 @@
             // 
             this.scoreToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.scoreToolStripMenuItem.Name = "scoreToolStripMenuItem";
-            this.scoreToolStripMenuItem.Size = new System.Drawing.Size(68, 29);
+            this.scoreToolStripMenuItem.Size = new System.Drawing.Size(58, 28);
             this.scoreToolStripMenuItem.Text = "Score";
             this.scoreToolStripMenuItem.ToolTipText = "hoeveel punten je hebt";
             this.scoreToolStripMenuItem.Click += new System.EventHandler(this.scoreToolStripMenuItem_Click);
@@ -123,7 +124,7 @@
             // 
             this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(92, 29);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(75, 28);
             this.toolStripMenuItem1.Text = "00:00:00";
             this.toolStripMenuItem1.ToolTipText = "hoe lang je al aan het spelen bent.";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
@@ -132,29 +133,30 @@
             // 
             this.speeltijdToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.speeltijdToolStripMenuItem.Name = "speeltijdToolStripMenuItem";
-            this.speeltijdToolStripMenuItem.Size = new System.Drawing.Size(92, 29);
+            this.speeltijdToolStripMenuItem.Size = new System.Drawing.Size(80, 28);
             this.speeltijdToolStripMenuItem.Text = "Speeltijd";
             this.speeltijdToolStripMenuItem.ToolTipText = "hoe lang je al aan het spelen bent.";
             // 
             // restartToolStripMenuItem
             // 
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(78, 29);
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(67, 28);
             this.restartToolStripMenuItem.Text = "Restart";
             this.restartToolStripMenuItem.ToolTipText = "hier kun je opnieuw beginnen.";
             this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::MuseumSpel.Properties.Resources.bc3;
-            this.ClientSize = new System.Drawing.Size(1271, 892);
+            this.ClientSize = new System.Drawing.Size(1130, 713);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Museum Game";
