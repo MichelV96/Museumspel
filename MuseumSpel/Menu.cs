@@ -8,6 +8,7 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace MuseumSpel
 {
@@ -17,16 +18,22 @@ namespace MuseumSpel
         private bool soundAan = true;
         public bool startSpel { get; private set; }
         public int spelLevel { get; private set; }
-        public int Value;
+        public int levels;
 
-        public Menu(int levels)
+        public Menu()
         {
             InitializeComponent();
 
             var number = (int)((Keys)Enum.Parse(typeof(Keys), "A"));
 
             backgroundSound.Play();
+            //de balk bovenin is dan weg kruisje, minimaliseren enzo
             this.ControlBox = false;
+
+            //aantal levels uitrekenen
+            XDocument doc = new XDocument();
+            doc = XDocument.Load(@"speelveld.xml");
+            this.levels = doc.Descendants("level").Count();
 
             Width = 910;
             Height = 380;
@@ -65,7 +72,6 @@ namespace MuseumSpel
             Controls.Add(opties);
             Controls.Add(sluitSpel);
             Controls.Add(kiesLevel);
-            this.Show();
         }
 
         private void Options()
@@ -130,6 +136,29 @@ namespace MuseumSpel
         private void Menu_Load(object sender, EventArgs e)
         {
 
+        }
+
+        //Geluid aan en uit zetten
+        public void pasGeluidAan()
+        {
+            //SoundAan false maken als true is en andersom
+            this.soundAan = !this.soundAan;
+
+            //Stop muziek als true, play muziek als false
+            if (!soundAan)
+            {
+                backgroundSound.Stop();
+            }
+            else
+            {
+                backgroundSound.Play();
+            }
+        }
+
+        //Getter van soundAan
+        public bool getSoundAan()
+        {
+            return soundAan;
         }
     }
 }
