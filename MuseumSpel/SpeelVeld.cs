@@ -298,7 +298,7 @@ namespace MuseumSpel
                         }
                     }
                     //Beweging naar rechts
-                    if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
+                    else if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
                     {
                         bewaker.richting = 3;
                         bewaker.Cor_X += bewaker.speed;
@@ -308,7 +308,7 @@ namespace MuseumSpel
                         }
                     }
                     //Beweging naar beneden
-                    if (bewaker.wayPoints[0,1] < bewaker.wayPoints[1,1])
+                    else if (bewaker.wayPoints[0,1] < bewaker.wayPoints[1,1])
                     {
                         bewaker.richting = 2;
                         bewaker.Cor_Y += bewaker.speed;
@@ -318,7 +318,7 @@ namespace MuseumSpel
                         }
                     }
                     //Beweging naar boven
-                    if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
+                    else if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
                     {
                         bewaker.richting = 1;
                         bewaker.Cor_Y -= bewaker.speed;
@@ -345,11 +345,31 @@ namespace MuseumSpel
                             }
                         }
                         //bewging naar links
-                        if (bewaker.wayPoints[1, 0] > bewaker.wayPoints[2, 0])
+                        else if (bewaker.wayPoints[1, 0] > bewaker.wayPoints[2, 0])
                         {
                             bewaker.richting = 4;
                             bewaker.Cor_X -= bewaker.speed;
                             if (bewaker.Cor_X <= (bewaker.wayPoints[2, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
+                            {
+                                bewaker.path = 3;
+                            }
+                        }
+                        //bewging naar up
+                        else if (bewaker.wayPoints[1, 1] > bewaker.wayPoints[2, 1])
+                        {
+                            bewaker.richting = 1;
+                            bewaker.Cor_Y -= bewaker.speed;
+                            if (bewaker.Cor_Y <= (bewaker.wayPoints[2, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
+                            {
+                                bewaker.path = 3;
+                            }
+                        }
+                        //bewging naar down
+                        else if (bewaker.wayPoints[1, 1] < bewaker.wayPoints[2, 1])
+                        {
+                            bewaker.richting = 2;
+                            bewaker.Cor_Y += bewaker.speed;
+                            if (bewaker.Cor_Y >= (bewaker.wayPoints[2, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
                             {
                                 bewaker.path = 3;
                             }
@@ -368,7 +388,7 @@ namespace MuseumSpel
                             }
                         }
                         //beweging naar links
-                        if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
+                        else if (bewaker.wayPoints[0, 0] < bewaker.wayPoints[1, 0])
                         {
                             bewaker.richting = 4;
                             bewaker.Cor_X -= bewaker.speed;
@@ -378,7 +398,7 @@ namespace MuseumSpel
                             }
                         }
                         //Beweging naar boven
-                        if (bewaker.wayPoints[0, 1] < bewaker.wayPoints[1, 1])
+                        else if (bewaker.wayPoints[0, 1] < bewaker.wayPoints[1, 1])
                         {
                             bewaker.richting = 1;
                             bewaker.Cor_Y -= bewaker.speed;
@@ -388,7 +408,7 @@ namespace MuseumSpel
                             }
                         }
                         //Beweging naar beneden
-                        if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
+                        else if (bewaker.wayPoints[0, 1] > bewaker.wayPoints[1, 1])
                         {
                             bewaker.richting = 2;
                             bewaker.Cor_Y += bewaker.speed;
@@ -416,7 +436,7 @@ namespace MuseumSpel
                             }
                         }
                         //bewging naar link
-                        if (bewaker.wayPoints[2, 0] > bewaker.wayPoints[3, 0])
+                        else if (bewaker.wayPoints[2, 0] > bewaker.wayPoints[3, 0])
                         {
                             bewaker.Cor_X -= bewaker.speed;
                             if (bewaker.Cor_X <= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
@@ -425,7 +445,7 @@ namespace MuseumSpel
                             }
                         }
                         //bewging naar boven
-                        if (bewaker.wayPoints[2, 1] > bewaker.wayPoints[3, 1])
+                        else if (bewaker.wayPoints[2, 1] > bewaker.wayPoints[3, 1])
                         {
                             bewaker.Cor_Y -= bewaker.speed;
                             if (bewaker.Cor_Y <= (bewaker.wayPoints[3, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
@@ -434,7 +454,7 @@ namespace MuseumSpel
                             }
                         }
                         //bewging naar beneden
-                        if (bewaker.wayPoints[2, 1] < bewaker.wayPoints[3, 1])
+                        else if (bewaker.wayPoints[2, 1] < bewaker.wayPoints[3, 1])
                         {
                             bewaker.Cor_Y += bewaker.speed;
                             if (bewaker.Cor_Y >= (bewaker.wayPoints[3, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
@@ -449,11 +469,41 @@ namespace MuseumSpel
                 else if (bewaker.path == 4)
                 {
                     //Beweging naar links
-                    if (bewaker.wayPoints[3, 0] > bewaker.wayPoints[0, 0])
+                    if (bewaker.wayPoints[3, 0] < bewaker.wayPoints[0, 0])
+                    {
+                        bewaker.richting = 4;
+                        bewaker.Cor_X += bewaker.speed;
+                        if (bewaker.Cor_X >= (bewaker.wayPoints[0, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
+                        {
+                            bewaker.path = 1;
+                        }
+                    }
+                    //Beweging naar rechts
+                    else if (bewaker.wayPoints[3, 0] > bewaker.wayPoints[0, 0])
                     {
                         bewaker.richting = 4;
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
+                        {
+                            bewaker.path = 1;
+                        }
+                    }
+                    //Beweging naar boven
+                    else if (bewaker.wayPoints[3, 1] > bewaker.wayPoints[0, 1])
+                    {
+                        bewaker.richting = 4;
+                        bewaker.Cor_Y -= bewaker.speed;
+                        if (bewaker.Cor_Y <= (bewaker.wayPoints[0, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
+                        {
+                            bewaker.path = 1;
+                        }
+                    }
+                    //Beweging naar beneden
+                    else if (bewaker.wayPoints[3, 1] < bewaker.wayPoints[0, 1])
+                    {
+                        bewaker.richting = 4;
+                        bewaker.Cor_Y += bewaker.speed;
+                        if (bewaker.Cor_Y >= (bewaker.wayPoints[0, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
                         {
                             bewaker.path = 1;
                         }
