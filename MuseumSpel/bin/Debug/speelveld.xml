@@ -311,15 +311,6 @@
 			</eindpunten>
 			<bewakers>
 				<bewaker>
-					<startx>12</startx>
-					<starty>0</starty>
-					<punten>
-						<punt>2</punt>
-						<punt>0</punt>
-					</punten>
-					<richting>Left</richting>
-				</bewaker>
-				<bewaker>
 					<startx>16</startx>
 					<starty>1</starty>
 					<punten>
@@ -341,62 +332,90 @@
 					</punten>
 					<richting>Left</richting>
 				</bewaker>
+				<bewaker>
+					<startx>0</startx>
+					<starty>0</starty>
+					<punten>
+						<punt>16</punt>
+						<punt>0</punt>
+						<punt>16</punt>
+						<punt>10</punt>
+						<punt>0</punt>
+						<punt>10</punt>
+					</punten>
+					<richting>Left</richting>
+				</bewaker>
 			</bewakers>
 		</gameobjecten>
 	</level>
 	<level>
 		<nummer>2</nummer>
 		<gameobjecten>
-			<muren>
-				<muur>
-					<x>12</x>
-					<y>7</y>
-				</muur>
-				<muur>
-					<x>13</x>
-					<y>7</y>
-				</muur>
-				<muur>
-					<x>13</x>
-					<y>6</y>
-				</muur>
-				<muur>
-					<x>13</x>
-					<y>4</y>
-				</muur>
-			</muren>
-			<schilderijen>
-				<schilderij>
-					<x>4</x>
-					<y>4</y>
-				</schilderij>
-				<schilderij>
-					<x>12</x>
-					<y>4</y>
-				</schilderij>
-			</schilderijen>
-			<powerups>
-				<powerup>
-					<x>6</x>
-					<y>6</y>
-				</powerup>
-			</powerups>
-			<waterplassen>
-				<waterplas>
-					<x>3</x>
-					<y>8</y>
-				</waterplas>
-				<waterplas>
-					<x>6</x>
-					<y>8</y>
-				</waterplas>
-			</waterplassen>
-			<eindpunten>
-				<eindpunt>
-					<x>16</x>
-					<y>10</y>
-				</eindpunt>
-			</eindpunten>
+			<bewakers>
+				<bewaker>
+					<startx>2</startx>
+					<starty>2</starty>
+					<punten>
+						<punt>2</punt>
+						<punt>8</punt>
+						<punt>14</punt>
+						<punt>8</punt>
+						<punt>14</punt>
+						<punt>2</punt>
+					</punten>
+					<richting>Left</richting>
+				</bewaker>
+				<bewaker>
+					<startx>15</startx>
+					<starty>1</starty>
+					<punten>
+						<punt>1</punt>
+						<punt>1</punt>
+						<punt>1</punt>
+						<punt>9</punt>
+						<punt>15</punt>
+						<punt>9</punt>
+					</punten>
+					<richting>Left</richting>
+				</bewaker>
+				<bewaker>
+					<startx>13</startx>
+					<starty>8</starty>
+					<punten>
+						<punt>13</punt>
+						<punt>3</punt>
+						<punt>3</punt>
+						<punt>3</punt>
+						<punt>3</punt>
+						<punt>8</punt>
+					</punten>
+					<richting>Left</richting>
+				</bewaker>
+				<bewaker>
+					<startx>12</startx>
+					<starty>7</starty>
+					<punten>
+						<punt>12</punt>
+						<punt>4</punt>
+						<punt>4</punt>
+						<punt>4</punt>
+					</punten>
+					<richting>Left</richting>
+				</bewaker>
+				<bewaker>
+					<startx>0</startx>
+					<starty>0</starty>
+					<punten>
+						<punt>16</punt>
+						<punt>0</punt>
+						<punt>16</punt>
+						<punt>10</punt>
+						<punt>0</punt>
+						<punt>10</punt>
+					</punten>
+					<richting>Left</richting>
+				</bewaker>
+			</bewakers>
 		</gameobjecten>
 	</level>
 </levels>

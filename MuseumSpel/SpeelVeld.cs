@@ -305,7 +305,6 @@ namespace MuseumSpel
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[1, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                         {
-                            Console.WriteLine("path is nu 2");
                             bewaker.path = 2;
                         }
                     }
@@ -436,11 +435,10 @@ namespace MuseumSpel
                 #region path 3
                 else if (bewaker.path == 3)
                 {
-                    if (bewaker.aantalpaths > 3)//derde waypoint
-                    {
                         //bewging naar rechts
                         if (bewaker.wayPoints[2, 0] < bewaker.wayPoints[3, 0])
                         {
+                            bewaker.richting = 3;
                             bewaker.Cor_X += bewaker.speed;
                             if (bewaker.Cor_X >= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                             {
@@ -450,6 +448,7 @@ namespace MuseumSpel
                         //bewging naar link
                         else if (bewaker.wayPoints[2, 0] > bewaker.wayPoints[3, 0])
                         {
+                            bewaker.richting = 4;
                             bewaker.Cor_X -= bewaker.speed;
                             if (bewaker.Cor_X <= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                             {
@@ -459,6 +458,7 @@ namespace MuseumSpel
                         //bewging naar boven
                         else if (bewaker.wayPoints[2, 1] > bewaker.wayPoints[3, 1])
                         {
+                            bewaker.richting = 1;
                             bewaker.Cor_Y -= bewaker.speed;
                             if (bewaker.Cor_Y <= (bewaker.wayPoints[3, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
                             {
@@ -468,13 +468,13 @@ namespace MuseumSpel
                         //bewging naar beneden
                         else if (bewaker.wayPoints[2, 1] < bewaker.wayPoints[3, 1])
                         {
+                            bewaker.richting = 2;
                             bewaker.Cor_Y += bewaker.speed;
                             if (bewaker.Cor_Y >= (bewaker.wayPoints[3, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
                             {
                                 bewaker.path = 4;
                             }
                         }
-                    }
                 }
                 #endregion
                 #region path 4
@@ -493,7 +493,7 @@ namespace MuseumSpel
                     //Beweging naar rechts
                     else if (bewaker.wayPoints[3, 0] > bewaker.wayPoints[0, 0])
                     {
-                        bewaker.richting = 4;
+                        bewaker.richting = 3;
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                         {
@@ -503,7 +503,7 @@ namespace MuseumSpel
                     //Beweging naar boven
                     else if (bewaker.wayPoints[3, 1] > bewaker.wayPoints[0, 1])
                     {
-                        bewaker.richting = 4;
+                        bewaker.richting = 1;
                         bewaker.Cor_Y -= bewaker.speed;
                         if (bewaker.Cor_Y <= (bewaker.wayPoints[0, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
                         {
@@ -513,7 +513,7 @@ namespace MuseumSpel
                     //Beweging naar beneden
                     else if (bewaker.wayPoints[3, 1] < bewaker.wayPoints[0, 1])
                     {
-                        bewaker.richting = 4;
+                        bewaker.richting = 2;
                         bewaker.Cor_Y += bewaker.speed;
                         if (bewaker.Cor_Y >= (bewaker.wayPoints[0, 1] * vakGrootte) && bewaker.Cor_Y % vakGrootte == 0)
                         {

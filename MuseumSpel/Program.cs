@@ -18,7 +18,7 @@ namespace MuseumSpel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Speler speler = new Speler("Player", 13, 0, 5);
+            Speler speler = new Speler("Player", 0, 1, 5);
             GameLoop gameloop = new GameLoop();
             SpeelVeld speelVeld = new SpeelVeld(17, 11, speler, gameloop);//Model
 
@@ -99,7 +99,7 @@ namespace MuseumSpel
                     }
                     if (aantalPunten == 4)
                     {
-                        //speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], guardPunten[2], guardPunten[3], enumRichting));
+                        speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], guardPunten[2], guardPunten[3], enumRichting));
                     }
                     if (aantalPunten == 6)
                     {
