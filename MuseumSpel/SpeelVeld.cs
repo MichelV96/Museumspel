@@ -30,7 +30,7 @@ namespace MuseumSpel
         private List<SpelObject> paintArray;
         private List<SpelObject> waterplassen;
         private List<SpelObject> powerups;
-        private List<SpelObject> muren;
+        public List<SpelObject> muren;
         private List<SpelObject> eindpunten;
         public List<Bewaker> bewakers;
         //event
@@ -97,6 +97,27 @@ namespace MuseumSpel
             beginScore = 5000;
             puntenPerSchilderij = 3000;
 
+        }
+
+        public void SetPictures(List<SpelObject> lijst)// Juiste texturtes geven aan muren
+        {
+
+            foreach (SpelObject l in lijst)
+            {
+                Console.WriteLine("right");
+                foreach (SpelObject j in lijst)
+                {
+                    if (l.Cor_X + 1 == j.Cor_X && l.Cor_Y == j.Cor_Y)
+                        l.right = true;
+                    if (l.Cor_X -1 == j.Cor_X && l.Cor_Y == j.Cor_Y)
+                        l.left = true;
+                    if (l.Cor_X == j.Cor_X && l.Cor_Y + 1 == j.Cor_Y)
+                        l.down = true;
+                    if (l.Cor_X == j.Cor_X && l.Cor_Y - 1 == j.Cor_Y)
+                        l.up = true;
+                }
+                l.setPicture();
+            }
         }
 
         // Methodes
@@ -287,7 +308,6 @@ namespace MuseumSpel
                 }
             }
         }
-
 
         //Bewaker
         #region Bewaker Movment

@@ -79,7 +79,6 @@ namespace MuseumSpel
             }
         }
         //method
-
         public void PowerUp()
         {
             //het oude plaatje
