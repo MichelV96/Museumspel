@@ -351,6 +351,32 @@
 	<level>
 		<nummer>2</nummer>
 		<gameobjecten>
+			<muren>
+				<muur>
+					<x>1</x>
+					<y>1</y>
+				</muur>
+				<muur>
+					<x>2</x>
+					<y>1</y>
+				</muur>
+				<muur>
+					<x>1</x>
+					<y>2</y>
+				</muur>
+				<muur>
+					<x>2</x>
+					<y>2</y>
+				</muur>
+				<muur>
+					<x>2</x>
+					<y>3</y>
+				</muur>
+				<muur>
+					<x>3</x>
+					<y>2</y>
+				</muur>
+			</muren>
 			<bewakers>
 				<bewaker>
 					<startx>2</startx>

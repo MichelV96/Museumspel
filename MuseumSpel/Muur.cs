@@ -18,7 +18,17 @@ namespace MuseumSpel
 
         public override void setPicture()
         {
-            if (up && down)
+            if (up && down && left && right)
+                texture = new Bitmap("Afbeeldingen\\wall_down_up_left_right.png");
+            else if (up && left && down)
+                texture = new Bitmap("Afbeeldingen\\wall_up_left_down.png");
+            else if (up && left && right) 
+                texture = new Bitmap("Afbeeldingen\\wall_up_left_right.png");
+            else if (down && left && right)
+                texture = new Bitmap("Afbeeldingen\\wall_down_left_right.png");
+            else if (up && right && down)
+                texture = new Bitmap("Afbeeldingen\\wall_up_right_down.png");
+            else if (up && down)
                 texture = new Bitmap("Afbeeldingen\\wall_up_down.png");
             else if (up && right)
                 texture = new Bitmap("Afbeeldingen\\wall_up_right.png");

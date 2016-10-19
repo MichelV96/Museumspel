@@ -29,7 +29,7 @@ namespace MuseumSpel
         public DateTime endTime { get; set; }
         public int duration = 10;
 
-        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X * 50, cor_Y * 50, "Afbeeldingen\\0.png", true)
+        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X * 50, cor_Y * 50, "Afbeeldingen\\wizzard_front.png", true)
         {
             this.speed = speed;
             this.isDisguised = false;
@@ -46,7 +46,7 @@ namespace MuseumSpel
                 }
                 else if (direction == Direction.Down)
                 {
-                    texture = new Bitmap("Afbeeldingen\\0.png");
+                    texture = new Bitmap("Afbeeldingen\\wizzard_front.png");
                 }
                 else if (direction == Direction.Left)
                 {
@@ -62,7 +62,7 @@ namespace MuseumSpel
                 }
                 else if (direction == Direction.DownIdle)
                 {
-                    texture = new Bitmap("Afbeeldingen\\2.png");
+                    texture = new Bitmap("Afbeeldingen\\wizzard_front.png");
                 }
                 else if (direction == Direction.LeftIdle)
                 {
