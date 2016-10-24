@@ -18,9 +18,8 @@ namespace MuseumSpel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Speler speler = new Speler("Player", 0, 1, 5);
             GameLoop gameloop = new GameLoop();
-            SpeelVeld speelVeld = new SpeelVeld(17, 11, speler, gameloop);//Model
+            SpeelVeld speelVeld = new SpeelVeld(17, 11, gameloop);//Model
             
             Menu menu = new Menu(speelVeld);
             Application.Run(menu);

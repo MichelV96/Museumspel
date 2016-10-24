@@ -56,22 +56,6 @@ namespace MuseumSpel
         public void OnKeyUp(KeyEventArgs e)
         {
             this.speelVeld.idle = true;
-            if (e.KeyData == Keys.W)
-            {
-                speelVeld.speler.setPicture(Direction.UpIdle);
-            }
-            else if (e.KeyData == Keys.S)
-            {
-                speelVeld.speler.setPicture(Direction.DownIdle);
-            }
-            else if (e.KeyData == Keys.A)
-            {
-                speelVeld.speler.setPicture(Direction.LeftIdle);
-            }
-            else if (e.KeyData == Keys.D)
-            {
-                speelVeld.speler.setPicture(Direction.RightIdle);
-            }
         }
 
     }

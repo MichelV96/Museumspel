@@ -71,7 +71,7 @@ namespace MuseumSpel
 
         
 
-        public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
+        public SpeelVeld(int aantalVakkenX, int aantalVakkenY, GameLoop gameloop)
         {
             this.aantalVakkenX = aantalVakkenX;
             this.aantalVakkenY = aantalVakkenY;

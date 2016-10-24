@@ -20,7 +20,7 @@ namespace MuseumSpel
         public int spelLevel { get; private set; }
         public int levels;
 
-        //controls
+        //controls + standaard waardes W S A D
         public List<int> controls = new List<int>(new int[] { 87, 83, 65, 68 });
 
         public SpeelVeld speelVeld;

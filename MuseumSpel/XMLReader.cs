@@ -27,6 +27,7 @@ namespace MuseumSpel
             //om het goede level te zoeken in de xml file.
             var level = from lvl in doc.Root.Elements("level") where (String)lvl.Element("nummer") == spelLevel.ToString() select lvl;
             //alle gameobjecten
+            var speler = level.Descendants("speler");
             var muren = level.Descendants("muren").Descendants("muur");
             var schilderijen = level.Descendants("schilderijen").Descendants("schilderij");
             var powerups = level.Descendants("powerups").Descendants("powerup");
@@ -34,6 +35,15 @@ namespace MuseumSpel
             var eindpunten = level.Descendants("eindpunten").Descendants("eindpunt");
             var bewakers = level.Descendants("bewakers").Descendants("bewaker");
 
+            foreach (XElement e in speler)
+            {
+                string naam = e.Element("naam").Value.Trim();
+                int x = Int32.Parse(e.Element("startx").Value.Trim());
+                int y = Int32.Parse(e.Element("starty").Value.Trim());
+                int speed = Int32.Parse(e.Element("snelheid").Value.Trim());
+
+                speelVeld.speler = new Speler(naam, x, y, speed);
+            }
             //en ze aanmaken + toevoegen aan het speelveld. De trim is ervoor dat er geen spaties of tabs in het element meer zitten.
             foreach (XElement e in muren)
             {
