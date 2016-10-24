@@ -18,8 +18,8 @@ namespace MuseumSpel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            SpeelVeld speelVeld = new SpeelVeld(17, 11);//Model
 
+            SpeelVeld speelVeld = new SpeelVeld(17, 11);//Model
             Menu menu = new Menu(speelVeld);
             Application.Run(menu);
             Form1 form1 = new Form1(speelVeld, menu); //Publisher
