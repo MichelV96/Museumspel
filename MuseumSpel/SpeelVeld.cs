@@ -265,14 +265,17 @@ namespace MuseumSpel
 
             //power up
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
-            if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
+            if (powerups.Any())
             {
-                //verwijder de power up uit de array
-                usedPowerUps.Add(powerups[0]);
-                powerups.RemoveAt(0);
-                speler.isDisguised = true;
-                speler.endTime = DateTime.Now.AddSeconds(speler.duration);
-                this.p += 1;
+                if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
+                {
+                    //verwijder de power up uit de array
+                    usedPowerUps.Add(powerups[0]);
+                    powerups.RemoveAt(0);
+                    speler.isDisguised = true;
+                    speler.endTime = DateTime.Now.AddSeconds(speler.duration);
+                    this.p += 1;
+                }
             }
 
             //eindpunt

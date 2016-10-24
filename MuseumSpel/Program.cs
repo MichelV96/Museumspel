@@ -109,7 +109,7 @@ namespace MuseumSpel
                 }
 
                 Form1 form1 = new Form1(speelVeld, menu); //Publisher
-                SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld);//Controller
+                SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld, menu.controls);//Controller
                 form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
                 form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
                 gameloop.ModelChanged += form1.OnModelChanged; //Subscriber
