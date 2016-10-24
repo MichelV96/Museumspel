@@ -27,7 +27,7 @@ namespace MuseumSpel
         public Speler speler { get; set; }
         //lists
         private List<SpelObject> spelObjecten;
-        private List<SpelObject> paintArray;
+        public List<SpelObject> paintArray;
         private List<SpelObject> waterplassen;
         private List<SpelObject> powerups;
         public List<SpelObject> muren;
@@ -101,9 +101,11 @@ namespace MuseumSpel
 
         public void SetPictures(List<SpelObject> lijst)// Juiste texturtes geven aan muren
         {
+            Random rg = new Random();
 
             foreach (SpelObject l in lijst)
             {
+                int number = rg.Next(1, 4);
                 foreach (SpelObject j in lijst)
                 {
                     if (l.Cor_X + 1 == j.Cor_X && l.Cor_Y == j.Cor_Y)
@@ -115,7 +117,7 @@ namespace MuseumSpel
                     if (l.Cor_X == j.Cor_X && l.Cor_Y - 1 == j.Cor_Y)
                         l.up = true;
                 }
-                l.setPicture();
+                l.setPicture(number);
             }
             
         }
@@ -917,10 +919,6 @@ namespace MuseumSpel
             score = score - minutes * 60 * 10;
 
             return score;
-
-
-        }
-        
-        
+        }  
     }
 }

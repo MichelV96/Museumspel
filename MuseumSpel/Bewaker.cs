@@ -92,7 +92,7 @@ namespace MuseumSpel
             }
 
         }
-        public override void setPicture()
+        public override void setPicture(int number = 1)
         {
             if (richting == 1)
             {
