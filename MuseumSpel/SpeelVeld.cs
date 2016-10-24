@@ -104,7 +104,6 @@ namespace MuseumSpel
 
             foreach (SpelObject l in lijst)
             {
-                Console.WriteLine("right");
                 foreach (SpelObject j in lijst)
                 {
                     if (l.Cor_X + 1 == j.Cor_X && l.Cor_Y == j.Cor_Y)
@@ -472,7 +471,7 @@ namespace MuseumSpel
                             bewaker.Cor_X -= bewaker.speed;
                             if (bewaker.Cor_X <= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                             {
-                                bewaker.path = 4;
+                                bewaker.path = 4;                               
                             }
                         }
                         //bewging naar boven
@@ -500,20 +499,20 @@ namespace MuseumSpel
                 #region path 4
                 else if (bewaker.path == 4)
                 {
-                    //Beweging naar links
+                    //Beweging naar rechts
                     if (bewaker.wayPoints[3, 0] < bewaker.wayPoints[0, 0])
                     {
-                        bewaker.richting = 4;
+                        bewaker.richting = 3;
                         bewaker.Cor_X += bewaker.speed;
                         if (bewaker.Cor_X >= (bewaker.wayPoints[0, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                         {
                             bewaker.path = 1;
                         }
                     }
-                    //Beweging naar rechts
+                    //Beweging naar links
                     else if (bewaker.wayPoints[3, 0] > bewaker.wayPoints[0, 0])
                     {
-                        bewaker.richting = 3;
+                        bewaker.richting = 4;
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                         {
