@@ -477,6 +477,7 @@ namespace MuseumSpel
                     {
                         //boven
                         case 1:
+                            bewaker.setPicture();
                             if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
                             {
                                 Console.WriteLine("Boven detectie");
@@ -484,6 +485,7 @@ namespace MuseumSpel
                                 break;
                         //onder
                         case 2:
+                            bewaker.setPicture();
                             if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
                             {
                                 Console.WriteLine("Onder detectie");
@@ -491,6 +493,7 @@ namespace MuseumSpel
                             break;
                         //rechts
                         case 3:
+                            bewaker.setPicture();
                             if (Enumerable.Range((bewaker.Cor_X + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
                             {
                                 Console.WriteLine("Rechts detectie");
@@ -498,7 +501,8 @@ namespace MuseumSpel
                             break;
                         //links
                         case 4:
-                            if(Enumerable.Range((bewaker.Cor_X - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            bewaker.setPicture();
+                            if (Enumerable.Range((bewaker.Cor_X - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
                             {
                                 Console.WriteLine("Links detectie");
                             }
