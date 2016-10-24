@@ -19,13 +19,19 @@ namespace MuseumSpel
         public bool startSpel { get; private set; }
         public int spelLevel { get; private set; }
         public int levels;
+
         //controls
         public List<int> controls = new List<int>(new int[] { 87, 83, 65, 68 });
 
-        public Menu()
+        public SpeelVeld speelVeld;
+        public XMLReader reader;
+        public XDocument doc;
+
+        public Menu(SpeelVeld speelVeld)
         {
             InitializeComponent();
-            Console.WriteLine((int)((Keys)Enum.Parse(typeof(Keys), "W")) +" "+ (int)((Keys)Enum.Parse(typeof(Keys), "S")) + " " + (int)((Keys)Enum.Parse(typeof(Keys), "A")) + " " + (int)((Keys)Enum.Parse(typeof(Keys), "D")) + " ");
+            this.speelVeld = speelVeld;
+
             backgroundSound.Play();
             //de balk bovenin is dan weg kruisje, minimaliseren enzo
             this.ControlBox = false;
@@ -61,6 +67,8 @@ namespace MuseumSpel
                 {
                     this.startSpel = true;
                     this.spelLevel = kiesLevel.SelectedIndex + 1;
+                    this.reader = new XMLReader(this.speelVeld, doc, spelLevel);
+                    this.reader.ReadXML();
                     this.Close();
                 }
             };

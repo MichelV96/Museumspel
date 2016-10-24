@@ -15,9 +15,19 @@ namespace MuseumSpel
         public int aantalpaths;
         public int speed;
 
-        public Bewaker(int cor_X, int cor_Y, int eind_cor_X, int eind_cor_Y, Direction richting) : base("Bewaker", cor_X * 50, cor_Y * 50, "Afbeeldingen\\guard3.png", false)
+        public Bewaker(int cor_X, int cor_Y, Direction richting) : this(cor_X, cor_Y, cor_X, cor_Y, richting)
+        {
+
+        }
+
+        public Bewaker(int cor_X, int cor_Y, int eind_cor_X, int eind_cor_Y, Direction richting) : base("Bewaker", cor_X * 50, cor_Y * 50, "Afbeeldingen\\louwrens1.png", false)
         {
             {
+                wayPoints = new int[2, 2] { { cor_X, cor_Y }, { eind_cor_X, eind_cor_Y } };
+                speed = 5;
+                path = 1;
+                aantalpaths = 2;
+                Setrichting(richting);
                 if (cor_X == eind_cor_X || cor_Y == eind_cor_Y)
                 {
                     wayPoints = new int[2, 2] { { cor_X, cor_Y }, { eind_cor_X, eind_cor_Y } };
@@ -27,7 +37,7 @@ namespace MuseumSpel
                 } else
                 {
                     throw new ArgumentOutOfRangeException("Punten moeten op elkaar uit komen: x1 = x2 of y1 = y2");
-                }     
+                }
             }
         }
 
@@ -64,9 +74,45 @@ namespace MuseumSpel
 
         public override void PrintSpelObject(int cor_X, int cor_Y, int vakGrootte, Graphics g)
         {
-            g.DrawImage(texture, cor_X , cor_Y, vakGrootte, vakGrootte);
+            if (richting == 1) //1=boven
+            {
+                g.DrawImage(texture, cor_X, cor_Y -(vakGrootte*2));
+            }
+            else if (richting == 2)// 2 = beneden
+            {
+                g.DrawImage(texture, cor_X, cor_Y);
+
+            }
+            else if (richting == 3)// 3 = rechts
+            {
+                g.DrawImage(texture, cor_X, cor_Y);
+
+            }
+            else if (richting == 4)// 4 = links
+            {
+                g.DrawImage(texture, cor_X - (vakGrootte*2), cor_Y);
+            }
+
+        }
+        public override void setPicture()
+        {
+            if (richting == 1)
+            {
+                texture = new Bitmap("Afbeeldingen\\louwrens1.png");
+            }
+            else if (richting == 2)
+            {
+                texture = new Bitmap("Afbeeldingen\\louwrens3.png");
+            }
+            else if (richting == 3)
+            {
+                texture = new Bitmap("Afbeeldingen\\louwrens2.png");
+            }
+            else if (richting == 4)
+            {
+                texture = new Bitmap("Afbeeldingen\\louwrens4.png");
+            }
         }
     }
-
 }
 

@@ -97,6 +97,7 @@ namespace MuseumSpel
             beginScore = 5000;
             puntenPerSchilderij = 3000;
 
+
         }
 
         public void SetPictures(List<SpelObject> lijst)// Juiste texturtes geven aan muren
@@ -104,7 +105,6 @@ namespace MuseumSpel
 
             foreach (SpelObject l in lijst)
             {
-                Console.WriteLine("right");
                 foreach (SpelObject j in lijst)
                 {
                     if (l.Cor_X + 1 == j.Cor_X && l.Cor_Y == j.Cor_Y)
@@ -234,6 +234,63 @@ namespace MuseumSpel
             return true;
         }
 
+        public bool BewakerCollisionCheck(Bewaker bewaker) //First attempt
+        {
+            int x_p1, y_p1;
+            int x_p2, y_p2;
+            int marge = bewaker.speed + 2;
+
+            //up
+            if (bewaker.richting == 1)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X + marge);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y - vakGrootte - bewaker.speed);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte - marge);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y - vakGrootte - bewaker.speed);
+            }
+            //down
+            else if (bewaker.richting == 2)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X + marge);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + vakGrootte * 2 + bewaker.speed);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte - marge);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte * 2 + bewaker.speed);
+            }
+            //right
+            else if (bewaker.richting == 3)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X + vakGrootte * 2 + bewaker.speed);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + marge);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte * 2 + bewaker.speed);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y - marge + vakGrootte);
+            }
+            //left
+            else if (bewaker.richting == 4)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X - vakGrootte - bewaker.speed);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + marge);
+                x_p2 = GetGridCordinate(bewaker.Cor_X - vakGrootte - bewaker.speed);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte - marge);
+            }
+            else
+            {
+                x_p1 = 0;
+                y_p1 = 0;
+                x_p2 = 0;
+                y_p2 = 0;
+            }
+
+            foreach (SpelObject spelObject in spelObjecten)
+            {
+                if (spelObject.isSolid && (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y))
+                {
+                    Console.WriteLine("Collision " + bewaker.richting);
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public void SpelerMovement(Direction loopRichting)
         {
             if (!idle && !speler.freezeMotion)
@@ -286,12 +343,15 @@ namespace MuseumSpel
                 {
                     if (gepakteSchilderijen == aantalSchilderijen)
                     {
-                        MessageBox.Show("Score = " + gepakteSchilderijen);
+                        MessageBox.Show("Eindtijd: "+ gameLoop.time + "\nScore: " + score );
+                        gameLoop.ShutDown();
+                        Application.Restart();
                     }
                 }
             }
             #endregion
-
+            //waterplas
+            #region waterplas
             if (!speler.isStunned && !speler.stunCooldown)
             {
                 foreach (Waterplas waterplas in waterplassen)
@@ -310,10 +370,11 @@ namespace MuseumSpel
                     }
                 }
             }
+            #endregion
         }
 
         //Bewaker
-        #region Bewaker Movment
+        #region Bewaker Movement
         public void GuardAutomaticMovement()
         {
             foreach (Bewaker bewaker in bewakers)
@@ -466,6 +527,7 @@ namespace MuseumSpel
                             if (bewaker.Cor_X >= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                             {
                                 bewaker.path = 4;
+                            
                             }
                         }
                         //bewging naar link
@@ -475,7 +537,7 @@ namespace MuseumSpel
                             bewaker.Cor_X -= bewaker.speed;
                             if (bewaker.Cor_X <= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                             {
-                                bewaker.path = 4;
+                                bewaker.path = 4;                               
                             }
                         }
                         //bewging naar boven
@@ -503,20 +565,20 @@ namespace MuseumSpel
                 #region path 4
                 else if (bewaker.path == 4)
                 {
-                    //Beweging naar links
+                    //Beweging naar rechts
                     if (bewaker.wayPoints[3, 0] < bewaker.wayPoints[0, 0])
                     {
-                        bewaker.richting = 4;
+                        bewaker.richting = 3;
                         bewaker.Cor_X += bewaker.speed;
                         if (bewaker.Cor_X >= (bewaker.wayPoints[0, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                         {
                             bewaker.path = 1;
                         }
                     }
-                    //Beweging naar rechts
+                    //Beweging naar links
                     else if (bewaker.wayPoints[3, 0] > bewaker.wayPoints[0, 0])
                     {
-                        bewaker.richting = 3;
+                        bewaker.richting = 4;
                         bewaker.Cor_X -= bewaker.speed;
                         if (bewaker.Cor_X <= (bewaker.wayPoints[0, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                         {
@@ -561,6 +623,7 @@ namespace MuseumSpel
                     {
                         //boven
                         case 1:
+                            bewaker.setPicture();
                             if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
                             {
                                 Console.WriteLine("Boven detectie");
@@ -572,6 +635,7 @@ namespace MuseumSpel
                                 break;
                         //onder
                         case 2:
+                            bewaker.setPicture();
                             if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
                             {
                                 Console.WriteLine("Onder detectie");
@@ -583,6 +647,7 @@ namespace MuseumSpel
                             break;
                         //rechts
                         case 3:
+                            bewaker.setPicture();
                             if (Enumerable.Range((bewaker.Cor_X + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
                             {
                                 Console.WriteLine("Rechts detectie");
@@ -594,7 +659,8 @@ namespace MuseumSpel
                             break;
                         //links
                         case 4:
-                            if(Enumerable.Range((bewaker.Cor_X - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            bewaker.setPicture();
+                            if (Enumerable.Range((bewaker.Cor_X - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
                             {
                                 Console.WriteLine("Links detectie");
                                     if (shuttingUp != null)
@@ -728,6 +794,7 @@ namespace MuseumSpel
         {
             if (takenPaintArray.Count != 0)
             {
+                gepakteSchilderijen = 0;
                 foreach (SpelObject schilderij in takenPaintArray)
                 {
                     if (!paintArray.Contains(schilderij))
@@ -765,7 +832,8 @@ namespace MuseumSpel
             gameLoop.seconds = 0;
             gameLoop.minutes = 0;
             gameLoop.hours = 0;
-
+            gameLoop.redraw();
+            MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
         }
         
 

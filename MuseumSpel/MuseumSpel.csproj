@@ -74,6 +74,7 @@
     <Compile Include="Speler.cs" />
     <Compile Include="SpelObject.cs" />
     <Compile Include="Waterplas.cs" />
+    <Compile Include="XMLReader.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
