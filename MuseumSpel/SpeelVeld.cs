@@ -628,17 +628,12 @@ namespace MuseumSpel
             for (int i = 0; i < paintArray.Count; i++)
             {
                 int x = paintArray[i].Cor_X * vakGrootte;
-                int y = paintArray[i].Cor_Y * vakGrootte;
-                Console.WriteLine("intx: " + x + " inty " + y);
-                Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
+                int y = paintArray[i].Cor_Y * vakGrootte;   
                 if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
                 {
-                    Console.WriteLine("Keypressed3");
                     takenPaintArray.Add(paintArray[i]);
                     paintArray.Remove(paintArray[i]);
                     gepakteSchilderijen = aantalSchilderijen - paintArray.Count;
-                    Console.WriteLine(gepakteSchilderijen);
-                    Console.WriteLine(aantalSchilderijen);
                 }
             }
 
