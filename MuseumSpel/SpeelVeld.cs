@@ -462,6 +462,7 @@ namespace MuseumSpel
                             if (bewaker.Cor_X >= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                             {
                                 bewaker.path = 4;
+                            
                             }
                         }
                         //bewging naar link

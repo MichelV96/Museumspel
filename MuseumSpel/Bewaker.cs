@@ -69,9 +69,27 @@ namespace MuseumSpel
 
         public override void PrintSpelObject(int cor_X, int cor_Y, int vakGrootte, Graphics g)
         {
-            g.DrawImage(texture, cor_X, cor_Y);
+            if (richting == 1) //1=boven
+            {
+                g.DrawImage(texture, cor_X, cor_Y -(vakGrootte*2));
+            }
+            else if (richting == 2)// 2 = beneden
+            {
+                g.DrawImage(texture, cor_X, cor_Y);
+
+            }
+            else if (richting == 3)// 3 = rechts
+            {
+                g.DrawImage(texture, cor_X, cor_Y);
+
+            }
+            else if (richting == 4)// 4 = links
+            {
+                g.DrawImage(texture, cor_X - (vakGrootte*2), cor_Y);
+            }
+
         }
-        public void setPicture()
+        public override void setPicture()
         {
             if (richting == 1)
             {
