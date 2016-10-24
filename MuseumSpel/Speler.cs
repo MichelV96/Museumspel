@@ -169,15 +169,11 @@ namespace MuseumSpel
 
         public void Waterplas(int currentTime)
         {
-            //if (!stunCooldown)
-            //{
             Console.WriteLine("STUNNED!");
             oldSpeed = 5;
             speed = 0;
             startStun = currentTime;
             freezeMotion = true;
-            //isStunned = true;
-            //}
         }
 
         public void EndStun(int currentTime)

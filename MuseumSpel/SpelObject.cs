@@ -32,12 +32,12 @@ namespace MuseumSpel
             start_cor_x = cor_X;
             Cor_Y = cor_Y;
             start_cor_y = cor_Y;
-            this.texture = new Bitmap(picture);
+            texture = new Bitmap(picture);
             this.isSolid= isSolid;
 
         }
 
-        public virtual void setPicture()
+        public virtual void setPicture( int number = 0)
         {
 
         }
