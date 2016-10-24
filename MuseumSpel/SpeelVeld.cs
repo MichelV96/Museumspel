@@ -621,21 +621,49 @@ namespace MuseumSpel
                         //boven
                         case 1:
                             bewaker.setPicture();
-                            if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            if (BewakerCollisionCheck(bewaker))
                             {
-                                Console.WriteLine("Boven detectie");
+                                if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                                {
+                                    Console.WriteLine("Boven detectie");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
                                     }
                                 }
-                                break;
+
+                            }
+                            else
+                            {
+                                if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                                {
+                                    Console.WriteLine("Boven detectie");
+                                    if (shuttingUp != null)
+                                    {
+                                        shuttingUp();
+                                    }
+                                }
+                            }
+                            break;
                         //onder
                         case 2:
                             bewaker.setPicture();
-                            if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            if (BewakerCollisionCheck(bewaker))
                             {
-                                Console.WriteLine("Onder detectie");
+                                if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                                {
+                                    Console.WriteLine("Onder detectie");
+                                    if (shuttingUp != null)
+                                    {
+                                        shuttingUp();
+                                    }
+                                }
+                            }
+                            //Muur collision met onder range word nu vakgroote(50) ipv RangeEndDownAndRightBewaker(175)
+                            else
+                                if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                                {
+                                    Console.WriteLine("Onder detectie");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
