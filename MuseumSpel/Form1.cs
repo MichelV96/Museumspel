@@ -18,12 +18,13 @@ namespace MuseumSpel
     {
         private SpeelVeld speelVeld; // model
         public bool startup = true;
+        public Menu menu;
+        public bool toMenu = false;
         Graphics dc;
         PaintEventArgs dc2;
         // Delegeate events
         public event KeyPressedEventHandeler KeyPressed;
         public event KeyPressedEventHandeler KeyRealeased;
-        public Menu menu;
 
         public Form1(SpeelVeld speelVeld, Menu menu)
         {
@@ -32,7 +33,9 @@ namespace MuseumSpel
             this.menu = menu;
             speelVeld.vulArraysMetObjecten();
             this.speelVeld.SetPictures(this.speelVeld.muren);
-
+            this.speelVeld.SetPictures(this.speelVeld.paintArray);
+            speelVeld.gameLoop.ModelChanged += this.OnModelChanged; //Subscriber
+            speelVeld.shuttingUp += this.shuttingUp; //Subscriber
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -49,45 +52,29 @@ namespace MuseumSpel
             if (speelVeld.richting == 4)
                 speelVeld.SpelerMovement(Direction.Left);
 
-            //if (speelVeld.opgepaktDoorBewaker)
-            //{
-            //    speelVeld.gameLoop.ShutDown();
-            //    this.Close();
-            //}
             Application.DoEvents();
             this.Refresh();// Heel speelveld wordt opnieuw getekend
 
         }
         public void shuttingUp()
         {
-            var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n Druk op yes om terug te gaan naar menu of op cancel op het programma af te sluiten. ",
-                            "Gameover", MessageBoxButtons.RetryCancel);
-            if (result == DialogResult.Retry)
+            var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n wil je opnieuw beginnen? \n Druk op yes om het level opnieuw te beginnen. druk op no om naar het menu te gaan. ",
+                            "Gameover", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (result == DialogResult.Yes)
             {
                 speelVeld.Reset();
                 speelVeld.opgepaktDoorBewaker = true;
             }
-            else if (result == DialogResult.Cancel)
+
+            else if (result == DialogResult.No)
             {
-                this.Close();
+                speelVeld.gameLoop.ShutDown();
+                Application.Restart();
             }
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            //this.close();
-            
-            //speelVeld.paused = true;
-            //var result = MessageBox.Show("do you want to quit?", "closing", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
-            //if (result == DialogResult.OK)
-            //{
-            //    speelVeld.gameLoop.ShutDown();
-            //}
-            //if (result == DialogResult.Cancel)
-            //{
-            //    speelVeld.paused = false;
-            //}
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -110,7 +97,6 @@ namespace MuseumSpel
                 {
                     speelVeld.loop();
                 }
-            //startup = false;
             //Print tijd in de menubalk
             string counter = speelVeld.gameLoop.time;
             toolStripMenuItem1.Text = counter;
@@ -152,16 +138,7 @@ namespace MuseumSpel
         }
         private void pauzeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Wilt u het spel stoppen?", "Pauzemenu", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                speelVeld.gameLoop.ShutDown();
-                Application.Exit();
-            }
-            else
-            {
-                MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
-            }
+            this.pause();
         }
 
         private void geluidToolStripMenuItem_Click(object sender, EventArgs e)
@@ -183,7 +160,6 @@ namespace MuseumSpel
             if(Result == DialogResult.Retry)
             {
                 speelVeld.Reset();
-                MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
             }
             else if(Result == DialogResult.Cancel)
             {
@@ -203,6 +179,20 @@ namespace MuseumSpel
             else
             {
                 return "uit";
+            }
+        }
+
+        public void pause()
+        {
+            DialogResult dialogResult = MessageBox.Show("Wilt u het spel stoppen?", "Pauzemenu", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                speelVeld.gameLoop.ShutDown();
+                Application.Restart();
+            }
+            else
+            {
+                MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
             }
         }
 

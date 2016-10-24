@@ -139,7 +139,23 @@ namespace MuseumSpel
             }
             else if(!freezeMotion)
             {
-                PowerUp();
+                //PowerUp();
+                if (direction == Direction.Up)
+                {
+                    texture = new Bitmap("Afbeeldingen\\vermomming_back.png");
+                }
+                else if (direction == Direction.Down)
+                {
+                    texture = new Bitmap("Afbeeldingen\\vermomming_front.png");
+                }
+                else if (direction == Direction.Right)
+                {
+                    texture = new Bitmap("Afbeeldingen\\vermomming_right.png");
+                }
+                else if (direction == Direction.Left)
+                {
+                    texture = new Bitmap("Afbeeldingen\\vermomming_left.png");
+                }
             }
             tics++;
             if (tics == 4)
@@ -152,13 +168,7 @@ namespace MuseumSpel
             }
         }
         //method
-        public void PowerUp()
-        {
-            //het oude plaatje
-             
-            //nieuw plaatje omdat je de powerup hebt opgepakt
-            texture = new Bitmap("Afbeeldingen\\power.png");
-        }
+  
         public void PowerDown()
         {
             //het oude plaatje
@@ -169,15 +179,11 @@ namespace MuseumSpel
 
         public void Waterplas(int currentTime)
         {
-            //if (!stunCooldown)
-            //{
             Console.WriteLine("STUNNED!");
             oldSpeed = 5;
             speed = 0;
             startStun = currentTime;
             freezeMotion = true;
-            //isStunned = true;
-            //}
         }
 
         public void EndStun(int currentTime)

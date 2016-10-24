@@ -27,7 +27,7 @@ namespace MuseumSpel
         public Speler speler { get; set; }
         //lists
         private List<SpelObject> spelObjecten;
-        private List<SpelObject> paintArray;
+        public List<SpelObject> paintArray;
         private List<SpelObject> waterplassen;
         private List<SpelObject> powerups;
         public List<SpelObject> muren;
@@ -39,7 +39,7 @@ namespace MuseumSpel
 
         //gameloop
         public bool paused { get; set; }
-        public GameLoop gameLoop { get; private set; }
+        public GameLoop gameLoop { get; set; }
         public bool started { get; set; }
         public bool idle { get; set; }
         public int richting { get; set; }
@@ -68,11 +68,10 @@ namespace MuseumSpel
         private int beginScore;
         private int puntenPerSchilderij;
 
-
         
-
-        public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
+        public SpeelVeld(int aantalVakkenX, int aantalVakkenY)
         {
+            this.gameLoop = new GameLoop();
             this.aantalVakkenX = aantalVakkenX;
             this.aantalVakkenY = aantalVakkenY;
             vakGrootte = 50;
@@ -93,18 +92,20 @@ namespace MuseumSpel
             RangeEndDownAndRightBewaker = (vakGrootte * 3) + (vakGrootte / 2);
             RangeStartDownAndRightBewaker = 0;
             eindpunten = new List<SpelObject>();
-            this.gameLoop = gameloop;
             beginScore = 5000;
             puntenPerSchilderij = 3000;
-
+            gameLoop.BewakerAction += this.GuardAutomaticMovement; //Subscriber
+            gameLoop.BewakerAction += this.GuardDetectPlayer; //Subscriber
 
         }
 
         public void SetPictures(List<SpelObject> lijst)// Juiste texturtes geven aan muren
         {
+            Random rg = new Random();
 
             foreach (SpelObject l in lijst)
             {
+                int number = rg.Next(1, 4);
                 foreach (SpelObject j in lijst)
                 {
                     if (l.Cor_X + 1 == j.Cor_X && l.Cor_Y == j.Cor_Y)
@@ -116,8 +117,9 @@ namespace MuseumSpel
                     if (l.Cor_X == j.Cor_X && l.Cor_Y - 1 == j.Cor_Y)
                         l.up = true;
                 }
-                l.setPicture();
+                l.setPicture(number);
             }
+            
         }
 
         // Methodes
@@ -126,7 +128,7 @@ namespace MuseumSpel
             started = true;
             while (!gameLoop.p_gameOver)
             {
-                #region
+                #region loop cycle's per sec.
                 //cycle++;
                 //if (gameLoop.p_currentTime >= cyclestart + 1000)
                 //{
@@ -136,7 +138,6 @@ namespace MuseumSpel
                 //}
                 #endregion
                 gameLoop.gameLoop();
-                //Console.WriteLine(speler.speed);
 
                 if (speler.isDisguised == true && DateTime.Compare(DateTime.Now, speler.endTime) == 1)
                 {
@@ -234,6 +235,64 @@ namespace MuseumSpel
             return true;
         }
 
+        public bool BewakerCollisionCheck(Bewaker bewaker) //First attempt
+        {
+            int x_p1, y_p1;
+            int x_p2, y_p2;
+
+            //up
+            if (bewaker.richting == 1)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y - vakGrootte);
+            }
+            //down
+            else if (bewaker.richting == 2)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + vakGrootte * 2 );
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte * 2 );
+            }
+            //right
+            else if (bewaker.richting == 3)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X + vakGrootte * 2);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte * 2);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
+            }
+            //left
+            else if (bewaker.richting == 4)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
+                x_p2 = GetGridCordinate(bewaker.Cor_X - vakGrootte);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
+            }
+            else
+            {
+                x_p1 = 0;
+                y_p1 = 0;
+                x_p2 = 0;
+                y_p2 = 0;
+            }
+
+            foreach (SpelObject spelObject in spelObjecten)
+            {
+                if (spelObject.isSolid && (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y))
+                {
+                    //Console.WriteLine("Collision " + bewaker.richting);
+                    bewaker.guardCollision = true;
+                    return false;
+                }
+            }
+            bewaker.guardCollision = false;
+            return true;
+        }
+
         public void SpelerMovement(Direction loopRichting)
         {
             if (!idle && !speler.freezeMotion)
@@ -265,14 +324,17 @@ namespace MuseumSpel
 
             //power up
             //check of de speler - 15 of + 15 voor of na het power up plaatje zit zodat je er niet precies op hoeft te staan
-            if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
+            if (powerups.Any())
             {
-                //verwijder de power up uit de array
-                usedPowerUps.Add(powerups[0]);
-                powerups.RemoveAt(0);
-                speler.isDisguised = true;
-                speler.endTime = DateTime.Now.AddSeconds(speler.duration);
-                this.p += 1;
+                if (Enumerable.Range((outfitX - 15), 30).Contains(speler.Cor_X) && Enumerable.Range((outfitY - 15), 30).Contains(speler.Cor_Y) && p < 1)
+                {
+                    //verwijder de power up uit de array
+                    usedPowerUps.Add(powerups[0]);
+                    powerups.RemoveAt(0);
+                    speler.isDisguised = true;
+                    speler.endTime = DateTime.Now.AddSeconds(speler.duration);
+                    this.p += 1;
+                }
             }
 
             //eindpunt
@@ -555,64 +617,134 @@ namespace MuseumSpel
         #region Guard Detection
         public void GuardDetectPlayer()
         {
-            if (speler.isDisguised == false)
-            {
-                foreach (Bewaker bewaker in bewakers)
+            foreach (Bewaker bewaker in bewakers)
                 {
                     switch (bewaker.richting)
                     {
                         //boven
                         case 1:
                             bewaker.setPicture();
-                            if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                        if (speler.isDisguised == false)
+                        {
+                            if (BewakerCollisionCheck(bewaker))
                             {
-                                Console.WriteLine("Boven detectie");
+                                if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                                {
+                                    Console.WriteLine("Boven detectie");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
                                     }
                                 }
-                                break;
+
+                            }
+                            //Muur collision boven Begin punt van de range is nu Vakgroote(50) normaal 124 en range is vakgroote*2(100) normaal 199
+                            else
+                            {
+                                if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - vakGrootte), vakGrootte*2).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                                {
+                                    Console.WriteLine("Boven detectie met collision");
+                                    if (shuttingUp != null)
+                                    {
+                                        shuttingUp();
+                                    }
+                                }
+                            }
+                        }
+                            break;
                         //onder
                         case 2:
                             bewaker.setPicture();
-                            if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                        if (speler.isDisguised == false)
+                        {
+                            if (BewakerCollisionCheck(bewaker))
                             {
-                                Console.WriteLine("Onder detectie");
+                                if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                                {
+                                    Console.WriteLine("Onder detectie");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
                                     }
                                 }
+                            }
+                            //Muur collision met onder, range word nu vakgroote(50) ipv RangeEndDownAndRightBewaker(175)
+                            else
+                                if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                            {
+                                Console.WriteLine("Onder detectie met collision");
+                                if (shuttingUp != null)
+                                {
+                                    shuttingUp();
+                                }
+                            }
+                        }
                             break;
                         //rechts
                         case 3:
                             bewaker.setPicture();
-                            if (Enumerable.Range((bewaker.Cor_X + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                        if (speler.isDisguised == false)
+                        {
+                            if (BewakerCollisionCheck(bewaker))
                             {
-                                Console.WriteLine("Rechts detectie");
+                                if (Enumerable.Range((bewaker.Cor_X + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                                {
+                                    Console.WriteLine("Rechts detectie");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
                                     }
                                 }
+
+                            }
+                            //Muur collision met rechts, range word nu vakgroote(50) ipv RangeEndDownAndRightBewaker(175)
+                            else
+                            {
+                                if (Enumerable.Range((bewaker.Cor_X + RangeStartDownAndRightBewaker), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                                {
+                                    Console.WriteLine("Rechts detectie met collision");
+                                    if (shuttingUp != null)
+                                    {
+                                        shuttingUp();
+                                    }
+                                }
+                            }
+                        }
                             break;
                         //links
                         case 4:
                             bewaker.setPicture();
-                            if (Enumerable.Range((bewaker.Cor_X - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                        if (speler.isDisguised == false)
+                        {
+                            if (BewakerCollisionCheck(bewaker))
                             {
-                                Console.WriteLine("Links detectie");
+                                if (Enumerable.Range((bewaker.Cor_X - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                                {
+                                    Console.WriteLine("Links detectie");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
                                     }
                                 }
+                            }
+                            //Muur collision links Begin punt van de range is nu Vakgroote(50) normaal 124 en range is vakgroote*2(100) normaal 199
+                            else
+                            {
+                                if (Enumerable.Range((bewaker.Cor_X - vakGrootte), vakGrootte * 2).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
+                                {
+                                    Console.WriteLine("Links detectie met collision");
+                                    if (shuttingUp != null)
+                                    {
+                                        shuttingUp();
+                                    }
+                                }
+                            }
+                        }
                             break;
                     }
                 }
 
-            }
+            
 
         }
         #endregion
@@ -729,6 +861,7 @@ namespace MuseumSpel
         {
             if (takenPaintArray.Count != 0)
             {
+                gepakteSchilderijen = 0;
                 foreach (SpelObject schilderij in takenPaintArray)
                 {
                     if (!paintArray.Contains(schilderij))
@@ -758,6 +891,9 @@ namespace MuseumSpel
                 bewaker.Cor_X = bewaker.start_cor_x;
                 bewaker.Cor_Y = bewaker.start_cor_y;
                 bewaker.path = 1;
+                bewaker.richting = bewaker.startRichting;
+                Console.WriteLine(bewaker.richting);
+                Console.WriteLine(bewaker.startRichting);
             }
             speler.Cor_X = speler.start_cor_x;
             speler.Cor_Y = speler.start_cor_y;
@@ -766,7 +902,8 @@ namespace MuseumSpel
             gameLoop.seconds = 0;
             gameLoop.minutes = 0;
             gameLoop.hours = 0;
-
+            gameLoop.redraw();
+            MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
         }
         
 
@@ -779,9 +916,6 @@ namespace MuseumSpel
             score = score - minutes * 60 * 10;
 
             return score;
-
-
-        }
-        
+        }  
     }
 }
