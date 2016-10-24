@@ -16,7 +16,7 @@ namespace MuseumSpel
 
         }
 
-        public override void setPicture()
+        public override void setPicture(int number)
         {
             if (up && down && left && right)
                 texture = new Bitmap("Afbeeldingen\\wall_down_up_left_right.png");

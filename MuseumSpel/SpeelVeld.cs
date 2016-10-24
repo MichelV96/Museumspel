@@ -27,7 +27,7 @@ namespace MuseumSpel
         public Speler speler { get; set; }
         //lists
         private List<SpelObject> spelObjecten;
-        private List<SpelObject> paintArray;
+        public List<SpelObject> paintArray;
         private List<SpelObject> waterplassen;
         private List<SpelObject> powerups;
         public List<SpelObject> muren;
@@ -39,7 +39,7 @@ namespace MuseumSpel
 
         //gameloop
         public bool paused { get; set; }
-        public GameLoop gameLoop { get; private set; }
+        public GameLoop gameLoop { get; set; }
         public bool started { get; set; }
         public bool idle { get; set; }
         public int richting { get; set; }
@@ -68,11 +68,10 @@ namespace MuseumSpel
         private int beginScore;
         private int puntenPerSchilderij;
 
-
         
-
-        public SpeelVeld(int aantalVakkenX, int aantalVakkenY, GameLoop gameloop)
+        public SpeelVeld(int aantalVakkenX, int aantalVakkenY)
         {
+            this.gameLoop = new GameLoop();
             this.aantalVakkenX = aantalVakkenX;
             this.aantalVakkenY = aantalVakkenY;
             vakGrootte = 50;
@@ -93,18 +92,20 @@ namespace MuseumSpel
             RangeEndDownAndRightBewaker = (vakGrootte * 3) + (vakGrootte / 2);
             RangeStartDownAndRightBewaker = 0;
             eindpunten = new List<SpelObject>();
-            this.gameLoop = gameloop;
             beginScore = 5000;
             puntenPerSchilderij = 3000;
-
+            gameLoop.BewakerAction += this.GuardAutomaticMovement; //Subscriber
+            gameLoop.BewakerAction += this.GuardDetectPlayer; //Subscriber
 
         }
 
         public void SetPictures(List<SpelObject> lijst)// Juiste texturtes geven aan muren
         {
+            Random rg = new Random();
 
             foreach (SpelObject l in lijst)
             {
+                int number = rg.Next(1, 4);
                 foreach (SpelObject j in lijst)
                 {
                     if (l.Cor_X + 1 == j.Cor_X && l.Cor_Y == j.Cor_Y)
@@ -116,8 +117,9 @@ namespace MuseumSpel
                     if (l.Cor_X == j.Cor_X && l.Cor_Y - 1 == j.Cor_Y)
                         l.up = true;
                 }
-                l.setPicture();
+                l.setPicture(number);
             }
+            
         }
 
         // Methodes
@@ -238,39 +240,38 @@ namespace MuseumSpel
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
-            int marge = 2;
 
             //up
             if (bewaker.richting == 1)
             {
-                x_p1 = GetGridCordinate(bewaker.Cor_X + marge);
+                x_p1 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
                 y_p1 = GetGridCordinate(bewaker.Cor_Y);
-                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte - marge);
-                y_p2 = GetGridCordinate(bewaker.Cor_Y);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y - vakGrootte);
             }
             //down
             else if (bewaker.richting == 2)
             {
-                x_p1 = GetGridCordinate(bewaker.Cor_X + marge);
+                x_p1 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
                 y_p1 = GetGridCordinate(bewaker.Cor_Y + vakGrootte * 2 );
-                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte - marge);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
                 y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte * 2 );
             }
             //right
             else if (bewaker.richting == 3)
             {
                 x_p1 = GetGridCordinate(bewaker.Cor_X + vakGrootte * 2);
-                y_p1 = GetGridCordinate(bewaker.Cor_Y + marge);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
                 x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte * 2);
-                y_p2 = GetGridCordinate(bewaker.Cor_Y - marge);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
             }
             //left
             else if (bewaker.richting == 4)
             {
                 x_p1 = GetGridCordinate(bewaker.Cor_X);
-                y_p1 = GetGridCordinate(bewaker.Cor_Y + marge);
-                x_p2 = GetGridCordinate(bewaker.Cor_X);
-                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte - marge);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
+                x_p2 = GetGridCordinate(bewaker.Cor_X - vakGrootte);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
             }
             else
             {
@@ -284,7 +285,7 @@ namespace MuseumSpel
             {
                 if (spelObject.isSolid && (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y))
                 {
-                    Console.WriteLine("Collision " + bewaker.richting);
+                    //Console.WriteLine("Collision " + bewaker.richting);
                     return false;
                 }
             }
@@ -894,6 +895,9 @@ namespace MuseumSpel
                 bewaker.Cor_X = bewaker.start_cor_x;
                 bewaker.Cor_Y = bewaker.start_cor_y;
                 bewaker.path = 1;
+                bewaker.richting = bewaker.startRichting;
+                Console.WriteLine(bewaker.richting);
+                Console.WriteLine(bewaker.startRichting);
             }
             speler.Cor_X = speler.start_cor_x;
             speler.Cor_Y = speler.start_cor_y;
@@ -916,9 +920,6 @@ namespace MuseumSpel
             score = score - minutes * 60 * 10;
 
             return score;
-
-
-        }
-        
+        }  
     }
 }
