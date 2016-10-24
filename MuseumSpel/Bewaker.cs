@@ -11,29 +11,26 @@ namespace MuseumSpel
     {
         public int[,] wayPoints;
         public int richting; //1=boven, 2=beneden, 3=rechts, 4=links
+        public int startRichting;
         public int path = 1;
         public int aantalpaths;
         public int speed;
 
         public Bewaker(int cor_X, int cor_Y, Direction richting) : this(cor_X, cor_Y, cor_X, cor_Y, richting)
         {
-
+            setStartDirection(richting);
         }
 
         public Bewaker(int cor_X, int cor_Y, int eind_cor_X, int eind_cor_Y, Direction richting) : base("Bewaker", cor_X * 50, cor_Y * 50, "Afbeeldingen\\louwrens1.png", false)
         {
             {
-                wayPoints = new int[2, 2] { { cor_X, cor_Y }, { eind_cor_X, eind_cor_Y } };
-                speed = 5;
-                path = 1;
-                aantalpaths = 2;
-                Setrichting(richting);
                 if (cor_X == eind_cor_X || cor_Y == eind_cor_Y)
                 {
                     wayPoints = new int[2, 2] { { cor_X, cor_Y }, { eind_cor_X, eind_cor_Y } };
                     speed = 5;
                     aantalpaths = 2;
                     Setrichting(richting);
+                    setStartDirection(richting);
                 } else
                 {
                     throw new ArgumentOutOfRangeException("Punten moeten op elkaar uit komen: x1 = x2 of y1 = y2");
@@ -43,7 +40,7 @@ namespace MuseumSpel
 
         public Bewaker(int cor_X1, int cor_Y1, int cor_X2, int cor_Y2, int cor_X3, int cor_Y3, Direction richting) : this(cor_X1, cor_Y1, cor_X2, cor_Y2, cor_X3, cor_Y3, cor_X2, cor_Y2, richting)
         {
-
+            setStartDirection(richting);
         }
 
         public Bewaker(int cor_X1, int cor_Y1, int cor_X2, int cor_Y2, int cor_X3, int cor_Y3, int cor_X4, int cor_Y4, Direction richting) : base("Bewaker", cor_X1 * 50, cor_Y1 * 50, "Afbeeldingen\\guard3.png", false)
@@ -54,6 +51,7 @@ namespace MuseumSpel
                 speed = 5;
                 aantalpaths = 4;
                 Setrichting(richting);
+                setStartDirection(richting);
             } else
             {
                 throw new ArgumentOutOfRangeException("Punten moeten op elkaar uit komen: x1 = x2 of y1 = y2");
@@ -112,6 +110,19 @@ namespace MuseumSpel
             {
                 texture = new Bitmap("Afbeeldingen\\louwrens4.png");
             }
+        }
+
+        public void setStartDirection(Direction richting)
+        {
+
+            if (richting == Direction.Up)
+                this.startRichting = 1;
+            else if (richting == Direction.Down)
+                this.startRichting = 2;
+            else if (richting == Direction.Right)
+                this.startRichting = 3;
+            else if (richting == Direction.Left)
+                this.startRichting = 4;
         }
     }
 }

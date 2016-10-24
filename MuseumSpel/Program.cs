@@ -26,7 +26,7 @@ namespace MuseumSpel
             if (menu.startSpel)
             {
                 Form1 form1 = new Form1(speelVeld, menu); //Publisher
-                SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld);//Controller
+                SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld, menu.controls);//Controller
                 Application.Run(form1);
             }
         }
