@@ -18,6 +18,8 @@ namespace MuseumSpel
         {
             this.speelVeld = speelVeld;
             this.form1 = form1;
+            form1.KeyPressed += this.OnKeyPressed; //Subscriber
+            form1.KeyRealeased += this.OnKeyUp; //Subscriber
             this.controls = controls;
         }
 
@@ -42,7 +44,7 @@ namespace MuseumSpel
                 {
                     speelVeld.setRichting(Direction.Right);
                 }
-                if (e.KeyData == Keys.F)
+                if (e.KeyValue == controls[4])
                 {
                     speelVeld.pakSchilderij(true);
                 }

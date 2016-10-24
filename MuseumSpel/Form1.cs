@@ -33,7 +33,8 @@ namespace MuseumSpel
             this.menu = menu;
             speelVeld.vulArraysMetObjecten();
             this.speelVeld.SetPictures(this.speelVeld.muren);
-
+            speelVeld.gameLoop.ModelChanged += this.OnModelChanged; //Subscriber
+            speelVeld.shuttingUp += this.shuttingUp; //Subscriber
         }
 
         private void Form1_Load(object sender, EventArgs e)

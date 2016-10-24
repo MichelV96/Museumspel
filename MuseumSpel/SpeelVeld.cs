@@ -39,7 +39,7 @@ namespace MuseumSpel
 
         //gameloop
         public bool paused { get; set; }
-        public GameLoop gameLoop { get; private set; }
+        public GameLoop gameLoop { get; set; }
         public bool started { get; set; }
         public bool idle { get; set; }
         public int richting { get; set; }
@@ -68,11 +68,10 @@ namespace MuseumSpel
         private int beginScore;
         private int puntenPerSchilderij;
 
-
         
-
-        public SpeelVeld(int aantalVakkenX, int aantalVakkenY, GameLoop gameloop)
+        public SpeelVeld(int aantalVakkenX, int aantalVakkenY)
         {
+            this.gameLoop = new GameLoop();
             this.aantalVakkenX = aantalVakkenX;
             this.aantalVakkenY = aantalVakkenY;
             vakGrootte = 50;
@@ -93,10 +92,10 @@ namespace MuseumSpel
             RangeEndDownAndRightBewaker = (vakGrootte * 3) + (vakGrootte / 2);
             RangeStartDownAndRightBewaker = 0;
             eindpunten = new List<SpelObject>();
-            this.gameLoop = gameloop;
             beginScore = 5000;
             puntenPerSchilderij = 3000;
-
+            gameLoop.BewakerAction += this.GuardAutomaticMovement; //Subscriber
+            gameLoop.BewakerAction += this.GuardDetectPlayer; //Subscriber
 
         }
 
@@ -118,6 +117,7 @@ namespace MuseumSpel
                 }
                 l.setPicture();
             }
+            
         }
 
         // Methodes
@@ -893,6 +893,9 @@ namespace MuseumSpel
                 bewaker.Cor_X = bewaker.start_cor_x;
                 bewaker.Cor_Y = bewaker.start_cor_y;
                 bewaker.path = 1;
+                bewaker.richting = bewaker.startRichting;
+                Console.WriteLine(bewaker.richting);
+                Console.WriteLine(bewaker.startRichting);
             }
             speler.Cor_X = speler.start_cor_x;
             speler.Cor_Y = speler.start_cor_y;
@@ -918,6 +921,7 @@ namespace MuseumSpel
 
 
         }
+        
         
     }
 }
