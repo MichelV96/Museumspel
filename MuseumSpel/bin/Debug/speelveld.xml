@@ -318,15 +318,6 @@
 			</eindpunten>
 			<bewakers>
 				<bewaker>
-					<startx>16</startx>
-					<starty>1</starty>
-					<punten>
-						<punt>16</punt>
-						<punt>10</punt>
-					</punten>
-					<richting>Left</richting>
-				</bewaker>
-				<bewaker>
 					<startx>2</startx>
 					<starty>2</starty>
 					<punten>
@@ -338,24 +329,6 @@
 						<punt>2</punt>
 					</punten>
 					<richting>Left</richting>
-				</bewaker>
-				<bewaker>
-					<startx>0</startx>
-					<starty>0</starty>
-					<punten>
-						<punt>16</punt>
-						<punt>0</punt>
-						<punt>16</punt>
-						<punt>10</punt>
-						<punt>0</punt>
-						<punt>10</punt>
-					</punten>
-					<richting>Left</richting>
-				</bewaker>
-				<bewaker>
-					<startx>7</startx>
-					<starty>5</starty>
-					<richting>Right</richting>
 				</bewaker>
 			</bewakers>
 		</gameobjecten>
@@ -464,7 +437,7 @@
 		</gameobjecten>
 	</level>
 	<level>
-		<naam>derde level</naam>
+		<naam>Bewaker test level</naam>
 		<nummer>3</nummer>
 		<gameobjecten>
 			<speler>
@@ -487,6 +460,10 @@
 					<y>2</y>
 				</muur>
 				<muur>
+					<x>3</x>
+					<y>3</y>
+				</muur>
+				<muur>
 					<x>1</x>
 					<y>5</y>
 				</muur>
@@ -545,6 +522,34 @@
 				<muur>
 					<x>14</x>
 					<y>4</y>
+				</muur>
+				<muur>
+					<x>13</x>
+					<y>7</y>
+				</muur>
+				<muur>
+					<x>13</x>
+					<y>9</y>
+				</muur>
+				<muur>
+					<x>15</x>
+					<y>7</y>
+				</muur>
+				<muur>
+					<x>15</x>
+					<y>9</y>
+				</muur>
+				<muur>
+					<x>14</x>
+					<y>7</y>
+				</muur>
+				<muur>
+					<x>9</x>
+					<y>7</y>
+				</muur>
+				<muur>
+					<x>9</x>
+					<y>9</y>
 				</muur>
 			</muren>
 			<bewakers>
@@ -555,7 +560,7 @@
 				</bewaker>
 				<bewaker>
 					<startx>9</startx>
-					<starty>6</starty>
+					<starty>8</starty>
 					<richting>Left</richting>
 				</bewaker>
 				<bewaker>
@@ -565,7 +570,7 @@
 				</bewaker>
 				<bewaker>
 					<startx>13</startx>
-					<starty>6</starty>
+					<starty>8</starty>
 					<richting>Right</richting>
 				</bewaker>
 				<bewaker>
