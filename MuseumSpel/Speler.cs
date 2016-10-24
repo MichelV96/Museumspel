@@ -168,13 +168,7 @@ namespace MuseumSpel
             }
         }
         //method
-        public void PowerUp()
-        {
-            //het oude plaatje
-             
-            //nieuw plaatje omdat je de powerup hebt opgepakt
-            texture = new Bitmap("Afbeeldingen\\power.png");
-        }
+  
         public void PowerDown()
         {
             //het oude plaatje
