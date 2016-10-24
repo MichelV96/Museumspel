@@ -17,6 +17,8 @@ namespace MuseumSpel
         {
             this.speelVeld = speelVeld;
             this.form1 = form1;
+            form1.KeyPressed += this.OnKeyPressed; //Subscriber
+            form1.KeyRealeased += this.OnKeyUp; //Subscriber
         }
 
         public void OnKeyPressed(KeyEventArgs e)

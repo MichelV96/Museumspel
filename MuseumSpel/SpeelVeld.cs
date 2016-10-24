@@ -39,7 +39,7 @@ namespace MuseumSpel
 
         //gameloop
         public bool paused { get; set; }
-        public GameLoop gameLoop { get; private set; }
+        public GameLoop gameLoop { get; set; }
         public bool started { get; set; }
         public bool idle { get; set; }
         public int richting { get; set; }
@@ -71,8 +71,9 @@ namespace MuseumSpel
 
         
 
-        public SpeelVeld(int aantalVakkenX, int aantalVakkenY, Speler speler, GameLoop gameloop)
+        public SpeelVeld(int aantalVakkenX, int aantalVakkenY)
         {
+            this.gameLoop = new GameLoop();
             this.aantalVakkenX = aantalVakkenX;
             this.aantalVakkenY = aantalVakkenY;
             vakGrootte = 50;
@@ -93,10 +94,10 @@ namespace MuseumSpel
             RangeEndDownAndRightBewaker = (vakGrootte * 3) + (vakGrootte / 2);
             RangeStartDownAndRightBewaker = 0;
             eindpunten = new List<SpelObject>();
-            this.gameLoop = gameloop;
             beginScore = 5000;
             puntenPerSchilderij = 3000;
-
+            gameLoop.BewakerAction += this.GuardAutomaticMovement; //Subscriber
+            gameLoop.BewakerAction += this.GuardDetectPlayer; //Subscriber
 
         }
 
@@ -118,6 +119,7 @@ namespace MuseumSpel
                 }
                 l.setPicture();
             }
+            
         }
 
         // Methodes
@@ -789,6 +791,7 @@ namespace MuseumSpel
 
 
         }
+        
         
     }
 }

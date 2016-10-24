@@ -18,9 +18,7 @@ namespace MuseumSpel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Speler speler = new Speler("Player", 0, 1, 5);
-            GameLoop gameloop = new GameLoop();
-            SpeelVeld speelVeld = new SpeelVeld(17, 11, speler, gameloop);//Model
+            SpeelVeld speelVeld = new SpeelVeld(17, 11);//Model
             
             Menu menu = new Menu(speelVeld);
             Application.Run(menu);
@@ -29,13 +27,6 @@ namespace MuseumSpel
             {
                 Form1 form1 = new Form1(speelVeld, menu); //Publisher
                 SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld);//Controller
-                form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
-                form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
-                gameloop.ModelChanged += form1.OnModelChanged; //Subscriber
-                gameloop.BewakerAction += speelVeld.GuardAutomaticMovement; //Subscriber
-                gameloop.BewakerAction += speelVeld.GuardDetectPlayer; //Subscriber
-                speelVeld.shuttingUp += form1.shuttingUp; //Subscriber
-
                 Application.Run(form1);
             }
         }
