@@ -458,6 +458,12 @@
 	<level>
 		<nummer>3</nummer>
 		<gameobjecten>
+		<speler>
+				<naam>Speler</naam>
+				<startx>0</startx>
+				<starty>1</starty>
+				<snelheid>5</snelheid>
+			</speler>
 			<muren>
 				<muur>
 					<x>1</x>

@@ -238,7 +238,7 @@ namespace MuseumSpel
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
-            int marge = 0;
+            int marge = 2;
 
             //up
             if (bewaker.richting == 1)
