@@ -50,7 +50,7 @@ namespace MuseumSpel
             Button startSpel = new Button() { Text = "Start spel", Left = 15, Width = 250, Height = 50, Top = 20 };
             Button opties = new Button() { Text = "Opties", Left = 15, Width = 250, Height = 50, Top = 75 };
             Button sluitSpel = new Button() { Text = "Afsluiten", Left = 15, Width = 250, Height = 50, Top = 130 };
-            ComboBox kiesLevel = new ComboBox() { Text = "Kies een level", Left = 15, Width = 250, Height = 50, Top = 185 };
+            ComboBox kiesLevel = new ComboBox() { Text = "Kies een level", Left = 280, Width = 250, Height = 50, Top = 35 };
             kiesLevel.DisplayMember = "Text";
 
             foreach (XElement e in levelNamen)
