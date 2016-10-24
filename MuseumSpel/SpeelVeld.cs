@@ -104,7 +104,6 @@ namespace MuseumSpel
 
             foreach (SpelObject l in lijst)
             {
-                Console.WriteLine("right");
                 foreach (SpelObject j in lijst)
                 {
                     if (l.Cor_X + 1 == j.Cor_X && l.Cor_Y == j.Cor_Y)
@@ -463,6 +462,7 @@ namespace MuseumSpel
                             if (bewaker.Cor_X >= (bewaker.wayPoints[3, 0] * vakGrootte) && bewaker.Cor_X % vakGrootte == 0)
                             {
                                 bewaker.path = 4;
+                            
                             }
                         }
                         //bewging naar link
