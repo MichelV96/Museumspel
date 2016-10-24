@@ -105,7 +105,7 @@ namespace MuseumSpel
         }
         public override void setPicture(int number = 1)
         {
-            if (!guardCollision)
+            if (!guardCollision)   //Set Guard Picture als er collision is.
             {
                 if (richting == 1)//up
                 {
@@ -125,7 +125,7 @@ namespace MuseumSpel
                 }
 
             }
-            else if(guardCollision)
+            else if(guardCollision)  //Set Guard Picture als er geen collision is.
             {
 
                 if (richting == 1)//up
