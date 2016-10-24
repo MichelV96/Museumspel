@@ -139,7 +139,23 @@ namespace MuseumSpel
             }
             else if(!freezeMotion)
             {
-                PowerUp();
+                //PowerUp();
+                if (direction == Direction.Up)
+                {
+                    texture = new Bitmap("Afbeeldingen\\vermomming_back.png");
+                }
+                else if (direction == Direction.Down)
+                {
+                    texture = new Bitmap("Afbeeldingen\\vermomming_front.png");
+                }
+                else if (direction == Direction.Right)
+                {
+                    texture = new Bitmap("Afbeeldingen\\vermomming_right.png");
+                }
+                else if (direction == Direction.Left)
+                {
+                    texture = new Bitmap("Afbeeldingen\\vermomming_left.png");
+                }
             }
             tics++;
             if (tics == 4)

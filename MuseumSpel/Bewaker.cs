@@ -44,7 +44,7 @@ namespace MuseumSpel
             setStartDirection(richting);
         }
 
-        public Bewaker(int cor_X1, int cor_Y1, int cor_X2, int cor_Y2, int cor_X3, int cor_Y3, int cor_X4, int cor_Y4, Direction richting) : base("Bewaker", cor_X1 * 50, cor_Y1 * 50, "Afbeeldingen\\guard3.png", false)
+        public Bewaker(int cor_X1, int cor_Y1, int cor_X2, int cor_Y2, int cor_X3, int cor_Y3, int cor_X4, int cor_Y4, Direction richting) : base("Bewaker", cor_X1 * 50, cor_Y1 * 50, "Afbeeldingen\\guard_front.png", false)
         {
             if ((cor_X1 == cor_X2 || cor_Y1 == cor_Y2) && (cor_X2 == cor_X3 || cor_Y2 == cor_Y3) && (cor_X3 == cor_X4 || cor_Y3 == cor_Y4) && (cor_X4 == cor_X1 || cor_Y4 == cor_Y1))
             {
@@ -109,7 +109,7 @@ namespace MuseumSpel
             {
                 if (richting == 1)//up
                 {
-                    texture = new Bitmap("Afbeeldingen\\louwrens1.png");
+                    texture = new Bitmap("Afbeeldingen\\guard_back.png");
                 }
                 else if (richting == 2)//down
                 {
@@ -117,11 +117,11 @@ namespace MuseumSpel
                 }
                 else if (richting == 3)//right
                 {
-                    texture = new Bitmap("Afbeeldingen\\louwrens2.png");
+                    texture = new Bitmap("Afbeeldingen\\guard_right.png");
                 }
                 else if (richting == 4)//left
                 {
-                    texture = new Bitmap("Afbeeldingen\\louwrens4.png");
+                    texture = new Bitmap("Afbeeldingen\\guard_left.png");
                 }
 
             }
@@ -130,7 +130,7 @@ namespace MuseumSpel
 
                 if (richting == 1)//up
                 {
-                    texture = new Bitmap("Afbeeldingen\\louwrens0.png");
+                    texture = new Bitmap("Afbeeldingen\\guard_back_trans.png");
                 }
                 else if (richting == 2)//down
                 {
@@ -138,11 +138,11 @@ namespace MuseumSpel
                 }
                 else if (richting == 3)//right
                 {
-                    texture = new Bitmap("Afbeeldingen\\louwrens0.png");
+                    texture = new Bitmap("Afbeeldingen\\guard_right_trans.png");
                 }
                 else if (richting == 4)//left
                 {
-                    texture = new Bitmap("Afbeeldingen\\louwrens0.png");
+                    texture = new Bitmap("Afbeeldingen\\guard_left_trans.png");
                 }
             }
         }
