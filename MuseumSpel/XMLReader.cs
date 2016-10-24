@@ -86,6 +86,10 @@ namespace MuseumSpel
                     //elk punt die er instaat in de array stoppen
                     guardPunten.Add(punt);
                 }
+                if (aantalPunten == 0)
+                {
+                    speelVeld.voegBewakerToe(new Bewaker(startx, starty, enumRichting));
+                }
                 if (aantalPunten == 2)
                 {
                     speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], enumRichting));
