@@ -345,6 +345,11 @@
 					</punten>
 					<richting>Left</richting>
 				</bewaker>
+				<bewaker>
+					<startx>7</startx>
+					<starty>5</starty>
+					<richting>Right</richting>
+				</bewaker>
 			</bewakers>
 		</gameobjecten>
 	</level>

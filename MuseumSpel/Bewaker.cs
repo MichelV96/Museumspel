@@ -15,6 +15,11 @@ namespace MuseumSpel
         public int aantalpaths;
         public int speed;
 
+        public Bewaker(int cor_X, int cor_Y, Direction richting) : this(cor_X, cor_Y, cor_X, cor_Y, richting)
+        {
+
+        }
+
         public Bewaker(int cor_X, int cor_Y, int eind_cor_X, int eind_cor_Y, Direction richting) : base("Bewaker", cor_X * 50, cor_Y * 50, "Afbeeldingen\\louwrens1.png", false)
         {
             {
