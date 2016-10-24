@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <levels>
 	<level>
+		<naam>Eerste level</naam>
 		<nummer>1</nummer>
 		<gameobjecten>
 			<speler>
@@ -360,8 +361,15 @@
 		</gameobjecten>
 	</level>
 	<level>
+		<naam>tweede level</naam>
 		<nummer>2</nummer>
 		<gameobjecten>
+			<speler>
+				<naam>Speler</naam>
+				<startx>0</startx>
+				<starty>1</starty>
+				<snelheid>5</snelheid>
+			</speler>
 			<muren>
 				<muur>
 					<x>1</x>
@@ -456,6 +464,7 @@
 		</gameobjecten>
 	</level>
 	<level>
+		<naam>derde level</naam>
 		<nummer>3</nummer>
 		<gameobjecten>
 			<speler>
