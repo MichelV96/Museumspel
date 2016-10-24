@@ -15,6 +15,7 @@ namespace MuseumSpel
         public int path = 1;
         public int aantalpaths;
         public int speed;
+        public bool guardCollision = false;
 
         public Bewaker(int cor_X, int cor_Y, Direction richting) : this(cor_X, cor_Y, cor_X, cor_Y, richting)
         {
@@ -72,7 +73,7 @@ namespace MuseumSpel
 
         public override void PrintSpelObject(int cor_X, int cor_Y, int vakGrootte, Graphics g)
         {
-            if (richting == 1) //1=boven
+            if (richting == 1) //1=boven zonder collision
             {
                 g.DrawImage(texture, cor_X, cor_Y -(vakGrootte*2));
             }
@@ -90,25 +91,59 @@ namespace MuseumSpel
             {
                 g.DrawImage(texture, cor_X - (vakGrootte*2), cor_Y);
             }
+            //else if (richting == 1 && guardCollision)// 1 = boven met collision
+            //{
+            //    g.DrawImage(texture, cor_X, cor_Y);
+
+            //}
+            //else if (richting == 4 && guardCollision)// 4 = links met collision
+            //{
+            //    g.DrawImage(texture, cor_X, cor_Y);
+            //}
+
 
         }
         public override void setPicture()
         {
-            if (richting == 1)
+            if (!guardCollision)
             {
-                texture = new Bitmap("Afbeeldingen\\louwrens1.png");
+                if (richting == 1)//up
+                {
+                    texture = new Bitmap("Afbeeldingen\\louwrens1.png");
+                }
+                else if (richting == 2)//down
+                {
+                    texture = new Bitmap("Afbeeldingen\\guard_front.png");
+                }
+                else if (richting == 3)//right
+                {
+                    texture = new Bitmap("Afbeeldingen\\louwrens2.png");
+                }
+                else if (richting == 4)//left
+                {
+                    texture = new Bitmap("Afbeeldingen\\louwrens4.png");
+                }
+
             }
-            else if (richting == 2)
+            else if(guardCollision)
             {
-                texture = new Bitmap("Afbeeldingen\\louwrens3.png");
-            }
-            else if (richting == 3)
-            {
-                texture = new Bitmap("Afbeeldingen\\louwrens2.png");
-            }
-            else if (richting == 4)
-            {
-                texture = new Bitmap("Afbeeldingen\\louwrens4.png");
+
+                if (richting == 1)//up
+                {
+                    texture = new Bitmap("Afbeeldingen\\louwrens0.png");
+                }
+                else if (richting == 2)//down
+                {
+                    texture = new Bitmap("Afbeeldingen\\guard_front_trans.png");
+                }
+                else if (richting == 3)//right
+                {
+                    texture = new Bitmap("Afbeeldingen\\louwrens0.png");
+                }
+                else if (richting == 4)//left
+                {
+                    texture = new Bitmap("Afbeeldingen\\louwrens0.png");
+                }
             }
         }
 

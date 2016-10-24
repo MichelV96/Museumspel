@@ -284,9 +284,11 @@ namespace MuseumSpel
                 if (spelObject.isSolid && (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y))
                 {
                     //Console.WriteLine("Collision " + bewaker.richting);
+                    bewaker.guardCollision = true;
                     return false;
                 }
             }
+            bewaker.guardCollision = false;
             return true;
         }
 
