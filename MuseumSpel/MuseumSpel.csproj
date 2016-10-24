@@ -122,7 +122,9 @@
     <Content Include="Afbeeldingen\9.png" />
     <Content Include="Afbeeldingen\Front_50PX.png" />
     <None Include="bin\Debug\Afbeeldingen\bc3.jpg" />
-    <Content Include="XMLSpeelVeld1.xml" />
+    <Content Include="XMLSpeelVeld1.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Resources\Front_50PX.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

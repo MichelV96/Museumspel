@@ -23,17 +23,22 @@ namespace MuseumSpel
         public int startStun;
         public int startCooldown;
         public bool freezeMotion = false;
+        private int tics;
+        private int picNumber;
+        
 
         //Voor de powerup
         public bool isDisguised { get; set; }
         public DateTime endTime { get; set; }
         public int duration = 10;
 
-        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X * 50, cor_Y * 50, "Afbeeldingen\\0.png", true)
+        public Speler(string name, int cor_X, int cor_Y, int speed) : base(name, cor_X * 50, cor_Y * 50, "Afbeeldingen\\thief_front.png", true)
         {
             this.speed = speed;
             this.isDisguised = false;
             this.isStunned = false;
+            tics = 0;
+            picNumber = 1;
         }
 
         public void setPicture(Direction direction)
@@ -42,44 +47,111 @@ namespace MuseumSpel
             {
                 if (direction == Direction.Up)
                 {
-                    texture = new Bitmap("Afbeeldingen\\12.png");
+                    if (picNumber == 1)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_back_walk1.png");
+                    }
+                    else if (picNumber == 2)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_back.png");
+                    }
+                    else if (picNumber == 3)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_back_walk2.png");
+                    }
+                    else
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_back.png");
+                    }
                 }
                 else if (direction == Direction.Down)
                 {
-                    texture = new Bitmap("Afbeeldingen\\0.png");
+                    if (picNumber == 1)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_front_walk1.png");
+                    }
+                    else if (picNumber== 2)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_front.png");
+                    }
+                    else if (picNumber == 3)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_front_walk2.png");
+                    }
+                    else
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_front.png");
+                    }
                 }
                 else if (direction == Direction.Left)
                 {
-                    texture = new Bitmap("Afbeeldingen\\4.png");
+                    if (picNumber == 1)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_leftside_walk1.png");
+                    }
+                    else if (picNumber == 2)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_leftside.png");
+                    }
+                    else if (picNumber == 3)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_leftside_walk2.png");
+                    }
+                    else
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_leftside.png");
+                    }
                 }
                 else if (direction == Direction.Right)
                 {
-                    texture = new Bitmap("Afbeeldingen\\8.png");
+                    if (picNumber == 1)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_rightside_walk1.png");
+                    }
+                    else if (picNumber == 2)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_rightside.png");
+                    }
+                    else if (picNumber == 3)
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_rightside_walk2.png");
+                    } else
+                    {
+                        texture = new Bitmap("Afbeeldingen\\thief_rightside.png");
+                    }
                 }
                 if (direction == Direction.UpIdle)
                 {
-                    texture = new Bitmap("Afbeeldingen\\14.png");
+                    texture = new Bitmap("Afbeeldingen\\thief_back.png");
                 }
                 else if (direction == Direction.DownIdle)
                 {
-                    texture = new Bitmap("Afbeeldingen\\2.png");
+                    texture = new Bitmap("Afbeeldingen\\thief_front.png");
                 }
                 else if (direction == Direction.LeftIdle)
                 {
-                    texture = new Bitmap("Afbeeldingen\\6.png");
+                    texture = new Bitmap("Afbeeldingen\\thief_leftside.png");
                 }
                 else if (direction == Direction.RightIdle)
                 {
-                    texture = new Bitmap("Afbeeldingen\\10.png");
+                    texture = new Bitmap("Afbeeldingen\\thief_rightside.png");
                 }
             }
             else if(!freezeMotion)
             {
                 PowerUp();
             }
+            tics++;
+            if (tics == 4)
+            {
+                if (picNumber == 4)
+                    picNumber = 1;
+                else
+                    picNumber++;
+                tics = 0;
+            }
         }
         //method
-
         public void PowerUp()
         {
             //het oude plaatje

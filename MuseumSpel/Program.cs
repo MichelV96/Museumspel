@@ -18,16 +18,14 @@ namespace MuseumSpel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Speler speler = new Speler("Player", 13, 0, 5);
+            Speler speler = new Speler("Player", 0, 1, 5);
             GameLoop gameloop = new GameLoop();
             SpeelVeld speelVeld = new SpeelVeld(17, 11, speler, gameloop);//Model
 
             //xml
             XDocument doc = new XDocument();
             doc = XDocument.Load(@"speelveld.xml");
-            int countLevels = doc.Descendants("level").Count();
-
-            Menu menu = new Menu(countLevels);
+            Menu menu = new Menu();
             Application.Run(menu);
 
             if (menu.startSpel)
@@ -41,6 +39,7 @@ namespace MuseumSpel
                 var powerups = level.Descendants("powerups").Descendants("powerup");
                 var waterplassen = level.Descendants("waterplassen").Descendants("waterplas");
                 var eindpunten = level.Descendants("eindpunten").Descendants("eindpunt");
+                var bewakers = level.Descendants("bewakers").Descendants("bewaker");
 
                 //en ze aanmaken + toevoegen aan het speelveld. De trim is ervoor dat er geen spaties of tabs in het element meer zitten.
                 foreach (XElement e in muren)
@@ -76,21 +75,38 @@ namespace MuseumSpel
                     int y = Int32.Parse(e.Element("y").Value.Trim());
                     speelVeld.VoegSpelObjectToe(new Eindpunt(x, y));
                 }
+                foreach (XElement e in bewakers)
+                {
+                    List<int> guardPunten = new List<int>();
+                    int startx = Int32.Parse(e.Element("startx").Value.Trim());
+                    int starty = Int32.Parse(e.Element("starty").Value.Trim());
+                    var punten = e.Descendants("punten").Descendants("punt");
+                    var aantalPunten = e.Descendants("punten").Descendants("punt").Count();
+                    //De Richting eruit halen
+                    String strRichting = e.Element("richting").Value.Trim();
+                    //ik pak eerste letter in de richting die maak ik hoofdletter en die plak ik weer achter de rest
+                    Direction enumRichting = (Direction) Enum.Parse(typeof(Direction), strRichting.Substring(0, 1).ToUpper() + (strRichting.Substring(1, strRichting.Length - 1)));
+                    foreach (int punt in punten)
+                    {
+                        //elk punt die er instaat in de array stoppen
+                        guardPunten.Add(punt);
+                    }
+                    if(aantalPunten == 2)
+                    {
+                        speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], enumRichting));
+                    }
+                    if (aantalPunten == 4)
+                    {
+                        speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], guardPunten[2], guardPunten[3], enumRichting));
+                    }
+                    if (aantalPunten == 6)
+                    {
+                        speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], guardPunten[2], guardPunten[3], guardPunten[4], guardPunten[5], enumRichting));
+                    }
 
-                //Guard
-                #region Guard
-                speelVeld.voegBewakerToe(new Bewaker(12, 0, 2, 0, Direction.Left));
-                //speelVeld.voegBewakerToe(new Bewaker(3, 10, 12, 10, 5, Direction.Left));
-                //speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 5, Direction.Left));
-                speelVeld.voegBewakerToe(new Bewaker(16, 1, 16, 10, Direction.Left));
-                speelVeld.voegBewakerToe(new Bewaker(4, 4, 4, 4, Direction.Down));//stilstaand
-                speelVeld.voegBewakerToe(new Bewaker(0, 1, 0, 8, Direction.Down));
-                speelVeld.voegBewakerToe(new Bewaker(2, 2, 2, 8, 14, 8, 14, 2, Direction.Left));
-                speelVeld.voegBewakerToe(new Bewaker(5, 10, 10, 10, Direction.Left));
-                #endregion
+                }
 
-
-                Form1 form1 = new Form1(speelVeld); //Publisher
+                Form1 form1 = new Form1(speelVeld, menu); //Publisher
                 SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld);//Controller
                 form1.KeyPressed += speelVeldController.OnKeyPressed; //Subscriber
                 form1.KeyRealeased += speelVeldController.OnKeyUp; //Subscriber
