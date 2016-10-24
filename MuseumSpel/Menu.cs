@@ -67,7 +67,6 @@ namespace MuseumSpel
                 }
                 else
                 {
-                    this.startSpel = true;
                     this.spelLevel = kiesLevel.SelectedIndex + 1;
                     this.reader = new XMLReader(this.speelVeld, doc, spelLevel);
                     this.reader.ReadXML();

@@ -19,16 +19,12 @@ namespace MuseumSpel
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             SpeelVeld speelVeld = new SpeelVeld(17, 11);//Model
-            
+
             Menu menu = new Menu(speelVeld);
             Application.Run(menu);
-
-            if (menu.startSpel)
-            {
-                Form1 form1 = new Form1(speelVeld, menu); //Publisher
-                SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld, menu.controls);//Controller
-                Application.Run(form1);
-            }
+            Form1 form1 = new Form1(speelVeld, menu); //Publisher
+            SpeelVeldController speelVeldController = new SpeelVeldController(form1, speelVeld, menu.controls);//Controller
+            Application.Run(form1);
         }
     }
 }
