@@ -41,6 +41,8 @@ namespace MuseumSpel
             doc = XDocument.Load(@"speelveld.xml");
             this.levels = doc.Descendants("level").Count();
 
+            var levelNamen = doc.Descendants("level");
+
             Width = 910;
             Height = 380;
             Text = "Hoofdmenu";
@@ -51,9 +53,9 @@ namespace MuseumSpel
             ComboBox kiesLevel = new ComboBox() { Text = "Kies een level", Left = 15, Width = 250, Height = 50, Top = 185 };
             kiesLevel.DisplayMember = "Text";
 
-            for (int i = 0; i < levels; i++)
+            foreach (XElement e in levelNamen)
             {
-                kiesLevel.Items.Add(new { Text = "level" + (i + 1) });
+                kiesLevel.Items.Add(new { Text = e.Element("naam").Value.Trim() });
             }
 
 
