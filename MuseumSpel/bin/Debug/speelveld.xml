@@ -476,87 +476,117 @@
 			<muren>
 				<muur>
 					<x>1</x>
-					<y>3</y>
-				</muur>
-				<muur>
-					<x>2</x>
-					<y>3</y>
-				</muur>
-				<muur>
-					<x>3</x>
-					<y>3</y>
-				</muur>
-				<muur>
-					<x>4</x>
-					<y>3</y>
-				</muur>
-				<muur>
-					<x>5</x>
-					<y>3</y>
-				</muur>
-				<muur>
-					<x>6</x>
-					<y>3</y>
-				</muur>
-				<muur>
-					<x>1</x>
-					<y>6</y>
-				</muur>
-				<muur>
-					<x>2</x>
-					<y>6</y>
-				</muur>
-				<muur>
-					<x>3</x>
-					<y>6</y>
-				</muur>
-				<muur>
-					<x>4</x>
-					<y>6</y>
-				</muur>
-				<muur>
-					<x>5</x>
-					<y>6</y>
-				</muur>
-				<muur>
-					<x>6</x>
-					<y>6</y>
-				</muur>
-				<muur>
-					<x>10</x>
 					<y>2</y>
 				</muur>
 				<muur>
-					<x>10</x>
-					<y>3</y>
+					<x>2</x>
+					<y>2</y>
 				</muur>
 				<muur>
-					<x>10</x>
-					<y>4</y>
+					<x>3</x>
+					<y>2</y>
 				</muur>
 				<muur>
-					<x>10</x>
+					<x>1</x>
 					<y>5</y>
 				</muur>
 				<muur>
-					<x>10</x>
-					<y>6</y>
+					<x>2</x>
+					<y>5</y>
 				</muur>
 				<muur>
-					<x>10</x>
-					<y>7</y>
+					<x>3</x>
+					<y>5</y>
+				</muur>
+				<muur>
+					<x>1</x>
+					<y>8</y>
+				</muur>
+				<muur>
+					<x>2</x>
+					<y>8</y>
+				</muur>
+				<muur>
+					<x>3</x>
+					<y>8</y>
+				</muur>
+				<muur>
+					<x>8</x>
+					<y>2</y>
+				</muur>
+				<muur>
+					<x>8</x>
+					<y>3</y>
+				</muur>
+				<muur>
+					<x>8</x>
+					<y>4</y>
+				</muur>
+				<muur>
+					<x>11</x>
+					<y>2</y>
+				</muur>
+				<muur>
+					<x>11</x>
+					<y>3</y>
+				</muur>
+				<muur>
+					<x>11</x>
+					<y>4</y>
+				</muur>
+				<muur>
+					<x>14</x>
+					<y>2</y>
+				</muur>
+				<muur>
+					<x>14</x>
+					<y>3</y>
+				</muur>
+				<muur>
+					<x>14</x>
+					<y>4</y>
 				</muur>
 			</muren>
 			<bewakers>
 				<bewaker>
-					<startx>11</startx>
-					<starty>4</starty>
+					<startx>9</startx>
+					<starty>3</starty>
 					<richting>Left</richting>
 				</bewaker>
 				<bewaker>
-					<startx>11</startx>
-					<starty>9</starty>
+					<startx>9</startx>
+					<starty>6</starty>
 					<richting>Left</richting>
+				</bewaker>
+				<bewaker>
+					<startx>13</startx>
+					<starty>3</starty>
+					<richting>Right</richting>
+				</bewaker>
+				<bewaker>
+					<startx>13</startx>
+					<starty>6</starty>
+					<richting>Right</richting>
+				</bewaker>
+				<bewaker>
+					<startx>2</startx>
+					<starty>3</starty>
+					<richting>Up</richting>
+				</bewaker>
+				<bewaker>
+					<startx>5</startx>
+					<starty>3</starty>
+					<richting>Up</richting>
+				</bewaker>
+				<bewaker>
+					<startx>2</startx>
+					<starty>7</starty>
+					<richting>Down</richting>
+				</bewaker>
+				<bewaker>
+					<startx>5</startx>
+					<starty>7</starty>
+					<richting>Down</richting>
 				</bewaker>
 			</bewakers>
 		</gameobjecten>
