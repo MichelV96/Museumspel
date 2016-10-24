@@ -106,7 +106,7 @@ namespace MuseumSpel
                 }
                 if (aantalPunten == 4)
                 {
-                    //speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], guardPunten[2], guardPunten[3], enumRichting));
+                    speelVeld.voegBewakerToe(new Bewaker(startx, starty, guardPunten[0], guardPunten[1], guardPunten[2], guardPunten[3], enumRichting));
                 }
                 if (aantalPunten == 6)
                 {

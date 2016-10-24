@@ -51,11 +51,6 @@ namespace MuseumSpel
             if (speelVeld.richting == 4)
                 speelVeld.SpelerMovement(Direction.Left);
 
-            //if (speelVeld.opgepaktDoorBewaker)
-            //{
-            //    speelVeld.gameLoop.ShutDown();
-            //    this.Close();
-            //}
             Application.DoEvents();
             this.Refresh();// Heel speelveld wordt opnieuw getekend
 
@@ -101,7 +96,6 @@ namespace MuseumSpel
                 {
                     speelVeld.loop();
                 }
-            //startup = false;
             //Print tijd in de menubalk
             string counter = speelVeld.gameLoop.time;
             toolStripMenuItem1.Text = counter;

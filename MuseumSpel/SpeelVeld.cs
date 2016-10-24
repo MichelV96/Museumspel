@@ -126,7 +126,7 @@ namespace MuseumSpel
             started = true;
             while (!gameLoop.p_gameOver)
             {
-                #region
+                #region loop cycle's per sec.
                 //cycle++;
                 //if (gameLoop.p_currentTime >= cyclestart + 1000)
                 //{
@@ -136,7 +136,6 @@ namespace MuseumSpel
                 //}
                 #endregion
                 gameLoop.gameLoop();
-                //Console.WriteLine(speler.speed);
 
                 if (speler.isDisguised == true && DateTime.Compare(DateTime.Now, speler.endTime) == 1)
                 {
