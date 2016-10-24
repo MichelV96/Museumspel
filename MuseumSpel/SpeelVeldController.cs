@@ -46,7 +46,7 @@ namespace MuseumSpel
                 }
                 if(e.KeyData == Keys.Escape)
                 {
-                    form1.Close();
+                    form1.pause();
                 }
             }
         }

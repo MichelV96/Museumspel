@@ -19,10 +19,15 @@ namespace MuseumSpel
         public bool startSpel { get; private set; }
         public int spelLevel { get; private set; }
         public int levels;
+        public SpeelVeld speelVeld;
+        public XMLReader reader;
+        public XDocument doc;
 
-        public Menu()
+        public Menu(SpeelVeld speelVeld)
         {
             InitializeComponent();
+
+            this.speelVeld = speelVeld;
 
             var number = (int)((Keys)Enum.Parse(typeof(Keys), "A"));
 
@@ -62,6 +67,8 @@ namespace MuseumSpel
                 {
                     this.startSpel = true;
                     this.spelLevel = kiesLevel.SelectedIndex + 1;
+                    this.reader = new XMLReader(this.speelVeld, doc, spelLevel);
+                    this.reader.ReadXML();
                     this.Close();
                 }
             };
