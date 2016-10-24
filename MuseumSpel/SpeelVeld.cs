@@ -237,39 +237,38 @@ namespace MuseumSpel
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
-            int marge = 0;
 
             //up
             if (bewaker.richting == 1)
             {
-                x_p1 = GetGridCordinate(bewaker.Cor_X + marge);
+                x_p1 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
                 y_p1 = GetGridCordinate(bewaker.Cor_Y);
-                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte - marge);
-                y_p2 = GetGridCordinate(bewaker.Cor_Y);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y - vakGrootte);
             }
             //down
             else if (bewaker.richting == 2)
             {
-                x_p1 = GetGridCordinate(bewaker.Cor_X + marge);
+                x_p1 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
                 y_p1 = GetGridCordinate(bewaker.Cor_Y + vakGrootte * 2 );
-                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte - marge);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte);
                 y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte * 2 );
             }
             //right
             else if (bewaker.richting == 3)
             {
                 x_p1 = GetGridCordinate(bewaker.Cor_X + vakGrootte * 2);
-                y_p1 = GetGridCordinate(bewaker.Cor_Y + marge);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
                 x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte * 2);
-                y_p2 = GetGridCordinate(bewaker.Cor_Y - marge);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
             }
             //left
             else if (bewaker.richting == 4)
             {
                 x_p1 = GetGridCordinate(bewaker.Cor_X);
-                y_p1 = GetGridCordinate(bewaker.Cor_Y + marge);
-                x_p2 = GetGridCordinate(bewaker.Cor_X);
-                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte - marge);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
+                x_p2 = GetGridCordinate(bewaker.Cor_X - vakGrootte);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte);
             }
             else
             {
@@ -283,7 +282,7 @@ namespace MuseumSpel
             {
                 if (spelObject.isSolid && (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y))
                 {
-                    Console.WriteLine("Collision " + bewaker.richting);
+                    //Console.WriteLine("Collision " + bewaker.richting);
                     return false;
                 }
             }
