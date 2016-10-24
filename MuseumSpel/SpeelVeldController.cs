@@ -42,7 +42,7 @@ namespace MuseumSpel
                 {
                     speelVeld.setRichting(Direction.Right);
                 }
-                if (e.KeyData == Keys.F)
+                if (e.KeyValue == controls[4])
                 {
                     speelVeld.pakSchilderij(true);
                 }

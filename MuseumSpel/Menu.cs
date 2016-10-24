@@ -21,7 +21,7 @@ namespace MuseumSpel
         public int levels;
 
         //controls + standaard waardes W S A D
-        public List<int> controls = new List<int>(new int[] { 87, 83, 65, 68 });
+        public List<int> controls = new List<int>(new int[] { 87, 83, 65, 68, 70 });
 
         public SpeelVeld speelVeld;
         public XMLReader reader;
@@ -109,6 +109,9 @@ namespace MuseumSpel
             Label lRechts = new Label() { Text = "Rechts: ", Left = 30, Top = 192, AutoSize = true };
             TextBox tRechts = new TextBox() { MaxLength = 1,  Left = 85, Top = 190, Size = new Size(25, 25) };
 
+            Label lPakken = new Label() { Text = "Schilderij pakken: ", Left = 30, Top = 222, AutoSize = true };
+            TextBox tPakken = new TextBox() { MaxLength = 1, Left = 125, Top = 220, Size = new Size(25, 25) };
+
             Button bOpslaan = new Button() { Text = "Opslaan", Left = 125, Top = 90 };
             Button bClose = new Button() { Text = "Close", Left = 125, Top = 120 };
 
@@ -116,9 +119,9 @@ namespace MuseumSpel
             soundOn.Click += (sender, e) => { this.soundAan = !this.soundAan; sound.Text = "Geluid: " + this.soundAan; if (!soundAan) { backgroundSound.Stop(); } else { backgroundSound.Play(); } };
             bOpslaan.Click += (sender, e) => {
                 //kijken of alles is ingevoerd
-                if(tOmhoog.Text.Length > 0 || tOmlaag.Text.Length > 0 || tLinks.Text.Length > 0 || tRechts.Text.Length > 0)
+                if(tOmhoog.Text.Length > 0 || tOmlaag.Text.Length > 0 || tLinks.Text.Length > 0 || tRechts.Text.Length > 0 || tPakken.Text.Length > 0)
                 {
-                    string[] checkArray = { tOmhoog.Text, tOmlaag.Text, tLinks.Text, tRechts.Text };
+                    string[] checkArray = { tOmhoog.Text, tOmlaag.Text, tLinks.Text, tRechts.Text, tPakken.Text };
                     //checken dat er niet dezelfde toetsen inzitten
                     if(checkArray.Distinct().Count() == checkArray.Count())
                     {
@@ -126,11 +129,13 @@ namespace MuseumSpel
                         int omlaag = (int)((Keys)Enum.Parse(typeof(Keys), tOmlaag.Text.ToUpper()));
                         int links = (int)((Keys)Enum.Parse(typeof(Keys), tLinks.Text.ToUpper()));
                         int rechts = (int)((Keys)Enum.Parse(typeof(Keys), tRechts.Text.ToUpper()));
+                        int pakken = (int)((Keys)Enum.Parse(typeof(Keys), tPakken.Text.ToUpper()));
 
                         this.controls[0] = omhoog;
                         this.controls[1] = omlaag;
                         this.controls[2] = links;
                         this.controls[3] = rechts;
+                        this.controls[4] = pakken;
                         MessageBox.Show("Opgeslagen");
                     }
                     else
@@ -162,6 +167,9 @@ namespace MuseumSpel
 
             options.Controls.Add(lRechts);
             options.Controls.Add(tRechts);
+
+            options.Controls.Add(lPakken);
+            options.Controls.Add(tPakken);
 
             options.Controls.Add(bClose);
             options.Controls.Add(bOpslaan);
