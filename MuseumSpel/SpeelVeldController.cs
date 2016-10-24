@@ -12,11 +12,13 @@ namespace MuseumSpel
     {
         private SpeelVeld speelVeld; // model
         private Form1 form1; //view
+        private List<int> controls;
 
-        public SpeelVeldController(Form1 form1, SpeelVeld speelVeld)
+        public SpeelVeldController(Form1 form1, SpeelVeld speelVeld, List<int> controls)
         {
             this.speelVeld = speelVeld;
             this.form1 = form1;
+            this.controls = controls;
         }
 
         public void OnKeyPressed(KeyEventArgs e)
@@ -24,19 +26,19 @@ namespace MuseumSpel
             form1.startup = false;
             if (!speelVeld.speler.isStunned)
             {
-                if (e.KeyData == Keys.W)
+                if (e.KeyValue == controls[0])
                 {
                     speelVeld.setRichting(Direction.Up);
                 }
-                else if (e.KeyData == Keys.S)
+                else if (e.KeyValue == controls[1])
                 {
                     speelVeld.setRichting(Direction.Down);
                 }
-                else if (e.KeyData == Keys.A)
+                else if (e.KeyValue == controls[2])
                 {
                     speelVeld.setRichting(Direction.Left);
                 }
-                else if (e.KeyData == Keys.D)
+                else if (e.KeyValue == controls[3])
                 {
                     speelVeld.setRichting(Direction.Right);
                 }
@@ -54,22 +56,6 @@ namespace MuseumSpel
         public void OnKeyUp(KeyEventArgs e)
         {
             this.speelVeld.idle = true;
-            if (e.KeyData == Keys.W)
-            {
-                speelVeld.speler.setPicture(Direction.UpIdle);
-            }
-            else if (e.KeyData == Keys.S)
-            {
-                speelVeld.speler.setPicture(Direction.DownIdle);
-            }
-            else if (e.KeyData == Keys.A)
-            {
-                speelVeld.speler.setPicture(Direction.LeftIdle);
-            }
-            else if (e.KeyData == Keys.D)
-            {
-                speelVeld.speler.setPicture(Direction.RightIdle);
-            }
         }
 
     }
