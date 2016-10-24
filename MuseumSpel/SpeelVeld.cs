@@ -97,6 +97,7 @@ namespace MuseumSpel
             beginScore = 5000;
             puntenPerSchilderij = 3000;
 
+
         }
 
         public void SetPictures(List<SpelObject> lijst)// Juiste texturtes geven aan muren
@@ -283,12 +284,15 @@ namespace MuseumSpel
                 {
                     if (gepakteSchilderijen == aantalSchilderijen)
                     {
-                        MessageBox.Show("Score = " + gepakteSchilderijen);
+                        MessageBox.Show("Eindtijd: "+ gameLoop.time + "\nScore: " + score );
+                        gameLoop.ShutDown();
+                        Application.Restart();
                     }
                 }
             }
             #endregion
-
+            //waterplas
+            #region waterplas
             if (!speler.isStunned && !speler.stunCooldown)
             {
                 foreach (Waterplas waterplas in waterplassen)
@@ -307,10 +311,11 @@ namespace MuseumSpel
                     }
                 }
             }
+            #endregion
         }
 
         //Bewaker
-        #region Bewaker Movment
+        #region Bewaker Movement
         public void GuardAutomaticMovement()
         {
             foreach (Bewaker bewaker in bewakers)

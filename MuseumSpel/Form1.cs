@@ -32,6 +32,7 @@ namespace MuseumSpel
             this.menu = menu;
             speelVeld.vulArraysMetObjecten();
             this.speelVeld.SetPictures(this.speelVeld.muren);
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -69,31 +70,6 @@ namespace MuseumSpel
             else if (result == DialogResult.Cancel)
             {
                 this.Close();
-            }
-        }
-
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            close(e);
-        }
-
-        public void close(FormClosingEventArgs e)
-        {
-            speelVeld.paused = true;
-            var result = MessageBox.Show("do you want to quit?", "closing", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
-            if (result == DialogResult.OK)
-            {
-                speelVeld.gameLoop.ShutDown();
-                base.OnFormClosing(e);
-                //this.Close();
-            }
-            if (result == DialogResult.Cancel)
-            {
-                e.Cancel = true;
-                speelVeld.paused = false;
-                base.OnFormClosing(e);
-                MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
             }
         }
 
