@@ -18,13 +18,10 @@ namespace MuseumSpel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Speler speler = new Speler("Player", 13, 0, 5);
+            Speler speler = new Speler("Player", 0, 1, 5);
             GameLoop gameloop = new GameLoop();
             SpeelVeld speelVeld = new SpeelVeld(17, 11, speler, gameloop);//Model
-
-            //xml
-            //XDocument doc = new XDocument();
-            //doc = XDocument.Load(@"speelveld.xml");
+            
             Menu menu = new Menu(speelVeld);
             Application.Run(menu);
 

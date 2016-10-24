@@ -22,7 +22,7 @@ namespace MuseumSpel
         public bool toMenu = false;
         Graphics dc;
         PaintEventArgs dc2;
-        // Delegeate event
+        // Delegeate events
         public event KeyPressedEventHandeler KeyPressed;
         public event KeyPressedEventHandeler KeyRealeased;
 
@@ -31,11 +31,13 @@ namespace MuseumSpel
             InitializeComponent();
             this.speelVeld = speelVeld;
             this.menu = menu;
+            speelVeld.vulArraysMetObjecten();
+            this.speelVeld.SetPictures(this.speelVeld.muren);
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            speelVeld.vulArraysMetObjecten();
         }
         public void OnModelChanged()
         {
@@ -66,14 +68,13 @@ namespace MuseumSpel
                 speelVeld.Reset();
                 speelVeld.opgepaktDoorBewaker = true;
             }
+
             else if (result == DialogResult.No)
             {
                 speelVeld.gameLoop.ShutDown();
                 Application.Restart();
             }
         }
-
-        
 
         protected override void OnClosed(EventArgs e)
         {

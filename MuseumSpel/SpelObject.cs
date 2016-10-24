@@ -14,6 +14,10 @@ namespace MuseumSpel
         //starting values
         public int start_cor_x;
         public int start_cor_y;
+        public bool up = false;
+        public bool down = false;
+        public bool left = false;
+        public bool right = false;
 
         public Bitmap texture { get; set; }
         public string name { get; private set; }
@@ -30,6 +34,11 @@ namespace MuseumSpel
             start_cor_y = cor_Y;
             this.texture = new Bitmap(picture);
             this.isSolid= isSolid;
+
+        }
+
+        public virtual void setPicture()
+        {
 
         }
 
