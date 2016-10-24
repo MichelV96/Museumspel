@@ -234,6 +234,63 @@ namespace MuseumSpel
             return true;
         }
 
+        public bool BewakerCollisionCheck(Bewaker bewaker) //First attempt
+        {
+            int x_p1, y_p1;
+            int x_p2, y_p2;
+            int marge = bewaker.speed + 2;
+
+            //up
+            if (bewaker.richting == 1)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X + marge);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y - vakGrootte - bewaker.speed);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte - marge);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y - vakGrootte - bewaker.speed);
+            }
+            //down
+            else if (bewaker.richting == 2)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X + marge);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + vakGrootte * 2 + bewaker.speed);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte - marge);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte * 2 + bewaker.speed);
+            }
+            //right
+            else if (bewaker.richting == 3)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X + vakGrootte * 2 + bewaker.speed);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + marge);
+                x_p2 = GetGridCordinate(bewaker.Cor_X + vakGrootte * 2 + bewaker.speed);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y - marge + vakGrootte);
+            }
+            //left
+            else if (bewaker.richting == 4)
+            {
+                x_p1 = GetGridCordinate(bewaker.Cor_X - vakGrootte - bewaker.speed);
+                y_p1 = GetGridCordinate(bewaker.Cor_Y + marge);
+                x_p2 = GetGridCordinate(bewaker.Cor_X - vakGrootte - bewaker.speed);
+                y_p2 = GetGridCordinate(bewaker.Cor_Y + vakGrootte - marge);
+            }
+            else
+            {
+                x_p1 = 0;
+                y_p1 = 0;
+                x_p2 = 0;
+                y_p2 = 0;
+            }
+
+            foreach (SpelObject spelObject in spelObjecten)
+            {
+                if (spelObject.isSolid && (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y))
+                {
+                    Console.WriteLine("Collision " + bewaker.richting);
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public void SpelerMovement(Direction loopRichting)
         {
             if (!idle && !speler.freezeMotion)
