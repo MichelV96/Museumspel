@@ -125,6 +125,22 @@
     <None Include="bin\Debug\Afbeeldingen\bc3.jpg" />
     <None Include="bin\Debug\Afbeeldingen\bc4.jpg" />
     <None Include="bin\Debug\Afbeeldingen\bc5.jpg" />
+    <None Include="bin\Debug\Afbeeldingen\thief_front.png" />
+    <None Include="bin\Debug\Afbeeldingen\wall_normal.png" />
+    <None Include="bin\Debug\Afbeeldingen\painting_dragon.png" />
+    <None Include="bin\Debug\Afbeeldingen\thief_front_stat.png" />
+    <None Include="bin\Debug\Afbeeldingen\guard_front_trans.png" />
+    <None Include="bin\Debug\Afbeeldingen\power4.png" />
+    <None Include="bin\Debug\Afbeeldingen\WaterPuddle2.png" />
+    <None Include="bin\Debug\Afbeeldingen\eindpunt.png" />
+    <None Include="bin\Debug\Afbeeldingen\guard_front_stat.png" />
+    <None Include="bin\Debug\Afbeeldingen\waterPuddle_stat.png" />
+    <None Include="bin\Debug\Afbeeldingen\wall_normal_stat.png" />
+    <None Include="bin\Debug\Afbeeldingen\painting_dragon_stat.png" />
+    <None Include="bin\Debug\Afbeeldingen\power4_stat.png" />
+    <None Include="bin\Debug\Afbeeldingen\eindpunt_stat.png" />
+    <None Include="bin\Debug\Afbeeldingen\floor2.png" />
+    <None Include="bin\Debug\Afbeeldingen\guard1_front_stat.png" />
     <Content Include="XMLSpeelVeld1.xml">
       <SubType>Designer</SubType>
     </Content>
