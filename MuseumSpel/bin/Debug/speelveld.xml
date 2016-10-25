@@ -302,8 +302,8 @@
 			</powerups>
 			<waterplassen>
 				<waterplas>
-					<x>3</x>
-					<y>8</y>
+					<x>8</x>
+					<y>1</y>
 				</waterplas>
 				<waterplas>
 					<x>6</x>
@@ -329,6 +329,24 @@
 						<punt>2</punt>
 					</punten>
 					<richting>Left</richting>
+				</bewaker>
+				<bewaker>
+					<startx>16</startx>
+					<starty>0</starty>
+					<punten>
+						<punt>16</punt>
+						<punt>10</punt>
+						<punt>0</punt>
+						<punt>10</punt>
+					</punten>
+					<richting>Down</richting>
+				</bewaker>
+				<bewaker>
+					<startx>4</startx>
+					<starty>6</starty>
+					<punten>
+					</punten>
+					<richting>Up</richting>
 				</bewaker>
 			</bewakers>
 		</gameobjecten>
@@ -458,10 +476,6 @@
 				<muur>
 					<x>3</x>
 					<y>2</y>
-				</muur>
-				<muur>
-					<x>3</x>
-					<y>3</y>
 				</muur>
 				<muur>
 					<x>1</x>

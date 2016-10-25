@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2E05FBB6-37FB-4195-A910-E5F7C1C12BE5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MuseumSpel</RootNamespace>
     <AssemblyName>MuseumSpel</AssemblyName>
@@ -124,6 +124,7 @@
     <Content Include="Afbeeldingen\Front_50PX.png" />
     <None Include="bin\Debug\Afbeeldingen\bc3.jpg" />
     <None Include="bin\Debug\Afbeeldingen\bc4.jpg" />
+    <None Include="bin\Debug\Afbeeldingen\bc5.jpg" />
     <Content Include="XMLSpeelVeld1.xml">
       <SubType>Designer</SubType>
     </Content>
