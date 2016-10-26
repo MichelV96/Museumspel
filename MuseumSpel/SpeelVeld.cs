@@ -208,9 +208,9 @@ namespace MuseumSpel
             }
             else if (richting == Direction.Left)
             {
-                x_p1 = GetGridCordinate(speler.Cor_X - speler.speed);
+                x_p1 = GetGridCordinate(speler.Cor_X);
                 y_p1 = GetGridCordinate(speler.Cor_Y + marge);
-                x_p2 = GetGridCordinate(speler.Cor_X - speler.speed);
+                x_p2 = GetGridCordinate(speler.Cor_X);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte - marge);
             }
             else if (richting == Direction.Right)
