@@ -54,7 +54,8 @@ namespace MuseumSpel
                 speelVeld.SpelerMovement(Direction.Left);
 
             Application.DoEvents();
-            this.Refresh();// Heel speelveld wordt opnieuw getekend
+            //this.Refresh();// Heel speelveld wordt opnieuw getekend
+            Invalidate();
 
         }
         public void shuttingUp()
