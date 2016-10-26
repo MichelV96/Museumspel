@@ -16,6 +16,8 @@ namespace MuseumSpel
         public int aantalpaths;
         public int speed;
         public bool guardCollision = false;
+        public string RichtingGuard;
+        public bool headGuard = false;
 
         public Bewaker(int cor_X, int cor_Y, Direction richting) : this(cor_X, cor_Y, cor_X, cor_Y, richting)
         {
@@ -76,20 +78,24 @@ namespace MuseumSpel
         {
             if (richting == 1) //1=boven zonder collision
             {
+                RichtingGuard = "Boven";
                 g.DrawImage(texture, cor_X, cor_Y -(vakGrootte*2));
             }
-            else if (richting == 2)// 2 = beneden
+            else if (richting == 2)// 2 = Onder
             {
+                RichtingGuard = "Onder";
                 g.DrawImage(texture, cor_X, cor_Y);
 
             }
             else if (richting == 3)// 3 = rechts
             {
+                RichtingGuard = "Rechts";
                 g.DrawImage(texture, cor_X, cor_Y);
 
             }
             else if (richting == 4)// 4 = links
             {
+                RichtingGuard = "Links";
                 g.DrawImage(texture, cor_X - (vakGrootte*2), cor_Y);
             }
             //else if (richting == 1 && guardCollision)// 1 = boven met collision
@@ -106,7 +112,27 @@ namespace MuseumSpel
         }
         public override void setPicture(int number = 1)
         {
-            if (!guardCollision)   //Set Guard Picture als er collision is.
+            if (!guardCollision && headGuard)   //Set Guard Picture als er collision en headguard is.
+            {
+                if (richting == 1)//up
+                {
+                    texture = new Bitmap("Afbeeldingen\\guard1_back.png");
+                }
+                else if (richting == 2)//down
+                {
+                    texture = new Bitmap("Afbeeldingen\\guard1_front.png");
+                }
+                else if (richting == 3)//right
+                {
+                    texture = new Bitmap("Afbeeldingen\\guard1_right.png");
+                }
+                else if (richting == 4)//left
+                {
+                    texture = new Bitmap("Afbeeldingen\\guard1_left.png");
+                }
+
+            }
+            else if (!guardCollision)   //Set Guard Picture als er collision is.
             {
                 if (richting == 1)//up
                 {
@@ -124,9 +150,28 @@ namespace MuseumSpel
                 {
                     texture = new Bitmap("Afbeeldingen\\guard_left.png");
                 }
-
             }
-            else if(guardCollision)  //Set Guard Picture als er geen collision is.
+            else if (guardCollision && headGuard)  //Set Guard Picture als er geen collision is maar wel headguard is.
+            {
+
+                if (richting == 1)//up
+                {
+                    texture = new Bitmap("Afbeeldingen\\guard1_back_trans.png");
+                }
+                else if (richting == 2)//down
+                {
+                    texture = new Bitmap("Afbeeldingen\\guard1_front_trans.png");
+                }
+                else if (richting == 3)//right
+                {
+                    texture = new Bitmap("Afbeeldingen\\guard1_right_trans.png");
+                }
+                else if (richting == 4)//left
+                {
+                    texture = new Bitmap("Afbeeldingen\\guard1_left_trans.png");
+                }
+            }
+            else if (guardCollision)  //Set Guard Picture als er geen collision is.
             {
 
                 if (richting == 1)//up

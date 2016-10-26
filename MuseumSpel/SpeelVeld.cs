@@ -28,10 +28,10 @@ namespace MuseumSpel
         //lists
         public List<SpelObject> spelObjecten;
         public List<SpelObject> paintArray;
-        private List<SpelObject> waterplassen;
-        private List<SpelObject> powerups;
+        public List<SpelObject> waterplassen;
+        public List<SpelObject> powerups;
         public List<SpelObject> muren;
-        private List<SpelObject> eindpunten;
+        public List<SpelObject> eindpunten;
         public List<Bewaker> bewakers;
         //event
         public event ShutdownEventHandeler shuttingUp;
@@ -54,6 +54,10 @@ namespace MuseumSpel
         //Powerup 
         int outfitX;
         int outfitY;
+        public bool powerupBestond;
+
+        //WaterPlas
+        public double waterplasCoolDown;
 
         //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
         int p = 0;
@@ -67,6 +71,7 @@ namespace MuseumSpel
         private int score;
         private int beginScore;
         private int puntenPerSchilderij;
+        public bool schilderijBestond;
 
         
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY)
@@ -96,7 +101,6 @@ namespace MuseumSpel
             puntenPerSchilderij = 3000;
             gameLoop.BewakerAction += this.GuardAutomaticMovement; //Subscriber
             gameLoop.BewakerAction += this.GuardDetectPlayer; //Subscriber
-
         }
 
         public void SetPictures(List<SpelObject> lijst)// Juiste texturtes geven aan muren
@@ -153,9 +157,9 @@ namespace MuseumSpel
                 }
 
 
-                if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 1000)
+                if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 5000)
                 {
-                    Console.WriteLine("stund cooldown is true");
+                    Console.WriteLine("stunned cooldown is true");
                     speler.EndCooldown();
                 }
             }
@@ -619,6 +623,14 @@ namespace MuseumSpel
         {
             foreach (Bewaker bewaker in bewakers)
                 {
+                if (bewaker == this.bewakers[0])
+                {
+                    bewaker.headGuard = true;
+                }
+                else
+                {
+                    bewaker.headGuard = false;
+                }
                     switch (bewaker.richting)
                     {
                         //boven
@@ -837,6 +849,23 @@ namespace MuseumSpel
                 aantalSchilderijen = paintArray.Count;
             }
 
+            if (this.paintArray.Any())
+            {
+                schilderijBestond = true;
+            }
+            else
+            {
+                schilderijBestond = false;
+            }
+
+            if (this.powerups.Any())
+            {
+                powerupBestond = true;
+            }
+            else
+            {
+                powerupBestond = false;
+            }
         }
         public void PrintSpeelVeld(Graphics g)
         {
