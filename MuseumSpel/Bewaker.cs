@@ -22,7 +22,7 @@ namespace MuseumSpel
             setStartDirection(richting);
         }
 
-        public Bewaker(int cor_X, int cor_Y, int eind_cor_X, int eind_cor_Y, Direction richting) : base("Bewaker", cor_X * 50, cor_Y * 50, "Afbeeldingen\\louwrens1.png", false)
+        public Bewaker(int cor_X, int cor_Y, int eind_cor_X, int eind_cor_Y, Direction richting) : base("Bewaker", cor_X * 50, cor_Y * 50, "Afbeeldingen\\guard_front.png", false)
         {
             {
                 if (cor_X == eind_cor_X || cor_Y == eind_cor_Y)
@@ -32,7 +32,8 @@ namespace MuseumSpel
                     aantalpaths = 2;
                     Setrichting(richting);
                     setStartDirection(richting);
-                } else
+                }
+                else
                 {
                     throw new ArgumentOutOfRangeException("Punten moeten op elkaar uit komen: x1 = x2 of y1 = y2");
                 }

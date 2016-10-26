@@ -26,7 +26,7 @@ namespace MuseumSpel
         public int borderY { get; set; }
         public Speler speler { get; set; }
         //lists
-        private List<SpelObject> spelObjecten;
+        public List<SpelObject> spelObjecten;
         public List<SpelObject> paintArray;
         private List<SpelObject> waterplassen;
         private List<SpelObject> powerups;
@@ -808,7 +808,8 @@ namespace MuseumSpel
             {
                 if (spelObjecten[x].GetType() == typeof(Muur))
                 {
-                    muren.Add(spelObjecten[x]);
+                    if (spelObjecten[x].Cor_X < aantalVakkenX && spelObjecten[x].Cor_Y < aantalVakkenY)
+                        muren.Add(spelObjecten[x]);
                 }
 
                 if (spelObjecten[x].GetType() == typeof(PowerUp))
