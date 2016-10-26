@@ -56,18 +56,5 @@ namespace UnitTests
             Assert.AreEqual(0, speelveld.spelObjecten.Count);
         }
 
-        [TestMethod]
-        public void VoegSpelObjectToe_ZouNietMoetWordenGevuldAlsDeCordinatenVanMuurNietBinnenHetGridVanSpeelveldIs()
-        {
-            //arange
-
-            //act
-            SpeelVeld speelveld = new SpeelVeld(10, 10);
-            speelveld.VoegSpelObjectToe(new Muur(10, 10));
-
-            //assert
-            Assert.AreEqual(0, speelveld.muren.Count);
-        }
-
     }
 }
