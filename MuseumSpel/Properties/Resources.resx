@@ -118,13 +118,67 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Front_50PX" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Front_50PX.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="thief_front_stat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\thief_front_stat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guard_front_stat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\guard_front_stat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="painting_dragon_stat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\painting_dragon_stat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="waterPuddle_stat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\waterPuddle_stat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="painting_dragon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\painting_dragon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wall_normal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\wall_normal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bc3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Afbeeldingen\bc3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="bc5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\bc5.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="thief_front_stat1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\thief_front_stat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="bc4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Afbeeldingen\bc4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="power4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\power4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="thief_front" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\thief_front.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="power4_stat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\power4_stat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wall_normal_stat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\wall_normal_stat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WaterPuddle2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\WaterPuddle2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="floor2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\floor2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="eindpunt_stat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\eindpunt_stat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="eindpunt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\eindpunt.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Front_50PX" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Front_50PX.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guard_front_trans" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\guard_front_trans.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="guard1_front_stat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\bin\Debug\Afbeeldingen\guard1_front_stat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

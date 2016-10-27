@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <levels>
 	<level>
-		<naam>Eerste level</naam>
+		<naam>Level 1</naam>
 		<nummer>1</nummer>
 		<gameobjecten>
 			<speler>
-				<naam>Speler</naam>
+				<naam>Gio</naam>
 				<startx>0</startx>
 				<starty>1</starty>
 				<snelheid>5</snelheid>
@@ -302,8 +302,8 @@
 			</powerups>
 			<waterplassen>
 				<waterplas>
-					<x>3</x>
-					<y>8</y>
+					<x>8</x>
+					<y>1</y>
 				</waterplas>
 				<waterplas>
 					<x>6</x>
@@ -330,11 +330,29 @@
 					</punten>
 					<richting>Left</richting>
 				</bewaker>
+				<bewaker>
+					<startx>16</startx>
+					<starty>0</starty>
+					<punten>
+						<punt>16</punt>
+						<punt>10</punt>
+						<punt>0</punt>
+						<punt>10</punt>
+					</punten>
+					<richting>Down</richting>
+				</bewaker>
+				<bewaker>
+					<startx>4</startx>
+					<starty>6</starty>
+					<punten>
+					</punten>
+					<richting>Up</richting>
+				</bewaker>
 			</bewakers>
 		</gameobjecten>
 	</level>
 	<level>
-		<naam>tweede level</naam>
+		<naam>Bewakers Beweging Test Level</naam>
 		<nummer>2</nummer>
 		<gameobjecten>
 			<speler>
@@ -343,32 +361,6 @@
 				<starty>1</starty>
 				<snelheid>5</snelheid>
 			</speler>
-			<muren>
-				<muur>
-					<x>1</x>
-					<y>1</y>
-				</muur>
-				<muur>
-					<x>2</x>
-					<y>1</y>
-				</muur>
-				<muur>
-					<x>1</x>
-					<y>2</y>
-				</muur>
-				<muur>
-					<x>2</x>
-					<y>2</y>
-				</muur>
-				<muur>
-					<x>2</x>
-					<y>3</y>
-				</muur>
-				<muur>
-					<x>3</x>
-					<y>2</y>
-				</muur>
-			</muren>
 			<bewakers>
 				<bewaker>
 					<startx>2</startx>
@@ -437,7 +429,7 @@
 		</gameobjecten>
 	</level>
 	<level>
-		<naam>Bewaker test level</naam>
+		<naam>Bewakers Zicht Test Level</naam>
 		<nummer>3</nummer>
 		<gameobjecten>
 			<speler>
@@ -458,10 +450,6 @@
 				<muur>
 					<x>3</x>
 					<y>2</y>
-				</muur>
-				<muur>
-					<x>3</x>
-					<y>3</y>
 				</muur>
 				<muur>
 					<x>1</x>

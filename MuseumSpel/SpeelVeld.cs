@@ -15,6 +15,7 @@ namespace MuseumSpel
     {
         Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle
     }
+
     // The Model, SuperClass
     public class SpeelVeld
     {
@@ -26,12 +27,12 @@ namespace MuseumSpel
         public int borderY { get; set; }
         public Speler speler { get; set; }
         //lists
-        private List<SpelObject> spelObjecten;
+        public List<SpelObject> spelObjecten;
         public List<SpelObject> paintArray;
-        private List<SpelObject> waterplassen;
-        private List<SpelObject> powerups;
+        public List<SpelObject> waterplassen;
+        public List<SpelObject> powerups;
         public List<SpelObject> muren;
-        private List<SpelObject> eindpunten;
+        public List<SpelObject> eindpunten;
         public List<Bewaker> bewakers;
         //event
         public event ShutdownEventHandeler shuttingUp;
@@ -54,6 +55,10 @@ namespace MuseumSpel
         //Powerup 
         int outfitX;
         int outfitY;
+        public bool powerupBestond;
+
+        //WaterPlas
+        public double waterplasCoolDown;
 
         //voor het checken dat de powerup maar 1x wordt verwijderd uit de array
         int p = 0;
@@ -67,6 +72,7 @@ namespace MuseumSpel
         private int score;
         private int beginScore;
         private int puntenPerSchilderij;
+        public bool schilderijBestond;
 
         
         public SpeelVeld(int aantalVakkenX, int aantalVakkenY)
@@ -96,7 +102,6 @@ namespace MuseumSpel
             puntenPerSchilderij = 3000;
             gameLoop.BewakerAction += this.GuardAutomaticMovement; //Subscriber
             gameLoop.BewakerAction += this.GuardDetectPlayer; //Subscriber
-
         }
 
         public void SetPictures(List<SpelObject> lijst)// Juiste texturtes geven aan muren
@@ -128,15 +133,6 @@ namespace MuseumSpel
             started = true;
             while (!gameLoop.p_gameOver)
             {
-                #region loop cycle's per sec.
-                //cycle++;
-                //if (gameLoop.p_currentTime >= cyclestart + 1000)
-                //{
-                //    Console.WriteLine(cycle.ToString());
-                //    cyclestart = gameLoop.p_currentTime;
-                //    cycle = 0;
-                //}
-                #endregion
                 gameLoop.gameLoop();
 
                 if (speler.isDisguised == true && DateTime.Compare(DateTime.Now, speler.endTime) == 1)
@@ -153,9 +149,9 @@ namespace MuseumSpel
                 }
 
 
-                if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 1000)
+                if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 5000)
                 {
-                    Console.WriteLine("stund cooldown is true");
+                    Console.WriteLine("stunned cooldown is true");
                     speler.EndCooldown();
                 }
             }
@@ -182,7 +178,7 @@ namespace MuseumSpel
             }
         }
 
-        public bool CollisionCheck(Direction richting) //First attempt
+        public bool CollisionCheck(Direction richting)
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
@@ -204,9 +200,9 @@ namespace MuseumSpel
             }
             else if (richting == Direction.Left)
             {
-                x_p1 = GetGridCordinate(speler.Cor_X - speler.speed);
+                x_p1 = GetGridCordinate(speler.Cor_X);
                 y_p1 = GetGridCordinate(speler.Cor_Y + marge);
-                x_p2 = GetGridCordinate(speler.Cor_X - speler.speed);
+                x_p2 = GetGridCordinate(speler.Cor_X);
                 y_p2 = GetGridCordinate(speler.Cor_Y + vakGrootte - marge);
             }
             else if (richting == Direction.Right)
@@ -228,14 +224,13 @@ namespace MuseumSpel
             {
                 if (spelObject.isSolid && (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y))
                 {
-                    int over = speler.Cor_X % vakGrootte;
                     return false;
                 }
             }
             return true;
         }
 
-        public bool BewakerCollisionCheck(Bewaker bewaker) //First attempt
+        public bool BewakerCollisionCheck(Bewaker bewaker)
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
@@ -619,6 +614,14 @@ namespace MuseumSpel
         {
             foreach (Bewaker bewaker in bewakers)
                 {
+                if (bewaker == this.bewakers[0])
+                {
+                    bewaker.headGuard = true;
+                }
+                else
+                {
+                    bewaker.headGuard = false;
+                }
                     switch (bewaker.richting)
                     {
                         //boven
@@ -760,7 +763,8 @@ namespace MuseumSpel
             for (int i = 0; i < paintArray.Count; i++)
             {
                 int x = paintArray[i].Cor_X * vakGrootte;
-                int y = paintArray[i].Cor_Y * vakGrootte;   
+                int y = paintArray[i].Cor_Y * vakGrootte;
+
                 if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
                 {
                     takenPaintArray.Add(paintArray[i]);
@@ -776,7 +780,8 @@ namespace MuseumSpel
         // test om cordinaat op grid terug te krijgen
         public int GetGridCordinate(int cor)
         {
-            return (cor - 2) / vakGrootte;
+            return (cor - 2) / vakGrootte; 
+            //Marge van 2
         }
 
         public void VoegSpelObjectToe(SpelObject spelobject)
@@ -803,7 +808,8 @@ namespace MuseumSpel
             {
                 if (spelObjecten[x].GetType() == typeof(Muur))
                 {
-                    muren.Add(spelObjecten[x]);
+                    if (spelObjecten[x].Cor_X < aantalVakkenX && spelObjecten[x].Cor_Y < aantalVakkenY)
+                        muren.Add(spelObjecten[x]);
                 }
 
                 if (spelObjecten[x].GetType() == typeof(PowerUp))
@@ -831,7 +837,25 @@ namespace MuseumSpel
                 aantalSchilderijen = paintArray.Count;
             }
 
+            if (this.paintArray.Any())
+            {
+                schilderijBestond = true;
+            }
+            else
+            {
+                schilderijBestond = false;
+            }
+
+            if (this.powerups.Any())
+            {
+                powerupBestond = true;
+            }
+            else
+            {
+                powerupBestond = false;
+            }
         }
+
         public void PrintSpeelVeld(Graphics g)
         {
             foreach (SpelObject muur in muren)
@@ -906,7 +930,6 @@ namespace MuseumSpel
             MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
         }
         
-
         //Bepaal de score en zet dit in het menu
         public int bepaalScore()
         {

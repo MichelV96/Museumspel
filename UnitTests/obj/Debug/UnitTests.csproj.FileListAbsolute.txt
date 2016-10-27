@@ -1,0 +1,7 @@
+C:\Users\Jordy\Documents\Visual Studio 2015\Projects\MuseumGameSourceTree\UnitTests\bin\Debug\UnitTests.dll
+C:\Users\Jordy\Documents\Visual Studio 2015\Projects\MuseumGameSourceTree\UnitTests\bin\Debug\UnitTests.pdb
+C:\Users\Jordy\Documents\Visual Studio 2015\Projects\MuseumGameSourceTree\UnitTests\bin\Debug\MuseumSpel.exe
+C:\Users\Jordy\Documents\Visual Studio 2015\Projects\MuseumGameSourceTree\UnitTests\bin\Debug\MuseumSpel.pdb
+C:\Users\Jordy\Documents\Visual Studio 2015\Projects\MuseumGameSourceTree\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
+C:\Users\Jordy\Documents\Visual Studio 2015\Projects\MuseumGameSourceTree\UnitTests\obj\Debug\UnitTests.dll
+C:\Users\Jordy\Documents\Visual Studio 2015\Projects\MuseumGameSourceTree\UnitTests\obj\Debug\UnitTests.pdb

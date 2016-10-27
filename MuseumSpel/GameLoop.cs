@@ -9,6 +9,7 @@ namespace MuseumSpel
 {
     public delegate void BewakerActie();
 
+    //model
     public class GameLoop
     {
         private int p_startTime = 0;
@@ -31,9 +32,7 @@ namespace MuseumSpel
 
         public void ShutDown()
         {
-
             p_gameOver = true;
-            Console.WriteLine("It's over man gameover: gg wp");
         }
 
         public void redraw()

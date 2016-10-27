@@ -10,8 +10,7 @@ namespace MuseumSpel
 {
     // Model
     public class Speler : SpelObject
-    {
-        
+    {    
       
         public int speed { get; set; }
         public Bitmap normalTexture { get; set; }
@@ -171,7 +170,6 @@ namespace MuseumSpel
   
         public void PowerDown()
         {
-            //het oude plaatje
             //nieuw plaatje omdat je de powerup hebt opgepakt
             texture = new Bitmap(base.texture);
             this.isDisguised = false;
@@ -188,7 +186,6 @@ namespace MuseumSpel
 
         public void EndStun(int currentTime)
         {
-            Console.WriteLine("UNSTUNNED!");
             speed = oldSpeed;
             freezeMotion = false;
             startCooldown = currentTime;

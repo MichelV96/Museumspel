@@ -12,14 +12,15 @@ namespace MuseumSpel
 {
     // Delegate => publisher
     public delegate void KeyPressedEventHandeler(KeyEventArgs e);
-    
 
+    //View
     public partial class Form1 : Form
     {
         private SpeelVeld speelVeld; // model
         public bool startup = true;
         public Menu menu;
         public bool toMenu = false;
+        public string nvt = "N.v.t.";
         Graphics dc;
         PaintEventArgs dc2;
         // Delegeate events
@@ -41,6 +42,7 @@ namespace MuseumSpel
         private void Form1_Load(object sender, EventArgs e)
         {
         }
+
         public void OnModelChanged()
         {
             if(speelVeld.richting == 1)
@@ -53,9 +55,9 @@ namespace MuseumSpel
                 speelVeld.SpelerMovement(Direction.Left);
 
             Application.DoEvents();
-            this.Refresh();// Heel speelveld wordt opnieuw getekend
-
+            Invalidate();
         }
+
         public void shuttingUp()
         {
             var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n wil je opnieuw beginnen? \n Druk op yes om het level opnieuw te beginnen. druk op no om naar het menu te gaan. ",
@@ -84,8 +86,10 @@ namespace MuseumSpel
                 dc2 = e;
                 
                 speelVeld.PrintSpeelVeld(dc);
-
-                speelVeld.speler.PrintSpelObject(speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, dc2.Graphics);
+                if(speelVeld.speler != null)
+                {
+                    speelVeld.speler.PrintSpelObject(speelVeld.speler.Cor_X, speelVeld.speler.Cor_Y, speelVeld.vakGrootte, dc2.Graphics);
+                }
 
 
             foreach (Bewaker bewaker in speelVeld.bewakers)
@@ -103,6 +107,133 @@ namespace MuseumSpel
 
             toolStripMenuItem3.Text = speelVeld.gepakteSchilderijen + "/" + speelVeld.aantalSchilderijen;
 
+            //Alle info over de stats van het spel
+            #region ViewStats
+            if (speelVeld.paintArray.Any())
+            {
+                AantalPaintings.Text = speelVeld.gepakteSchilderijen + "/" + speelVeld.aantalSchilderijen;
+            }
+            else if (speelVeld.schilderijBestond)
+            {
+                AantalPaintings.Text = speelVeld.gepakteSchilderijen + "/" + speelVeld.aantalSchilderijen;
+            }
+            else
+            {
+                AantalPaintings.Text = nvt;
+            }
+            if (speelVeld.powerups.Any())
+            {
+                AantalVermommingen.Text = "" + speelVeld.powerups.Count();
+            }
+            else if (speelVeld.powerupBestond)
+            {
+                AantalVermommingen.Text = "" + speelVeld.powerups.Count();
+            }
+            else
+            {
+                AantalVermommingen.Text = nvt;
+            }
+            if (speelVeld.waterplassen.Any())
+            {
+                AantalPlassen.Text = "" + speelVeld.waterplassen.Count();
+            }
+            else
+            {
+                AantalPlassen.Text = nvt;
+            }
+            if (speelVeld.muren.Any())
+            {
+                AantalMuren.Text = "" + speelVeld.muren.Count();
+            }
+            else
+            {
+                AantalMuren.Text = "N.v.t";
+            }
+
+            if(speelVeld.speler != null)
+            {
+                SpelerNaam.Text = "" + speelVeld.speler.name;
+                PosXSpeler.Text = "" + speelVeld.speler.Cor_X;
+                PosYSpeler.Text = "" + speelVeld.speler.Cor_Y;
+
+                if (speelVeld.speler.isDisguised == true)
+                {
+                    SpelerVermomming.Text = "Aan";
+                    SpelerVermomming.ForeColor = Color.Green;
+                }
+                else
+                {
+                    SpelerVermomming.Text = "Uit";
+                    SpelerVermomming.ForeColor = Color.Red;
+                }
+
+
+                if (speelVeld.speler.stunCooldown == true)
+                {
+                    SpelerCoolDown.Text = "Aan";
+                    SpelerCoolDown.ForeColor = Color.Green;
+                }
+                else
+                {
+                    SpelerCoolDown.Text = "Uit";
+                    SpelerCoolDown.ForeColor = Color.Red;
+                }
+
+                if (speelVeld.speler.isStunned == true)
+                {
+                    SpelerStunned.Text = "Aan";
+                    SpelerStunned.ForeColor = Color.Green;
+                }
+                else
+                {
+                    SpelerStunned.Text = "Uit";
+                    SpelerStunned.ForeColor = Color.Red;
+                }
+
+            }
+            else
+            {
+                PosXSpeler.Text = nvt;
+                PosYSpeler.Text = nvt;
+                SpelerVermomming.Text = nvt;
+                SpelerCoolDown.Text = nvt;
+                SpelerStunned.Text = nvt;
+            }
+            if (speelVeld.bewakers.Any())
+            {
+                GuardX.Text = "" + speelVeld.bewakers[0].Cor_X;
+                GuardY.Text = "" + speelVeld.bewakers[0].Cor_Y;
+                GuardRichting.Text = "" + speelVeld.bewakers[0].RichtingGuard;
+                if (speelVeld.bewakers[0].guardCollision)
+                {
+                    GuardCollision.Text = "Ja";
+                }
+                else
+                {
+                    GuardCollision.Text = "Nee";
+                }
+
+            }
+            else
+            {
+                GuardX.Text = nvt;
+                GuardY.Text = nvt;
+                GuardRichting.Text = nvt;
+                GuardCollision.Text = nvt;
+
+            }
+            if (speelVeld.eindpunten.Any())
+            {
+                EindPuntX.Text = "" + speelVeld.eindpunten[0].Cor_X * speelVeld.vakGrootte;
+                EindPuntY.Text = "" + speelVeld.eindpunten[0].Cor_Y * speelVeld.vakGrootte;
+            }
+            else
+            {
+                EindPuntX.Text = nvt;
+                EindPuntY.Text = nvt;
+            }
+            #endregion
+
             //Als score 0 is dan sluit de applicatie
             if (speelVeld.bepaalScore() == 0)
             {
@@ -114,9 +245,6 @@ namespace MuseumSpel
             {
                 toolStripMenuItem2.Text = speelVeld.bepaalScore().ToString();
             }
-
-
-
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -134,8 +262,9 @@ namespace MuseumSpel
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.Invalidate();
+            //this.Invalidate();
         }
+
         private void pauzeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.pause();
@@ -216,5 +345,24 @@ namespace MuseumSpel
 
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

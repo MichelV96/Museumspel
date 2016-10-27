@@ -12,6 +12,7 @@ using System.Xml.Linq;
 
 namespace MuseumSpel
 {
+    //View
     public partial class Menu : Form
     {
         SoundPlayer backgroundSound = new SoundPlayer("Sound\\sound.wav");

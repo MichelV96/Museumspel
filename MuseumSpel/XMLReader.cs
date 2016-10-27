@@ -8,6 +8,7 @@ using System.Xml.Linq;
 
 namespace MuseumSpel
 {
+    //Model
     public class XMLReader
     {
         public SpeelVeld speelVeld;

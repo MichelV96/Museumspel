@@ -19,9 +19,9 @@ namespace MuseumSpel
         public bool left = false;
         public bool right = false;
 
-        public Bitmap texture { get; set; }
-        public string name { get; private set; }
-        public bool isSolid { get; private set; }
+        public Bitmap texture;
+        public string name;
+        public bool isSolid;
         private int cor_X;
         private int cor_Y;
 
@@ -32,9 +32,14 @@ namespace MuseumSpel
             start_cor_x = cor_X;
             Cor_Y = cor_Y;
             start_cor_y = cor_Y;
-            texture = new Bitmap(picture);
-            this.isSolid= isSolid;
-
+            this.isSolid = isSolid;
+            try
+            {
+                texture = new Bitmap(picture);
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            } 
         }
 
         public virtual void setPicture( int number = 0)
