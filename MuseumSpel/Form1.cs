@@ -60,7 +60,7 @@ namespace MuseumSpel
 
         public void shuttingUp()
         {
-            var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n wil je opnieuw beginnen? \n Druk op yes om het level opnieuw te beginnen. druk op no om naar het menu te gaan. ",
+            var result = MessageBox.Show("U bent af! \n wil je opnieuw beginnen?",
                             "Gameover", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (result == DialogResult.Yes)
             {
@@ -235,16 +235,7 @@ namespace MuseumSpel
             #endregion
 
             //Als score 0 is dan sluit de applicatie
-            if (speelVeld.bepaalScore() == 0)
-            {
-                MessageBox.Show("U hebt verloren!");
-                speelVeld.gameLoop.ShutDown();
-                Application.Exit();
-            }
-            else
-            {
-                toolStripMenuItem2.Text = speelVeld.bepaalScore().ToString();
-            }
+            toolStripMenuItem2.Text = speelVeld.bepaalScore().ToString();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
