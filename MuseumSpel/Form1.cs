@@ -60,7 +60,7 @@ namespace MuseumSpel
 
         public void shuttingUp()
         {
-            var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n wil je opnieuw beginnen? \n Druk op yes om het level opnieuw te beginnen. druk op no om naar het menu te gaan. ",
+            var result = MessageBox.Show("U bent af! \n wil je opnieuw beginnen?",
                             "Gameover", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (result == DialogResult.Yes)
             {

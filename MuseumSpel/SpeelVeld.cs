@@ -98,7 +98,7 @@ namespace MuseumSpel
             RangeEndDownAndRightBewaker = (vakGrootte * 3) + (vakGrootte / 2);
             RangeStartDownAndRightBewaker = 0;
             eindpunten = new List<SpelObject>();
-            beginScore = 100;
+            beginScore = 5000;
             puntenPerSchilderij = 3000;
             gameLoop.BewakerAction += this.GuardAutomaticMovement; //Subscriber
             gameLoop.BewakerAction += this.GuardDetectPlayer; //Subscriber
@@ -155,9 +155,10 @@ namespace MuseumSpel
 
                 if (bepaalScore() == 0)
                 {
-                    MessageBox.Show("U hebt verloren!");
-                    gameLoop.ShutDown();
-                    Application.Restart();
+                    if (shuttingUp != null)
+                    {
+                        shuttingUp();
+                    }
                 }
             }
         }
@@ -284,7 +285,6 @@ namespace MuseumSpel
             {
                 if (spelObject.isSolid && (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y))
                 {
-                    //Console.WriteLine("Collision " + bewaker.richting);
                     bewaker.guardCollision = true;
                     return false;
                 }
@@ -638,7 +638,6 @@ namespace MuseumSpel
                             {
                                 if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
                                 {
-                                    Console.WriteLine("Boven detectie");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
@@ -651,7 +650,6 @@ namespace MuseumSpel
                             {
                                 if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y - vakGrootte), vakGrootte*2).Contains(speler.Cor_Y + (vakGrootte / 2)))
                                 {
-                                    Console.WriteLine("Boven detectie met collision");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
@@ -669,7 +667,6 @@ namespace MuseumSpel
                             {
                                 if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_Y + (vakGrootte / 2)))
                                 {
-                                    Console.WriteLine("Onder detectie");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
@@ -680,7 +677,6 @@ namespace MuseumSpel
                             else
                                 if (Enumerable.Range((bewaker.Cor_X), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y + RangeStartDownAndRightBewaker), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
                             {
-                                Console.WriteLine("Onder detectie met collision");
                                 if (shuttingUp != null)
                                 {
                                     shuttingUp();
@@ -697,7 +693,6 @@ namespace MuseumSpel
                             {
                                 if (Enumerable.Range((bewaker.Cor_X + RangeStartDownAndRightBewaker), RangeEndDownAndRightBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
                                 {
-                                    Console.WriteLine("Rechts detectie");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
@@ -710,7 +705,6 @@ namespace MuseumSpel
                             {
                                 if (Enumerable.Range((bewaker.Cor_X + RangeStartDownAndRightBewaker), vakGrootte).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
                                 {
-                                    Console.WriteLine("Rechts detectie met collision");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
@@ -728,7 +722,6 @@ namespace MuseumSpel
                             {
                                 if (Enumerable.Range((bewaker.Cor_X - RangeStartUpAndLeftBewaker), RangeEndUpAndLeftBewaker).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
                                 {
-                                    Console.WriteLine("Links detectie");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
@@ -740,7 +733,6 @@ namespace MuseumSpel
                             {
                                 if (Enumerable.Range((bewaker.Cor_X - vakGrootte), vakGrootte * 2).Contains(speler.Cor_X + (vakGrootte / 2)) && Enumerable.Range((bewaker.Cor_Y), vakGrootte).Contains(speler.Cor_Y + (vakGrootte / 2)))
                                 {
-                                    Console.WriteLine("Links detectie met collision");
                                     if (shuttingUp != null)
                                     {
                                         shuttingUp();
