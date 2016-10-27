@@ -148,7 +148,7 @@ namespace MuseumSpel
                 }
 
 
-                if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 5000)
+                if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 1000)
                 {
                     speler.EndCooldown();
                 }
