@@ -98,7 +98,7 @@ namespace MuseumSpel
             RangeEndDownAndRightBewaker = (vakGrootte * 3) + (vakGrootte / 2);
             RangeStartDownAndRightBewaker = 0;
             eindpunten = new List<SpelObject>();
-            beginScore = 5000;
+            beginScore = 100;
             puntenPerSchilderij = 3000;
             gameLoop.BewakerAction += this.GuardAutomaticMovement; //Subscriber
             gameLoop.BewakerAction += this.GuardDetectPlayer; //Subscriber
@@ -144,15 +144,20 @@ namespace MuseumSpel
 
                 if (speler.isStunned && gameLoop.p_currentTime >= speler.startStun + 2000)
                 {
-                    Console.WriteLine("stunned is true");
                     speler.EndStun(gameLoop.p_currentTime);
                 }
 
 
                 if (speler.stunCooldown && gameLoop.p_currentTime >= speler.startCooldown + 5000)
                 {
-                    Console.WriteLine("stunned cooldown is true");
                     speler.EndCooldown();
+                }
+
+                if (bepaalScore() == 0)
+                {
+                    MessageBox.Show("U hebt verloren!");
+                    gameLoop.ShutDown();
+                    Application.Restart();
                 }
             }
         }
@@ -927,7 +932,6 @@ namespace MuseumSpel
             gameLoop.minutes = 0;
             gameLoop.hours = 0;
             gameLoop.redraw();
-            MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
         }
         
         //Bepaal de score en zet dit in het menu
@@ -939,6 +943,8 @@ namespace MuseumSpel
             score = score - minutes * 60 * 10;
 
             return score;
+
+            
         }  
     }
 }

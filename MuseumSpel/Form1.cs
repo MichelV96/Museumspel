@@ -235,16 +235,7 @@ namespace MuseumSpel
             #endregion
 
             //Als score 0 is dan sluit de applicatie
-            if (speelVeld.bepaalScore() == 0)
-            {
-                MessageBox.Show("U hebt verloren!");
-                speelVeld.gameLoop.ShutDown();
-                Application.Exit();
-            }
-            else
-            {
-                toolStripMenuItem2.Text = speelVeld.bepaalScore().ToString();
-            }
+            toolStripMenuItem2.Text = speelVeld.bepaalScore().ToString();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
