@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2E05FBB6-37FB-4195-A910-E5F7C1C12BE5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MuseumSpel</RootNamespace>
     <AssemblyName>MuseumSpel</AssemblyName>
@@ -105,23 +105,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Afbeeldingen\0.png" />
-    <Content Include="Afbeeldingen\1.png" />
-    <Content Include="Afbeeldingen\10.png" />
-    <Content Include="Afbeeldingen\11.png" />
-    <Content Include="Afbeeldingen\12.png" />
-    <Content Include="Afbeeldingen\13.png" />
-    <Content Include="Afbeeldingen\14.png" />
-    <Content Include="Afbeeldingen\15.png" />
-    <Content Include="Afbeeldingen\2.png" />
-    <Content Include="Afbeeldingen\3.png" />
-    <Content Include="Afbeeldingen\4.png" />
-    <Content Include="Afbeeldingen\5.png" />
-    <Content Include="Afbeeldingen\6.png" />
-    <Content Include="Afbeeldingen\7.png" />
-    <Content Include="Afbeeldingen\8.png" />
-    <Content Include="Afbeeldingen\9.png" />
-    <Content Include="Afbeeldingen\Front_50PX.png" />
     <None Include="bin\Debug\Afbeeldingen\bc3.jpg" />
     <None Include="bin\Debug\Afbeeldingen\bc4.jpg" />
     <None Include="bin\Debug\Afbeeldingen\bc5.jpg" />
@@ -144,7 +127,9 @@
     <Content Include="XMLSpeelVeld1.xml">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Resources\Front_50PX.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

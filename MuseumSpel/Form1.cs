@@ -12,8 +12,8 @@ namespace MuseumSpel
 {
     // Delegate => publisher
     public delegate void KeyPressedEventHandeler(KeyEventArgs e);
-    
 
+    //View
     public partial class Form1 : Form
     {
         private SpeelVeld speelVeld; // model
@@ -42,6 +42,7 @@ namespace MuseumSpel
         private void Form1_Load(object sender, EventArgs e)
         {
         }
+
         public void OnModelChanged()
         {
             if(speelVeld.richting == 1)
@@ -55,8 +56,8 @@ namespace MuseumSpel
 
             Application.DoEvents();
             Invalidate();
-
         }
+
         public void shuttingUp()
         {
             var result = MessageBox.Show("U bent betrapt door een bewaker. U bent af! \n wil je opnieuw beginnen? \n Druk op yes om het level opnieuw te beginnen. druk op no om naar het menu te gaan. ",
@@ -244,9 +245,6 @@ namespace MuseumSpel
             {
                 toolStripMenuItem2.Text = speelVeld.bepaalScore().ToString();
             }
-
-
-
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -264,8 +262,9 @@ namespace MuseumSpel
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.Invalidate();
+            //this.Invalidate();
         }
+
         private void pauzeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.pause();

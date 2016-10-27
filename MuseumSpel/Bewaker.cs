@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace MuseumSpel
 {
+    //model
     public class Bewaker : SpelObject
     {
         public int[,] wayPoints;
@@ -21,7 +22,7 @@ namespace MuseumSpel
 
         public Bewaker(int cor_X, int cor_Y, Direction richting) : this(cor_X, cor_Y, cor_X, cor_Y, richting)
         {
-            setStartDirection(richting);
+
         }
 
         public Bewaker(int cor_X, int cor_Y, int eind_cor_X, int eind_cor_Y, Direction richting) : base("Bewaker", cor_X * 50, cor_Y * 50, "Afbeeldingen\\guard_front.png", false)
@@ -44,7 +45,7 @@ namespace MuseumSpel
 
         public Bewaker(int cor_X1, int cor_Y1, int cor_X2, int cor_Y2, int cor_X3, int cor_Y3, Direction richting) : this(cor_X1, cor_Y1, cor_X2, cor_Y2, cor_X3, cor_Y3, cor_X2, cor_Y2, richting)
         {
-            setStartDirection(richting);
+
         }
 
         public Bewaker(int cor_X1, int cor_Y1, int cor_X2, int cor_Y2, int cor_X3, int cor_Y3, int cor_X4, int cor_Y4, Direction richting) : base("Bewaker", cor_X1 * 50, cor_Y1 * 50, "Afbeeldingen\\guard_front.png", false)
@@ -98,21 +99,12 @@ namespace MuseumSpel
                 RichtingGuard = "Links";
                 g.DrawImage(texture, cor_X - (vakGrootte*2), cor_Y);
             }
-            //else if (richting == 1 && guardCollision)// 1 = boven met collision
-            //{
-            //    g.DrawImage(texture, cor_X, cor_Y);
-
-            //}
-            //else if (richting == 4 && guardCollision)// 4 = links met collision
-            //{
-            //    g.DrawImage(texture, cor_X, cor_Y);
-            //}
-
 
         }
+
         public override void setPicture(int number = 1)
         {
-            if (!guardCollision && headGuard)   //Set Guard Picture als er collision en headguard is.
+            if (!guardCollision && headGuard) //Set Guard Picture als er collision en headguard is.
             {
                 if (richting == 1)//up
                 {

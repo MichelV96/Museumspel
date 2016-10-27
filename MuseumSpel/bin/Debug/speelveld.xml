@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <levels>
 	<level>
-		<naam>Eerste level</naam>
+		<naam>Level 1</naam>
 		<nummer>1</nummer>
 		<gameobjecten>
 			<speler>
@@ -352,7 +352,7 @@
 		</gameobjecten>
 	</level>
 	<level>
-		<naam>tweede level</naam>
+		<naam>Bewakers Beweging Test Level</naam>
 		<nummer>2</nummer>
 		<gameobjecten>
 			<speler>
@@ -455,7 +455,7 @@
 		</gameobjecten>
 	</level>
 	<level>
-		<naam>Bewaker test level</naam>
+		<naam>Bewakers Zicht Test Level</naam>
 		<nummer>3</nummer>
 		<gameobjecten>
 			<speler>

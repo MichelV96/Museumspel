@@ -15,6 +15,7 @@ namespace MuseumSpel
     {
         Up, Down, Left, Right, UpIdle, DownIdle, LeftIdle, RightIdle
     }
+
     // The Model, SuperClass
     public class SpeelVeld
     {
@@ -132,15 +133,6 @@ namespace MuseumSpel
             started = true;
             while (!gameLoop.p_gameOver)
             {
-                #region loop cycle's per sec.
-                //cycle++;
-                //if (gameLoop.p_currentTime >= cyclestart + 1000)
-                //{
-                //    Console.WriteLine(cycle.ToString());
-                //    cyclestart = gameLoop.p_currentTime;
-                //    cycle = 0;
-                //}
-                #endregion
                 gameLoop.gameLoop();
 
                 if (speler.isDisguised == true && DateTime.Compare(DateTime.Now, speler.endTime) == 1)
@@ -186,7 +178,7 @@ namespace MuseumSpel
             }
         }
 
-        public bool CollisionCheck(Direction richting) //First attempt
+        public bool CollisionCheck(Direction richting)
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
@@ -232,14 +224,13 @@ namespace MuseumSpel
             {
                 if (spelObject.isSolid && (x_p1 == spelObject.Cor_X && y_p1 == spelObject.Cor_Y || x_p2 == spelObject.Cor_X && y_p2 == spelObject.Cor_Y))
                 {
-                    int over = speler.Cor_X % vakGrootte;
                     return false;
                 }
             }
             return true;
         }
 
-        public bool BewakerCollisionCheck(Bewaker bewaker) //First attempt
+        public bool BewakerCollisionCheck(Bewaker bewaker)
         {
             int x_p1, y_p1;
             int x_p2, y_p2;
@@ -773,16 +764,11 @@ namespace MuseumSpel
             {
                 int x = paintArray[i].Cor_X * vakGrootte;
                 int y = paintArray[i].Cor_Y * vakGrootte;
-                Console.WriteLine("intx: " + x + " inty " + y);
-                Console.WriteLine("spelerx: " + speler.Cor_X + " spelery: " + speler.Cor_Y);
                 if (keyPressed && (Enumerable.Range(x - 25, 50).Contains(speler.Cor_X) && Enumerable.Range(y - 25, 50).Contains(speler.Cor_Y)))
                 {
-                    Console.WriteLine("Keypressed3");
                     takenPaintArray.Add(paintArray[i]);
                     paintArray.Remove(paintArray[i]);
                     gepakteSchilderijen = aantalSchilderijen - paintArray.Count;
-                    Console.WriteLine(gepakteSchilderijen);
-                    Console.WriteLine(aantalSchilderijen);
                 }
             }
 
@@ -793,7 +779,8 @@ namespace MuseumSpel
         // test om cordinaat op grid terug te krijgen
         public int GetGridCordinate(int cor)
         {
-            return (cor - 2) / vakGrootte;
+            return (cor - 2) / vakGrootte; 
+            //Marge van 2
         }
 
         public void VoegSpelObjectToe(SpelObject spelobject)
@@ -867,6 +854,7 @@ namespace MuseumSpel
                 powerupBestond = false;
             }
         }
+
         public void PrintSpeelVeld(Graphics g)
         {
             foreach (SpelObject muur in muren)
@@ -941,7 +929,6 @@ namespace MuseumSpel
             MessageBox.Show("Maak u klaar!\nHet spel begint zodra u op OK drukt!", "Klaar om te beginnnen?", MessageBoxButtons.OK);
         }
         
-
         //Bepaal de score en zet dit in het menu
         public int bepaalScore()
         {
